@@ -19,7 +19,7 @@ import illustratorIcon from "../assets/illustrator.svg";
 import figmaIcon from "../assets/figma.svg";
 import indesignIcon from "../assets/indesign.svg";
 import reactIcon from "../assets/react.svg";
-import jqueryIcon from "../assets/jquery.svg";
+import jqueryIcon from "../assets/jQuery.svg";
 
 import target from "../assets/target.svg";
 import brain from "../assets/brain.svg";
