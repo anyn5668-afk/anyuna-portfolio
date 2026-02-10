@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./WhatCanIDo.css";
 
 import SectionTitle from "../components/SectionTitle";
@@ -28,8 +28,43 @@ import smile from "../assets/smile.svg";
 import connect from "../assets/connect.svg";
 
 export default function WhatCanIDo() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const root = sectionRef.current;
+    if (!root) return;
+
+    const targets = root.querySelectorAll(".reveal");
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          } else {
+            // ✅ 다시 스크롤해서 나오면 또 재생되도록
+            entry.target.classList.remove("is-visible");
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    targets.forEach((el, idx) => {
+      // ✅ 순차 딜레이 (원하면 숫자 조절)
+      el.style.animationDelay = `${idx * 70}ms`;
+      io.observe(el);
+    });
+
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <section className="wcWrap" aria-label="What Can I Do Section">
+    <section
+      ref={sectionRef}
+      className="wcWrap"
+      aria-label="What Can I Do Section"
+    >
       {/* 좌측 하단 햇님 */}
       <img className="wcSun" src={sun} alt="" aria-hidden="true" />
 
@@ -72,11 +107,12 @@ export default function WhatCanIDo() {
         <div className="skBoard">
           <div className="skGrid">
             {/* 1행 */}
-            <div className="skBlueCell skAreaBlue" aria-hidden="true">
+            {/* ✅ 캐릭터도 애니메이션 먹게 */}
+            <div className="skBlueCell skAreaBlue reveal reveal--char" aria-hidden="true">
               <img className="skBlue" src={blueChar} alt="" />
             </div>
 
-            <div className="skCell skAreaPs">
+            <div className="skCell skAreaPs reveal">
               <Skill
                 title="Photoshop"
                 percent="70%"
@@ -85,7 +121,7 @@ export default function WhatCanIDo() {
               />
             </div>
 
-            <div className="skCell skAreaJs">
+            <div className="skCell skAreaJs reveal">
               <Skill
                 title="Javascript"
                 percent="40%"
@@ -94,7 +130,7 @@ export default function WhatCanIDo() {
               />
             </div>
 
-            <div className="skCell skAreaAe">
+            <div className="skCell skAreaAe reveal">
               <Skill
                 title="After Effect"
                 percent="60%"
@@ -104,7 +140,7 @@ export default function WhatCanIDo() {
             </div>
 
             {/* 2행 */}
-            <div className="skCell skAreaAi">
+            <div className="skCell skAreaAi reveal">
               <Skill
                 title="Illustrator"
                 percent="100%"
@@ -123,7 +159,7 @@ export default function WhatCanIDo() {
               </div>
             </div>
 
-            <div className="skCell skAreaFi">
+            <div className="skCell skAreaFi reveal">
               <Skill
                 title="Figma"
                 percent="100%"
@@ -133,7 +169,7 @@ export default function WhatCanIDo() {
             </div>
 
             {/* 3행 */}
-            <div className="skCell skAreaId">
+            <div className="skCell skAreaId reveal">
               <Skill
                 title="Indesign"
                 percent="80%"
@@ -142,7 +178,7 @@ export default function WhatCanIDo() {
               />
             </div>
 
-            <div className="skCell skAreaRa">
+            <div className="skCell skAreaRa reveal">
               <Skill
                 title="React"
                 percent="40%"
@@ -151,7 +187,7 @@ export default function WhatCanIDo() {
               />
             </div>
 
-            <div className="skCell skAreaJq">
+            <div className="skCell skAreaJq reveal">
               <Skill
                 title="jQuery"
                 percent="40%"
@@ -160,7 +196,8 @@ export default function WhatCanIDo() {
               />
             </div>
 
-            <div className="skGreenCell skAreaGreen" aria-hidden="true">
+            {/* ✅ 캐릭터도 애니메이션 먹게 */}
+            <div className="skGreenCell skAreaGreen reveal reveal--char" aria-hidden="true">
               <img className="skGreen" src={greenChar} alt="" />
             </div>
           </div>
@@ -173,6 +210,7 @@ export default function WhatCanIDo() {
           </h2>
         </div>
 
+        {/* ✅ 가로스크롤 컨테이너 */}
         <div className="card-box">
           <Knowledge
             imgSrc={target}

@@ -34,6 +34,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Canela Condensed Medium Trial";
+  src: url("/CanelaCondensed-Medium-Trial.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
