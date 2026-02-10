@@ -7,7 +7,7 @@ import green from "./assets/green.svg";
 import blue from "./assets/blue.svg";
 import yellow from "./assets/yellow.svg";
 import Introduce from "./pages/Introduce";
-import Mylife from "./pages/mylife";
+import Mylife from "./pages/Mylife";
 import Video from "./pages/Video";
 import WhatCanIDo from "./pages/WhatCanIDo";
 import Feel from "./pages/Feel";
