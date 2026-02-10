@@ -1,0 +1,86 @@
+.c-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  background: var(--btn-bg, #3d3d3d);
+  color: var(--btn-text, #fff);
+
+  border: 0;
+  cursor: pointer;
+
+  padding: 14px 78px 14px 24px; /* 상하 14px, 좌 24px, 우 78px */
+  border-radius: 9999px;
+
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 2.5rem;
+  line-height: 1;
+
+  width: fit-content; /* ✅ 내용만큼만 */
+  display: inline-flex; /* ✅ inline 캡슐 */
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* 모바일 탭 하이라이트 제거 */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.c-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 4px;
+}
+
+.c-button__label {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* 파란 원형(48px) */
+.c-button__iconWrap {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 50px;
+  height: 50px;
+  border-radius: 9999px;
+
+  /* ✅ 기본 상태 = 연한 원 */
+  background: var(--btn-accent-light, #333333);
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+}
+
+/* 오른쪽에서부터 색이 차오르는 효과(오버레이) */
+.c-button__iconWrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  /* ✅ 차오른 후 색 = 진한 파랑 */
+  background: var(--btn-accent, #41b0ff);
+
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 240ms ease;
+}
+
+/* 원 부분에 hover해도 되고, 버튼 hover해도 되게 */
+.c-button:hover .c-button__iconWrap::before,
+.c-button__iconWrap:hover::before {
+  transform: scaleX(1);
+}
+
+.c-button__icon {
+  position: relative; /* 오버레이 위로 */
+  width: 18px;
+  height: 18px;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}

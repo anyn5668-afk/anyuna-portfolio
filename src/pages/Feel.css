@@ -1,0 +1,254 @@
+.feel-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f3f3f5;
+}
+
+/* HERO */
+.feel-hero {
+  position: relative;
+  width: 100%;
+  /* ✅ 여기서 overflow hidden 제거! */
+  overflow: visible;
+}
+
+/* 장식 SVG */
+.feel-deco {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 왼쪽 상단 */
+.blue-ver2 {
+  top: clamp(60px, 10vh, 120px);
+  left: clamp(-90px, -5vw, -20px);
+  width: clamp(200px, 25vw, 400px);
+  height: auto;
+}
+
+.white-cloud-small {
+  top: clamp(200px, 38vh, 380px);
+  left: clamp(-50px, -3vw, -10px);
+  width: clamp(200px, 25vw, 400px);
+  height: auto;
+}
+
+.star {
+  top: clamp(-90px, -5vh, -20px);
+  left: clamp(20px, 20vw, 370px);
+  width: clamp(35px, 4vw, 70px);
+  height: auto;
+}
+
+/* 오른쪽 상단 */
+.blue-small-cloud {
+  top: clamp(10px, 5vh, 30px);
+  right: clamp(-200px, -10vw, -50px);
+  width: clamp(280px, 30vw, 560px);
+  height: auto;
+}
+
+.yellow {
+  top: clamp(300px, 55vh, 580px);
+  right: clamp(-10px, -1vw, 0px);
+  width: clamp(350px, 35vw, 700px);
+  height: auto;
+}
+
+.white-cloud {
+  top: clamp(500px, 94vh, 970px);
+  right: clamp(-40px, -2vw, -10px);
+  width: clamp(330px, 35vw, 660px);
+  height: auto;
+}
+
+/* 왼쪽 하단 */
+.big-cloud {
+  top: clamp(400px, 91vh, 836px);
+  left: clamp(-290px, -15vw, -100px);
+  width: clamp(600px, 80vw, 1400px);
+  height: auto;
+}
+
+/* ✅ 중앙 콘텐츠: top 287px를 padding-top으로 구현 */
+.feel-content {
+  padding-top: 287px; /* 요청: 상단에서 287px */
+  text-align: center;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+}
+
+/* 캡션 */
+.feel-caption {
+  display: inline-block;
+  font-size: 40px;
+  padding: 5px 21px 10px;
+  border: 1.5px solid #2dbb63;
+  color: #2dbb63;
+  border-radius: 999px;
+  line-height: 1;
+  margin-bottom: 18px;
+  font-family: "Canela Condensed Light Trial", serif;
+}
+
+/* 타이틀 */
+.feel-title {
+  margin: 0;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 11.5rem;
+  line-height: 1.08; /* 살짝 여유 */
+  color: #3f3f3f;
+  letter-spacing: -0.02em;
+  font-weight: 200;
+}
+
+.feel-title em {
+  font-style: italic;
+  font-weight: inherit;
+}
+
+.feel-subtext {
+  margin: 60px 0 0 0;
+  font-size: 22px;
+  color: #afafaf;
+}
+
+.feel-subtext em {
+  color: #25b544;
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* 타이틀 박스 아래 664px */
+.feel-spacer {
+  height: 600px;
+}
+
+/* GREEN START */
+.feel-green {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+}
+
+/* 배경 씬(언덕 곡선/하늘 포함) */
+.feel-green-scene {
+  width: 100vw;
+  height: auto;
+  display: block;
+}
+
+/* 아래로 이어지는 초록 바탕 */
+.feel-green-fill {
+  height: 600px;
+  background: #25b544;
+}
+
+/* 오버레이: 초록 영역 위에 요소 배치 */
+.feel-green-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* 장식/텍스트는 클릭 안 되게 */
+}
+
+/* Scroll pill: 중앙, 곡선 꼭지점 아래 느낌 */
+.feel-scroll {
+  position: absolute;
+  top: 360px; /* 필요 시 조절 */
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0.2px;
+}
+
+.feel-scroll-arrow {
+  display: inline-block;
+  margin-left: 6px;
+}
+
+/* 좌측 큰 텍스트 */
+.feel-green-leftText {
+  position: absolute;
+  top: 760px;
+  left: 160px;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 92px; /* 시안 느낌 */
+  line-height: 0.95;
+  color: rgba(255, 255, 180, 0.8);
+}
+
+/* 우측 큰 텍스트 */
+.feel-green-rightText {
+  position: absolute;
+  top: 760px;
+  right: 160px;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 92px;
+  line-height: 0.95;
+  color: rgba(255, 255, 180, 0.8);
+  text-align: left;
+}
+
+.feel-green-italic {
+  font-style: italic;
+}
+
+/* 카드 스택 컨테이너 */
+.feel-cardStack {
+  position: absolute;
+  top: 610px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 560px;
+  height: 760px;
+  pointer-events: auto; /* 카드만 인터랙션 가능하게 */
+}
+
+/* 뒤에 깔리는 스택 레이어(색 카드) */
+.feel-stack-layer {
+  position: absolute;
+  width: 505px;
+  height: 655px;
+  border-radius: 28px;
+  left: 50%;
+  top: 100px;
+  transform: translateX(-50%);
+}
+
+/* 시안처럼 살짝씩 회전/오프셋 */
+.layer-yellow {
+  background: #ffc531;
+  transform: translateX(-50%) rotate(-10deg);
+  z-index: 1;
+}
+
+.layer-pink {
+  background: #ff4e9a;
+  transform: translateX(-50%) rotate(8deg);
+  top: 120px;
+  z-index: 2;
+}
+
+.layer-white {
+  background: #f7f7f7;
+  transform: translateX(-50%) rotate(-4deg);
+  top: 110px;
+  z-index: 3;
+}
+
+/* 맨 위 Thought 카드 */
+.feel-stack-top {
+  position: absolute;
+  left: 50%;
+  top: 110px;
+  transform: translateX(-50%);
+  z-index: 4;
+}

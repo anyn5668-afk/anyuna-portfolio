@@ -1,0 +1,296 @@
+.wcWrap {
+  position: relative;
+  width: 100%;
+
+  /* 1920x1268 느낌 = 넉넉한 세로, 하지만 픽셀 고정 X */
+  min-height: 100vh;
+
+  /* 기존 SectionTitle이 자체 배경을 갖고 있을 수도 있어서,
+     여기선 레이아웃 컨테이너 역할 + 안전 배경만 */
+  background: #f3f3f3;
+  overflow: hidden;
+
+  display: grid;
+  place-items: center;
+
+  padding: clamp(2rem, 6vw, 6rem) 0;
+}
+
+/* 중앙: 컴포넌트 영역 폭 제어 */
+.wcCenter {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* ✅ 좌측 하단 sun */
+.wcSun {
+  position: absolute;
+  left: clamp(1rem, 3vw, 3rem);
+  bottom: clamp(1rem, 3vw, 3rem);
+
+  width: 20rem;
+  height: auto;
+
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 전체 섹션 */
+.skSection {
+  width: 100%;
+  min-height: 100vh;
+  background: #232323;
+  overflow: hidden;
+
+  padding: 225px 225px 300px;
+}
+
+/* Top 컴포넌트 영역 */
+.Top {
+  width: min(44rem, 92vw);
+}
+
+/* ✅ Top 컴포넌트 색상/톤을 사진처럼 보이게 "페이지에서 오버라이드"
+(Top 내부 클래스명을 모르니까, 안전하게 자주 쓰는 태그 기반으로 잡음)
+*/
+.skill-top,
+.skill-top * {
+  color: #fff !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 왼쪽으로 */
+}
+
+/* 캡션 뒤에 있는 둥근 핑크 띠 → 흰색 */
+.skill-top .top-caption p {
+  border: 1px solid #fff !important;
+}
+
+.skill-top .top-text p {
+  padding-left: 0px;
+  opacity: 60%;
+}
+
+.pp-editorial {
+  font-family: "PPEditorialNew-Regular";
+}
+
+/* 보드 */
+.skBoard {
+  margin-top: clamp(2.5rem, 6vw, 5.5rem);
+  display: grid;
+  justify-content: center;
+}
+
+/* ✅ 사진 그대로: 4열 x 3행 고정 배치 */
+.skGrid {
+  --gap: 1.625rem; /* 26px */
+  --cardW: clamp(13.5rem, 14vw, 16.1875rem);
+  --cardH: clamp(15.5rem, 16vw, 18.125rem);
+
+  display: grid;
+  gap: var(--gap);
+
+  grid-template-columns: repeat(4, var(--cardW));
+  grid-template-rows: repeat(3, var(--cardH));
+
+  /* ✅ 자리 고정 */
+  grid-template-areas:
+    "blue ps js ae"
+    "ai   center center fi"
+    "id   ra  jq  green";
+
+  justify-content: center;
+  align-content: center;
+}
+
+.skAreaBlue {
+  grid-area: blue;
+}
+.skAreaPs {
+  grid-area: ps;
+}
+.skAreaJs {
+  grid-area: js;
+}
+.skAreaAe {
+  grid-area: ae;
+}
+
+.skAreaAi {
+  grid-area: ai;
+}
+.skAreaCenter {
+  grid-area: center;
+}
+.skAreaFi {
+  grid-area: fi;
+}
+
+.skAreaId {
+  grid-area: id;
+}
+.skAreaRa {
+  grid-area: ra;
+}
+.skAreaJq {
+  grid-area: jq;
+}
+.skAreaGreen {
+  grid-area: green;
+}
+
+/* 카드 셀: Skill 카드가 셀을 꽉 채우게 */
+.skCell {
+  width: 100%;
+  height: 100%;
+  display: grid;
+}
+.skCell > * {
+  width: 100%;
+  height: 100%;
+}
+
+/* Figma 카드만 오른쪽(4번째 컬럼)으로 이동 */
+.skMoveRight {
+  grid-column: 4;
+}
+
+/* 가운데 텍스트 */
+.skCenterText {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.skCenterTextInner {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: clamp(3.5rem, 5.5vw, 8rem);
+  line-height: 0.78; /* 줄간격 */
+  letter-spacing: -0.02em;
+  color: #f3f3f5;
+  text-align: center;
+}
+
+.skCenterTextInner .skSkill {
+  font-style: italic;
+  color: #25b544;
+}
+
+.skEmpty {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== 캐릭터 ===== */
+
+/* 파란 캐릭터 (1행 1열) */
+.skBlueCell {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+
+  margin-right: var(--charExtra);
+}
+
+.skBlue {
+  width: clamp(7.5rem, 10vw, 10.25rem); /* 164px */
+  height: clamp(10rem, 12vw, 13.75rem); /* 220px */
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 초록 캐릭터 (3행 4열) */
+.skGreenCell {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: end center;
+
+  margin-left: var(--charExtra);
+  padding-bottom: 50px;
+}
+
+.skGreen {
+  width: clamp(8.5rem, 11vw, 12.5625rem); /* 185px */
+  height: clamp(7.5rem, 10vw, 11.625rem); /* 170px */
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 3번째 줄 카드 3개를 1~3번째 칸으로 강제 배치 */
+.skRow3Col1 {
+  grid-column: 1;
+  grid-row: 3;
+}
+.skRow3Col2 {
+  grid-column: 2;
+  grid-row: 3;
+}
+.skRow3Col3 {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+/* 초록 캐릭터는 3번째 줄 4번째 칸 고정 */
+.skGreenCell {
+  grid-column: 4;
+  grid-row: 3;
+}
+
+/* 반응형: 화면 작아지면 4열 유지 힘들어서 2열로 변경 */
+@media (max-width: 70rem) {
+  .skGrid {
+    grid-template-columns: repeat(2, var(--cardW));
+    grid-auto-rows: var(--cardH);
+  }
+
+  .skBlueCell,
+  .skGreenCell {
+    display: none;
+  }
+
+  .skCenterText {
+    grid-column: 1 / -1;
+  }
+
+  .skEmpty {
+    display: none;
+  }
+}
+
+.knowledge-title h2 {
+  padding: 454px 0 158px;
+  font-size: 9.375rem;
+  color: #25b544;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.knowledge-title em {
+  font-style: italic;
+}
+
+.card-box {
+  display: flex;
+  gap: 60px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* 스크롤 시 카드 줄바꿈 방지 */
+  flex-wrap: nowrap;
+
+  /* 터치 스크롤 부드럽게 */
+  -webkit-overflow-scrolling: touch;
+
+  /* (선택) 스크롤 여백 */
+  padding-right: 70px;
+}

@@ -1,0 +1,82 @@
+.thought-card {
+  width: 505px;
+  height: 655px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+/* ---------------- top / bottom ---------------- */
+
+.thought-top,
+.thought-bottom {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.thought-top-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------------- number ---------------- */
+
+.thought-number {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 40px;
+  line-height: 1;
+  color: #ffffff;
+  margin-bottom: 20px; /* number - title gap */
+  padding-top: 50px;
+}
+
+/* ---------------- title ---------------- */
+
+.thought-title {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 54px;
+  line-height: 1.05;
+  color: #ffffff;
+  margin: 0;
+  padding: 0px 30px 28px;
+  font-weight: 300;
+}
+
+/* 카드마다 다른 단어 이텔릭 처리용 */
+.thought-title em {
+  font-style: italic;
+}
+
+/* ---------------- image area ---------------- */
+
+.thought-image-section {
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.thought-image {
+  width: 505px;
+  height: 287px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------------- bottom text ---------------- */
+
+.thought-text {
+  margin: 0;
+  padding: 0 28px;
+  text-align: center;
+  line-height: 1.45;
+  letter-spacing: -0.2px;
+  font-size: 18px;
+  color: rgba(243, 243, 245, 0.8); /* #F3F3F5 / 80% */
+}

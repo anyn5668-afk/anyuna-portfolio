@@ -1,0 +1,99 @@
+.videoSection {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* ✅ 픽셀 고정 없이 화면 가득 */
+  overflow: hidden;
+  background: #fff;
+}
+
+.bgVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ✅ 화면 가득 채우기 */
+  object-position: center;
+}
+
+.videoOverlay {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  place-items: center;
+  text-align: center;
+
+  padding: 300px;
+  color: #fff;
+
+  /* 살짝 가독성 올리고 싶으면 아래 옵션 사용 */
+  /* text-shadow: 0 0.125rem 1rem rgba(0, 0, 0, 0.35); */
+}
+
+.videoTitle {
+  /* 140px -> 8.75rem */
+  font-family: "Canela Condensed Trial", serif;
+  line-height: 1.05;
+
+  /* ✅ rem 기반 + 반응형 clamp */
+  font-size: clamp(3rem, 6.5vw, 8.75rem);
+  margin-bottom: 30px;
+}
+
+.videoSubTitle {
+  /* 46px -> 2.875rem */
+  font-family: "Canela Condensed Light Trial", serif;
+  line-height: 1.25;
+
+  font-size: clamp(1.25rem, 2.2vw, 2.875rem);
+}
+
+/* 공통 사이즈는 기존 videoSubTitle 그대로 사용 */
+
+/* Canela - 기본 */
+.canela {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-style: normal;
+  font-weight: 300;
+}
+
+/* Canela - 기울임 */
+.canelaItalic {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* 프리텐다드 */
+.pretendard {
+  font-family:
+    "Pretendard",
+    /* system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI", */
+    sans-serif;
+  font-weight: 600;
+  font-size: 35px;
+}
+
+.videoDesc {
+  /* 24px -> 1.5rem */
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  line-height: 1.35;
+
+  font-size: clamp(0.95rem, 1.2vw, 1.5rem);
+
+  opacity: 0.95;
+}
+
+.em {
+  font-style: italic;
+}
+
+.strong {
+  font-weight: 700;
+}
