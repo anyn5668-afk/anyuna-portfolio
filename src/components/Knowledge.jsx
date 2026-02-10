@@ -1,5 +1,5 @@
 import React from "react";
-import "./knowledge.css";
+import "./Knowledge.css";
 
 export default function Knowledge({
   imgSrc,
