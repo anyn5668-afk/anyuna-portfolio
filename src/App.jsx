@@ -15,6 +15,7 @@ import WhyDoYouNeedMe from "./pages/WhyDoYouNeedMe";
 import CloneCoding from "./pages/CloneCoding";
 import School from "./pages/School";
 import DoIThink from "./pages/DoIThink";
+import Figma from "./pages/Figma";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -544,6 +545,7 @@ function App() {
       <CloneCoding />
       <School />
       <DoIThink />
+      <Figma />
     </div>
   );
 }

@@ -40,12 +40,14 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   font-family: "Pretendard", sans-serif;
   /* Pink background from image */
   background-color: #ff719e;
   color: #fffae0;
   overflow-x: hidden;
+  margin: 0;
 }
 
 li {

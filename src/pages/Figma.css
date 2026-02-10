@@ -1,0 +1,186 @@
+/* ✅ 가로 오버플로우 때문에 생기는 “스크롤바 하나 더” 방지 */
+html,
+body {
+  overflow-x: hidden;
+}
+
+.figma-page {
+  padding: 280px 225px 180px;
+  box-sizing: border-box;
+
+  min-height: 100vh;
+  background: #f3f3f5;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  overflow-x: hidden;
+  /* 안전빵 */
+}
+
+.figma-hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+/* 상단 작은 캡슐 */
+.figma-tag {
+  border: 1px solid #ffc92f;
+  color: #ffc92f;
+  border-radius: 999px;
+  padding: 6px 14px;
+
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 18px;
+
+  background: transparent;
+  font-family: "Canela Condensed Light Trial", serif;
+}
+
+.figma-title {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  font-size: 9.375rem;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+
+  margin: 0;
+  color: #111;
+}
+
+.figma-subtitle {
+  margin-top: 30px;
+  margin-bottom: 0;
+
+  font-size: 20px;
+  color: #828282;
+  line-height: 1.6;
+}
+
+/* full-bleed */
+.pinSection {
+  align-self: stretch;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  left: 50%;
+  position: relative;
+
+  margin-top: 80px;
+  height: 320vh;
+}
+
+/* 확대되며 잘려도 OK */
+.pinStage {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: visible;
+}
+
+.pinCenter {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ✅ 중앙정렬 담당 래퍼 (GSAP이 덮어써도 안 흔들림) */
+.zoomWrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ✅ 3배 캔버스: "큰 상태로 렌더링" 해서 선명도 확보 */
+.zoomContent {
+  position: relative;
+
+  /* 원본 1400px/92vw의 3배 컨셉 (너가 조절한 값 유지) */
+  width: min(4200px, 276vw);
+  aspect-ratio: 16 / 9;
+
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* base */
+.valueBase {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  user-select: none;
+  -webkit-user-drag: none;
+  image-rendering: auto;
+}
+
+/* 스티커 박스들: 컨테이너 크기에 비례 */
+.overlayItem {
+  position: absolute;
+  width: 11.42%;
+  height: auto;
+
+  user-select: none;
+  -webkit-user-drag: none;
+  image-rendering: auto;
+}
+
+/* 위치 */
+.overlayItem[data-id="figma1"] {
+  left: 30%;
+  top: 28%;
+}
+
+.overlayItem[data-id="figma2"] {
+  left: 47%;
+  top: 28%;
+}
+
+.overlayItem[data-id="figma3"] {
+  left: 64%;
+  top: 28%;
+}
+
+.overlayItem[data-id="figma4"] {
+  left: 30%;
+  top: 48%;
+}
+
+.overlayItem[data-id="figma5"] {
+  left: 47%;
+  top: 48%;
+}
+
+/* 타겟 */
+.overlayItem[data-id="figma6"] {
+  left: 64%;
+  top: 48%;
+}
+
+.overlayItem[data-id="figma7"] {
+  left: 30%;
+  top: 68%;
+}
+
+.overlayItem[data-id="figma8"] {
+  left: 47%;
+  top: 68%;
+}
+
+.overlayItem[data-id="figma9"] {
+  left: 64%;
+  top: 68%;
+}
+
+.afterSpace {
+  width: 100%;
+  height: 60vh;
+}
