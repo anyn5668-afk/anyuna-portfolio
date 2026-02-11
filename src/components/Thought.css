@@ -28,23 +28,31 @@
 
 .thought-number {
   font-family: "Canela Condensed Light Trial", serif;
-  font-size: 40px;
+  font-size: 32px;
   line-height: 1;
-  color: #ffffff;
-  margin-bottom: 20px; /* number - title gap */
-  padding-top: 50px;
+  color: inherit;
+  margin-bottom: 12px;
+  padding-top: 40px;
 }
 
 /* ---------------- title ---------------- */
 
 .thought-title {
   font-family: "Canela Condensed Light Trial", serif;
-  font-size: 54px;
+  font-size: 48px;
   line-height: 1.05;
-  color: #ffffff;
+  color: inherit;
   margin: 0;
-  padding: 0px 30px 28px;
+  padding: 0px 30px 10px;
   font-weight: 300;
+}
+
+.thought-subtitle {
+  font-size: 16px;
+  color: inherit;
+  opacity: 0.8;
+  margin: 0;
+  padding-bottom: 20px;
 }
 
 /* 카드마다 다른 단어 이텔릭 처리용 */
@@ -78,5 +86,5 @@
   line-height: 1.45;
   letter-spacing: -0.2px;
   font-size: 18px;
-  color: rgba(243, 243, 245, 0.8); /* #F3F3F5 / 80% */
+  color: inherit;
 }

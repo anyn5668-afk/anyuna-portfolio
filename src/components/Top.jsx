@@ -26,13 +26,15 @@ function Top({ caption, title, text }) {
   }, []);
 
   return (
-    <div ref={ref} className={`top-title ${animate ? "animate" : ""}`}>
-      <div className="top-caption">
-        <p>{caption}</p>
-        <h2>{title}</h2>
-      </div>
-      <div className="top-text">
-        <p>{text}</p>
+    <div ref={ref} className="top-title-wrapper" style={{ width: "100%" }}>
+      <div className={`top-title ${animate ? "animate" : ""}`}>
+        <div className="top-caption">
+          <p>{caption}</p>
+          <h2>{title}</h2>
+        </div>
+        <div className="top-text">
+          <p>{text}</p>
+        </div>
       </div>
     </div>
   );

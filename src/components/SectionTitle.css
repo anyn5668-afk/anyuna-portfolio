@@ -6,7 +6,8 @@
 .stWrap {
   position: relative;
   width: 100%;
-  min-height: 100vh; /* 픽셀 고정 X */
+  min-height: 100vh;
+  /* 픽셀 고정 X */
   display: grid;
   place-items: center;
   background: #f3f3f3;
@@ -139,20 +140,23 @@
   grid-auto-columns: max-content;
 
   align-items: center;
-  justify-content: center; /* ✅ 중앙 */
+  justify-content: center;
+  /* ✅ 중앙 */
 
   gap: clamp(0.75rem, 1.8vw, 1.25rem);
 
   width: 100%;
-  margin-top: clamp(0.25rem, 1.2vw, 0.75rem);
+  margin-top: 20px;
 }
 
 .stBadgeSmall {
-  width: clamp(2.2rem, 3.8vw, 3.25rem);
+  width: 70px;
   height: clamp(2.2rem, 3.8vw, 3.25rem);
   border-color: #2bb24c;
   color: #2bb24c;
   font-size: clamp(1rem, 1.4vw, 1.5rem);
+  padding: 5px;
+  font-size: 2.5rem;
 }
 
 /* 설명 */
@@ -167,7 +171,8 @@
   font-size: clamp(0.9rem, 1.25vw, 1.25rem);
   line-height: 1.5;
 
-  text-align: center; /* ✅ 중앙 */
+  text-align: center;
+  /* ✅ 중앙 */
 }
 
 /* -------------------------

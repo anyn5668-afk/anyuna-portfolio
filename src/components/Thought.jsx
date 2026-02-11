@@ -8,9 +8,11 @@ export default function Thought({
       I Wanna Be <em>Where</em> the
     </>
   ),
+  subtitle = "",
   imageSrc = "/assets/thought01.png",
   imageAlt = "thought image",
   bgColor = "#4EA7FF",
+  textColor = "#ffffff",
   text = (
     <>
       팀프로젝트의 발표 과정에서,
@@ -22,11 +24,12 @@ export default function Thought({
   ),
 }) {
   return (
-    <article className="thought-card">
+    <article className="thought-card" style={{ color: textColor }}>
       <header className="thought-top" style={{ backgroundColor: bgColor }}>
         <div className="thought-top-inner">
-          <div className="thought-number">{number}</div>
-          <h3 className="thought-title">{title}</h3>
+          <div className="thought-number" style={{ color: "inherit" }}>{number}</div>
+          <h3 className="thought-title" style={{ color: "inherit" }}>{title}</h3>
+          {subtitle && <p className="thought-subtitle">{subtitle}</p>}
         </div>
       </header>
 
@@ -35,7 +38,7 @@ export default function Thought({
       </section>
 
       <footer className="thought-bottom" style={{ backgroundColor: bgColor }}>
-        <p className="thought-text">{text}</p>
+        <p className="thought-text" style={{ color: "inherit" }}>{text}</p>
       </footer>
     </article>
   );

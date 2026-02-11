@@ -1,10 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import "./WhatCanIDo.css";
 
 import SectionTitle from "../components/SectionTitle";
 import Top from "../components/Top";
 import Skill from "../components/Skill";
 import Knowledge from "../components/Knowledge";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger);
 
 import sun from "../assets/sun.svg";
 import cloudGreen from "../assets/cloud-green.svg";
@@ -42,12 +46,15 @@ export default function WhatCanIDo() {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
           } else {
-            // ✅ 다시 스크롤해서 나오면 또 재생되도록
+            // 화면에서 벗어나면 클래스 제거하여 다음 진입 시 재실행
             entry.target.classList.remove("is-visible");
           }
         });
       },
-      { threshold: 0.25 }
+      {
+        threshold: 0,
+        rootMargin: "-20px 0px" // 경계에서 20px 안쪽으로 들어와야 트리거
+      }
     );
 
     targets.forEach((el, idx) => {
@@ -59,6 +66,36 @@ export default function WhatCanIDo() {
     return () => io.disconnect();
   }, []);
 
+  const horizontalSectionRef = useRef(null);
+  const trackRef = useRef(null);
+
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      const track = trackRef.current;
+      const section = horizontalSectionRef.current;
+      if (!track || !section) return;
+
+      const totalWidth = track.scrollWidth;
+      const windowWidth = window.innerWidth;
+      const travelDistance = totalWidth - windowWidth + 200; // 마지막 카드 뒤 200px 여유 공간
+
+      gsap.to(track, {
+        x: () => `-${travelDistance}px`,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${totalWidth - windowWidth}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    }, horizontalSectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       ref={sectionRef}
@@ -66,11 +103,11 @@ export default function WhatCanIDo() {
       aria-label="What Can I Do Section"
     >
       {/* 좌측 하단 햇님 */}
-      <img className="wcSun" src={sun} alt="" aria-hidden="true" />
+      <img className="wcSun reveal reveal--char" src={sun} alt="" aria-hidden="true" />
 
       {/* 우측 상단 구름+초록 캐릭터 */}
       <img
-        className="wcCloudGreen"
+        className="wcCloudGreen reveal reveal--char"
         src={cloudGreen}
         alt=""
         aria-hidden="true"
@@ -150,7 +187,7 @@ export default function WhatCanIDo() {
             </div>
 
             <div
-              className="skCenterText skAreaCenter"
+              className="skCenterText skAreaCenter reveal"
               aria-label="My skill Program"
             >
               <div className="skCenterTextInner">
@@ -203,40 +240,44 @@ export default function WhatCanIDo() {
           </div>
         </div>
 
-        <div className="knowledge-title">
-          <h2>
-            My <em>knowledge</em> <br />
-            Of UI/UX.
-          </h2>
-        </div>
+        {/* ✅ 가로 스크롤 섹션 */}
+        <div className="sk-horizontal-section" ref={horizontalSectionRef}>
+          <div className="sk-horizontal-track" ref={trackRef}>
+            <div className="knowledge-title reveal reveal--up">
+              <h2>
+                My <em>knowledge</em> <br />
+                Of UI/UX.
+              </h2>
+            </div>
 
-        {/* ✅ 가로스크롤 컨테이너 */}
-        <div className="card-box">
-          <Knowledge
-            imgSrc={target}
-            title="Problem First"
-            text="UX는 기능을 추가하는 일이 아닌, 사용자가 겪는 문제를 정확히 정의하는 것에서 시작됩니다."
-          />
-          <Knowledge
-            imgSrc={brain}
-            title="Less Thinking"
-            text="좋은 UI는 설명하지 않습니다. 사용자가 생각하지 않아도 행동할 수 있게 만듭니다."
-          />
-          <Knowledge
-            imgSrc={paper}
-            title="Clear Hierarchy"
-            text="사용자에게  중요한 것부터 보이도록 구조를 설계하는 것이 UX입니다."
-          />
-          <Knowledge
-            imgSrc={smile}
-            title="Design with Empathy"
-            text="사용자의 행동보다 그 행동이 나온 감정과 상황에 집중합니다."
-          />
-          <Knowledge
-            imgSrc={connect}
-            title="Smooth Flow"
-            text="좋은 인터랙션은 사용자의 흐름을 방해하지 않고 자연스럽게 이어줍니다."
-          />
+            <div className="card-box">
+              <Knowledge
+                imgSrc={target}
+                title="Problem First"
+                text="UX는 기능을 추가하는 일이 아닌, 사용자가 겪는 문제를 정확히 정의하는 것에서 시작됩니다."
+              />
+              <Knowledge
+                imgSrc={brain}
+                title="Less Thinking"
+                text="좋은 UI는 설명하지 않습니다. 사용자가 생각하지 않아도 행동할 수 있게 만듭니다."
+              />
+              <Knowledge
+                imgSrc={paper}
+                title="Clear Hierarchy"
+                text="사용자에게  중요한 것부터 보이도록 구조를 설계하는 것이 UX입니다."
+              />
+              <Knowledge
+                imgSrc={smile}
+                title="Design with Empathy"
+                text="사용자의 행동보다 그 행동이 나온 감정과 상황에 집중합니다."
+              />
+              <Knowledge
+                imgSrc={connect}
+                title="Smooth Flow"
+                text="좋은 인터랙션은 사용자의 흐름을 방해하지 않고 자연스럽게 이어줍니다."
+              />
+            </div>
+          </div>
         </div>
       </section>
     </section>

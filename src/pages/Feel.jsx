@@ -1,7 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useRef, useLayoutEffect } from "react";
 import "./Feel.css";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 import bigCloud from "../assets/big-cloud.svg";
 import blueVer2 from "../assets/blue-ver2.svg";
@@ -14,339 +17,202 @@ import bgGreen from "../assets/bg-green.svg";
 
 import Thought from "../components/Thought";
 import thought01 from "../assets/thought01.png";
-// import thought02 from "../assets/thought02.png";
-// import thought03 from "../assets/thought03.png";
-
-function ScrollFlipCard({
-  progress,
-  index,
-  total,
-  behindPose,
-  springOpt,
-  children,
-}) {
-  const step = 1 / total;
-
-  const segStart = index * step;
-  const segIn = segStart + step * 0.22;
-  const segHold = segStart + step * 0.62;
-  const segToss = segStart + step * 0.82;
-  const segEnd = (index + 1) * step;
-
-  const startY = index === 0 ? 0 : behindPose.y;
-  const startR = index === 0 ? 0 : behindPose.rotate;
-  const startS = index === 0 ? 1 : behindPose.scale;
-
-  // 중앙 -> 위로 넘어가기(삐뚤)
-  const yRaw = useTransform(
-    progress,
-    [segStart, segIn, segHold, segToss, segEnd],
-    [startY, 0, 0, -520, -740],
-  );
-  const xRaw = useTransform(
-    progress,
-    [segStart, segHold, segToss, segEnd],
-    [0, 0, -180, -240],
-  );
-  const rRaw = useTransform(
-    progress,
-    [segStart, segIn, segHold, segToss, segEnd],
-    [startR, 0, 0, -18, -28],
-  );
-  const sRaw = useTransform(
-    progress,
-    [segStart, segIn, segHold, segToss, segEnd],
-    [startS, 1, 1, 0.98, 0.94],
-  );
-  const oRaw = useTransform(progress, [segHold, segToss, segEnd], [1, 0.22, 0]);
-
-  const x = useSpring(xRaw, springOpt);
-  const y = useSpring(yRaw, springOpt);
-  const rotate = useSpring(rRaw, springOpt);
-  const scale = useSpring(sRaw, springOpt);
-  const opacity = useSpring(oRaw, springOpt);
-
-  const zIndex = total - index + 40;
-
-  return (
-    <motion.div
-      className="feel-thoughtCard"
-      style={{ x, y, rotate, scale, opacity, zIndex }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/**
- * ✅ 스티키 대신 "핀" 구현
- * pinned 상태는 Portal로 body에 붙여서
- * 어떤 부모 transform/overflow에도 안 잘리게 함.
- */
-function usePin(stageRef) {
-  const [mode, setMode] = useState("before"); // before | pinned | after
-  const [afterTop, setAfterTop] = useState(0);
-
-  useEffect(() => {
-    const el = stageRef.current;
-    if (!el) return;
-
-    let raf = 0;
-
-    const update = () => {
-      raf = 0;
-      const rect = el.getBoundingClientRect();
-      const start = rect.top;
-      const end = rect.bottom - window.innerHeight;
-
-      if (start > 0) {
-        setMode("before");
-        setAfterTop(0);
-        return;
-      }
-
-      if (end < 0) {
-        setMode("after");
-        const top = el.offsetHeight - window.innerHeight;
-        setAfterTop(top < 0 ? 0 : top);
-        return;
-      }
-
-      setMode("pinned");
-      setAfterTop(0);
-    };
-
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [stageRef]);
-
-  return { mode, afterTop };
-}
-
-function GreenPinnedScene({ greenProg, cards, behindPoses, springOpt }) {
-  const total = Math.max(1, cards.length);
-
-  return (
-    <div className="feel-green-pinInner">
-      {/* 배경 */}
-      <img className="feel-green-scene" src={bgGreen} alt="" />
-      <div className="feel-green-fill" />
-
-      {/* overlay */}
-      <div className="feel-green-overlay">
-        <div className="feel-scroll">
-          Scroll <span className="feel-scroll-arrow">↓</span>
-        </div>
-
-        <div className="feel-green-leftText">
-          What I
-          <br />
-          learned
-        </div>
-
-        <div className="feel-green-rightText">
-          from the
-          <br />
-          <span className="feel-green-italic">process</span>
-        </div>
-
-        <div className="feel-cardStack">
-          {/* 뒤 컬러 카드 (모양 유지) */}
-          <div className="feel-stack-layer layer-yellow" />
-          <div className="feel-stack-layer layer-pink" />
-          <div className="feel-stack-layer layer-white" />
-
-          {/* 카드 넘김 */}
-          {cards.map((c, idx) => (
-            <ScrollFlipCard
-              key={c.number}
-              progress={greenProg}
-              index={idx}
-              total={total}
-              behindPose={behindPoses[idx]}
-              springOpt={springOpt}
-            >
-              <Thought
-                number={c.number}
-                bgColor={c.bgColor}
-                imageSrc={c.imageSrc}
-                title={c.title}
-                text={c.text}
-              />
-            </ScrollFlipCard>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+import feel02 from "../assets/feel02.png";
+import feel03 from "../assets/feel03.svg";
+import feel04 from "../assets/feel04.svg";
 
 export default function Feel() {
   const heroRef = useRef(null);
   const greenStageRef = useRef(null);
 
-  const { mode, afterTop } = usePin(greenStageRef);
-
-  // HERO
+  // HERO: 장식 등장(원위치 유지 + opacity/scale만)
   const { scrollYProgress: heroProg } = useScroll({
     target: heroRef,
     offset: ["start 85%", "end 35%"],
   });
 
-  // GREEN 진행도
+  // GREEN: sticky 구간 스크롤 진행도
   const { scrollYProgress: greenProg } = useScroll({
     target: greenStageRef,
     offset: ["start start", "end end"],
   });
 
-  const springOpt = { stiffness: 280, damping: 18, mass: 0.7 };
+  const springOpt = { stiffness: 260, damping: 16, mass: 0.7 };
 
-  // HERO deco
+  // ===== HERO deco (자리 고정) =====
   const decoOpacity = useSpring(
     useTransform(heroProg, [0.05, 0.25], [0, 1]),
-    springOpt,
+    springOpt
   );
   const decoScale = useSpring(
     useTransform(heroProg, [0.05, 0.25], [0.88, 1]),
-    springOpt,
+    springOpt
   );
+
   const starOpacity = useSpring(
     useTransform(heroProg, [0.0, 0.16], [0, 1]),
-    springOpt,
+    springOpt
   );
   const starScale = useSpring(
     useTransform(heroProg, [0.0, 0.16], [0.6, 1]),
-    springOpt,
+    springOpt
   );
   const starRot = useSpring(
     useTransform(heroProg, [0.0, 0.22], [-14, 0]),
-    springOpt,
+    springOpt
   );
 
-  // 카드 데이터
-  const cards = [
-    {
-      number: "(01)",
-      bgColor: "#4EA7FF",
-      imageSrc: thought01,
-      title: (
-        <>
-          I Wanna Be <em>Where</em> the
-        </>
-      ),
-      text: (
-        <>
-          팀프로젝트의 발표 과정에서,
-          <br />
-          좋은 기획은 이해시키는 전달력까지 완성되어야
-          <br />
-          한다는 걸 배웠어요!
-        </>
-      ),
-    },
-    // (02)(03) 추가해도 자동으로 됨
-  ];
+  // ===== GREEN 카드 (순차 애니메이션 로직) =====
 
-  const total = Math.max(1, cards.length);
+  // 1. 초기 펼쳐짐 (0.0 - 0.2)
+  // 2. 최상단 카드부터 위로 날아감 (0.2 - 0.45, 0.45 - 0.7, 0.7 - 0.95)
 
-  // “살짝씩 틀어진 모양” (뒤에 대기할 때)
-  const behindPoses = useMemo(() => {
-    return Array.from({ length: total }, (_, i) => {
-      if (i === 0) return { y: 0, rotate: 0, scale: 1 };
-      const depth = i / Math.max(1, total - 1);
-      const wobble = (i % 2 === 0 ? -1 : 1) * (6 - depth * 2);
-      return {
-        y: 36 + depth * 16,
-        rotate: wobble,
-        scale: 0.985 - depth * 0.02,
-      };
-    });
-  }, [total]);
+  // 최상단 카드 (Thought 01)
+  const topCardY = useSpring(
+    useTransform(greenProg, [0, 0.2, 0.25, 0.5], [110, 70, 70, -1000]),
+    springOpt
+  );
+  const topCardRot = useSpring(
+    useTransform(greenProg, [0.25, 0.5], [0, -15]),
+    springOpt
+  );
 
-  // stage 길이
-  const stageStyle = { ["--cards"]: total };
+  // 세 번째 레이어 (White)
+  const whiteY = useSpring(
+    useTransform(greenProg, [0, 0.2, 0.5, 0.75], [95, 35, 35, -1000]),
+    springOpt
+  );
+  const whiteRot = useSpring(
+    useTransform(greenProg, [0, 0.2, 0.5, 0.75], [-4, 0, 0, 12]),
+    springOpt
+  );
 
-  // ✅ pinned일 때는 body에 포탈로 붙임(무조건 viewport 고정)
-  const pinnedPortal =
-    mode === "pinned"
-      ? ReactDOM.createPortal(
-          <div className="feel-green-pinPortal">
-            <GreenPinnedScene
-              greenProg={greenProg}
-              cards={cards}
-              behindPoses={behindPoses}
-              springOpt={springOpt}
-            />
-          </div>,
-          document.body,
-        )
-      : null;
+  // 두 번째 레이어 (Pink)
+  const pinkY = useSpring(
+    useTransform(greenProg, [0, 0.2, 0.75, 1.0], [85, 0, 0, -1000]),
+    springOpt
+  );
+  const pinkRot = useSpring(
+    useTransform(greenProg, [0, 0.2, 0.75, 1.0], [8, 2, 2, -10]),
+    springOpt
+  );
+
+  // 첫 번째 레이어 (Yellow) - 마지막에 남거나 약간만 틀어짐
+  const yellowY = useSpring(
+    useTransform(greenProg, [0, 0.2, 0.9, 1.0], [70, -30, -30, -1000]),
+    springOpt
+  );
+  const yellowRot = useSpring(
+    useTransform(greenProg, [0.9, 1.0], [-3, 10]),
+    springOpt
+  );
+
+  const stackOpacity = useSpring(
+    useTransform(greenProg, [0.0, 0.1], [0, 1]),
+    springOpt
+  );
+
+
+  // GSAP Pinning: 배경 고정
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: greenStageRef.current,
+        start: "top -250px", // 700px(top) - 250px(offset) = 450px(중앙) 시점에 고정
+        end: "bottom bottom",
+        pin: ".feel-green-sticky",
+        pinSpacing: true,
+        invalidateOnRefresh: true,
+      });
+    }, greenStageRef);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <main className="feel-page">
+    <div className="feel-page">
       <section className="feel-hero" ref={heroRef}>
+        {/* 장식 (원래 좌표 유지하되 서서히 등장) */}
         <motion.img
           className="feel-deco blue-ver2"
           src={blueVer2}
           alt=""
+          initial={{ opacity: 0, y: 70, scale: 0.8 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 120, damping: 10, delay: 0.1 }}
           style={{ opacity: decoOpacity, scale: decoScale }}
         />
         <motion.img
           className="feel-deco white-cloud-small"
           src={whiteCloudSmall}
           alt=""
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 100, damping: 12, delay: 0.2 }}
           style={{ opacity: decoOpacity, scale: decoScale }}
         />
         <motion.img
           className="feel-deco star"
           src={star}
           alt=""
+          initial={{ opacity: 0, scale: 0.4, rotate: -30, y: 40 }}
+          whileInView={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 150, damping: 8, delay: 0.3 }}
           style={{ opacity: starOpacity, scale: starScale, rotate: starRot }}
         />
         <motion.img
           className="feel-deco blue-small-cloud"
           src={blueSmallCloud}
           alt=""
+          initial={{ opacity: 0, y: 55 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 90, damping: 11, delay: 0.4 }}
           style={{ opacity: decoOpacity, scale: decoScale }}
         />
         <motion.img
           className="feel-deco yellow"
           src={yellow}
           alt=""
+          initial={{ opacity: 0, y: 80, scale: 0.9 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 130, damping: 9, delay: 0.5 }}
           style={{ opacity: decoOpacity, scale: decoScale }}
         />
         <motion.img
           className="feel-deco white-cloud"
           src={whiteCloud}
           alt=""
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 80, damping: 14, delay: 0.6 }}
           style={{ opacity: decoOpacity, scale: decoScale }}
         />
         <motion.img
           className="feel-deco big-cloud"
           src={bigCloud}
           alt=""
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ type: "spring", stiffness: 70, damping: 15, delay: 0.7 }}
           style={{ opacity: decoOpacity, scale: decoScale }}
         />
 
+        {/* 중앙 콘텐츠 */}
         <div className="feel-content">
           <div className="feel-caption">Thoughts</div>
+
           <h1 className="feel-title">
             What I felt <em>during</em>
             <br />
             the process!
           </h1>
+
           <p className="feel-subtext">
             프로젝트 과정에서 <em>느낀점</em>이 있어요!
           </p>
@@ -355,31 +221,126 @@ export default function Feel() {
         <div className="feel-spacer" />
       </section>
 
+      {/* GREEN */}
       <section className="feel-green">
-        <div
-          className="feel-green-stage"
-          ref={greenStageRef}
-          style={stageStyle}
-        >
-          {/* before/after일 때는 stage 안에 렌더(absolute) */}
-          {mode !== "pinned" && (
-            <div
-              className="feel-green-pinLocal"
-              style={mode === "after" ? { top: `${afterTop}px` } : undefined}
-            >
-              <GreenPinnedScene
-                greenProg={greenProg}
-                cards={cards}
-                behindPoses={behindPoses}
-                springOpt={springOpt}
-              />
-            </div>
-          )}
+        {/* stage: 스크롤 길이 */}
+        <div className="feel-green-stage" ref={greenStageRef}>
+          {/* sticky: 배경(곡선 포함) + overlay 고정 */}
+          <div className="feel-green-sticky">
+            {/* ✅ bgGreen.svg를 흐름대로 보여줘서 투명(파인) 영역이 살아남음 */}
+            <img className="feel-green-scene" src={bgGreen} alt="" />
+            {/* ✅ 화면 아래 남는 영역을 초록으로 채워서 “하얀 잘림” 방지 */}
+            <div className="feel-green-fill" />
 
-          {/* pinned일 때는 body portal로 렌더 */}
-          {pinnedPortal}
+            {/* overlay */}
+            <div className="feel-green-overlay">
+              <div className="feel-scroll">
+                Scroll <span className="feel-scroll-arrow">↓</span>
+              </div>
+
+              <div className="feel-green-leftText">
+                What I
+                <br />
+                learned
+              </div>
+
+              <div className="feel-green-rightText">
+                from the
+                <br />
+                <span className="feel-green-italic">process</span>
+              </div>
+
+              {/* 카드 스택 */}
+              <motion.div className="feel-cardStack" style={{ opacity: stackOpacity }}>
+                <motion.div
+                  className="feel-stack-layer"
+                  style={{ y: yellowY, rotate: yellowRot }}
+                >
+                  <Thought
+                    number="(03)"
+                    bgColor="#FFC92F"
+                    imageSrc={feel03}
+                    title="Beyond the Class"
+                    subtitle="스스로 질문하며 확장한 UX 공부"
+                    text={
+                      <>
+                        수업에서 생긴 궁금증을 책으로 파고들며,
+                        <br />
+                        UI/UX는 감각이 아니라 근거를 쌓아가는 사고 과정이라는
+                        <br />
+                        걸 느꼈어요!
+                      </>
+                    }
+                  />
+                </motion.div>
+                <motion.div
+                  className="feel-stack-layer"
+                  style={{ y: pinkY, rotate: pinkRot }}
+                >
+                  <Thought
+                    number="(02)"
+                    bgColor="#FF719E"
+                    imageSrc={feel02}
+                    title="Growing as a Team"
+                    subtitle="함께 만들고, 함께 웃었던 과정"
+                    text={
+                      <>
+                        의견이 달라도 존중하며 맞춰가는 과정 속에서,
+                        <br />
+                        좋은 결과는 사람 사이의 신뢰에서 나온다는 걸 배웠어요!
+                      </>
+                    }
+                  />
+                </motion.div>
+                <motion.div
+                  className="feel-stack-layer"
+                  style={{ y: whiteY, rotate: whiteRot }}
+                >
+                  <Thought
+                    number="(02)"
+                    bgColor="#FFFFFF"
+                    textColor="#111111"
+                    imageSrc={feel04}
+                    title="Putting Heads Together"
+                    subtitle="과정 속에서 완성된 협업"
+                    text={
+                      <>
+                        각자의 생각이 부딪히고 정리되는 과정을 반복하며,
+                        <br />
+                        UX는 아이디어보다 조율의 시간에서 만들어진다는 걸
+                        <br />
+                        체감했어요!
+                      </>
+                    }
+                  />
+                </motion.div>
+
+                <motion.div className="feel-stack-top" style={{ y: topCardY, rotate: topCardRot }}>
+                  <Thought
+                    number="(01)"
+                    bgColor="#4EA7FF"
+                    imageSrc={thought01}
+                    title={
+                      <>
+                        I Wanna Be <em>Where</em> the
+                      </>
+                    }
+                    text={
+                      <>
+                        팀프로젝트의 발표 과정에서,
+                        <br />
+                        좋은 기획은 이해시키는 전달력까지 완성되어야
+                        <br />
+                        한다는 걸 배웠어요!
+                      </>
+                    }
+                  />
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

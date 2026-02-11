@@ -63,10 +63,11 @@
 ===================================== */
 
 .doi-think {
-  padding: 280px 0 530px; /* 위 280 유지, 아래만 +250 */
+  padding: 280px 0 530px;
+  /* 위 280 유지, 아래만 +250 */
   position: relative;
   overflow: hidden;
-  background: #f2f2f2;
+  background: #F3F3F5;
 }
 
 /* ✅ 핵심: padding-top이 이미 있으니 stage는 top:0이 정답 */
@@ -128,9 +129,9 @@
 /* 펜(노란 선) */
 .doi-pen {
   position: absolute;
-  left: -863px;
-  bottom: -360px;
-  width: 1770px;
+  left: -876px;
+  bottom: -120px;
+  width: 1870px;
   max-width: 92vw;
   height: auto;
 }
@@ -139,8 +140,8 @@
 .doi-cloud {
   position: absolute;
   right: -353px;
-  bottom: -290px;
-  width: 600px;
+  bottom: -170px;
+  width: 530px;
   max-width: 48vw;
   height: auto;
 }

@@ -1,7 +1,8 @@
-/* Page base */
 .why-page {
+  position: relative;
   width: 100%;
   background: #f3f3f3;
+  z-index: 10;
 }
 
 /* ===== Hero Section ===== */
@@ -9,8 +10,6 @@
   position: relative;
   width: 100%;
   min-height: clamp(720px, 110vh, 980px);
-
-  /* ✅ 잘리지 않게 */
   overflow: visible;
 
   background: #f3f3f3;
@@ -66,7 +65,8 @@
 }
 
 .why-space {
-  margin-left: 0.23em; /* 필요하면 0.12~0.25em 사이로 조절 */
+  margin-left: 0.23em;
+  /* 필요하면 0.12~0.25em 사이로 조절 */
   display: inline-block;
 }
 

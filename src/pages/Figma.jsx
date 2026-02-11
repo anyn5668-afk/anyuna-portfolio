@@ -3,6 +3,7 @@ import "./Figma.css";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
 import valueImg from "../assets/value.svg";
 
@@ -15,6 +16,8 @@ import figma6 from "../assets/figma6.svg";
 import figma7 from "../assets/figma7.svg";
 import figma8 from "../assets/figma8.svg";
 import figma9 from "../assets/figma9.svg";
+import zoom01 from "../assets/zoom01.svg";
+import mouse from "../assets/mouse.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,6 +28,11 @@ export default function Figma() {
   // ✅ GSAP은 "zoomContent"만 만진다 (중앙정렬은 wrapper가 담당)
   const zoomRef = useRef(null);
   const figma5Ref = useRef(null);
+  const cursorRef = useRef(null);
+
+  // 커스텀 커서 제어용 상태
+  const [showCursor, setShowCursor] = React.useState(false);
+  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
 
   const overlays = useMemo(
     () => [
@@ -104,6 +112,14 @@ export default function Figma() {
           onRefresh: () => {
             targetOffset = getCenterOffset();
           },
+          onLeave: () => {
+            setShowCursor(false);
+            document.body.style.cursor = "default";
+          },
+          onLeaveBack: () => {
+            setShowCursor(false);
+            document.body.style.cursor = "default";
+          },
         },
       });
 
@@ -137,21 +153,62 @@ export default function Figma() {
         ">"
       );
 
-      // 4) 마지막: 5.5 -> 1.8333 (figma5로 줌인 + 이동)
+      // 4) 마지막: 줌인 더욱 강화 (4배 확대하여 화면 꽉 채움)
       tl.to(
         zoom,
         {
-          scale: 1.8333,
-          x: () => targetOffset.x * 1.8333,
-          y: () => targetOffset.y * 1.8333,
+          scale: 4,
+          x: () => targetOffset.x * 4,
+          y: () => targetOffset.y * 4,
           duration: 3,
-          ease: "power2.out",
+          ease: "power2.inOut",
+          onUpdate: function () {
+            // 줌이 진행 중일 때는 무조건 커서 숨김
+            setShowCursor(false);
+            document.body.style.cursor = "default";
+          }
+        },
+        ">"
+      );
+
+      // 5) 가로 스크롤 (오른쪽 zoom01 보이기)
+      tl.to(
+        zoom,
+        {
+          x: () => (targetOffset.x * 4) - (window.innerWidth * 2.5),
+          duration: 4,
+          ease: "none",
+          onStart: () => {
+            setShowCursor(true);
+            document.body.style.cursor = "none";
+          },
+          onComplete: () => {
+            setShowCursor(false);
+            document.body.style.cursor = "default";
+          },
+          onReverseComplete: () => {
+            setShowCursor(false);
+            document.body.style.cursor = "default";
+          },
+          onReverseStart: () => {
+            setShowCursor(true);
+            document.body.style.cursor = "none";
+          }
         },
         ">"
       );
     }, sectionRef);
 
-    return () => ctx.revert();
+    // 마우스 추적
+    const handleMouseMove = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      ctx.revert();
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
   return (
@@ -166,6 +223,18 @@ export default function Figma() {
         <p className="figma-subtitle">저의 생각을 들여다보면 아래와 같아요.</p>
       </section>
 
+      {/* 커스텀 커서 (가로 스크롤 영역에서만 활성화) */}
+      <div
+        ref={cursorRef}
+        className={`figma-cursor ${showCursor ? 'is-visible' : ''}`}
+        style={{
+          left: mousePos.x,
+          top: mousePos.y
+        }}
+      >
+        <img src={mouse} alt="" />
+      </div>
+
       {/* full-bleed section */}
       <section ref={sectionRef} className="pinSection" aria-label="Zoom section">
         <div ref={stageRef} className="pinStage">
@@ -174,11 +243,20 @@ export default function Figma() {
             <div className="zoomWrapper">
               {/* ✅ GSAP이 만지는 대상 */}
               <div ref={zoomRef} className="zoomContent">
-                <img className="valueBase" src={valueImg} alt="" draggable="false" />
+                <motion.img
+                  className="valueBase"
+                  src={valueImg}
+                  alt=""
+                  draggable="false"
+                  initial={{ opacity: 0, y: 100, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ type: "spring", stiffness: 80, damping: 15 }}
+                />
 
-                {overlays.map((o) =>
+                {overlays.map((o, idx) =>
                   o.isFigma5 ? (
-                    <img
+                    <motion.img
                       key={o.id}
                       ref={figma5Ref}
                       className="overlayItem"
@@ -186,18 +264,34 @@ export default function Figma() {
                       src={o.src}
                       alt=""
                       draggable="false"
+                      initial={{ opacity: 0, y: 80, scale: 0.8 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true, amount: 0.1 }}
+                      transition={{ type: "spring", stiffness: 120, damping: 10, delay: idx * 0.05 }}
                     />
                   ) : (
-                    <img
+                    <motion.img
                       key={o.id}
                       className="overlayItem"
                       data-id={o.id}
                       src={o.src}
                       alt=""
                       draggable="false"
+                      initial={{ opacity: 0, y: 80, scale: 0.8 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true, amount: 0.1 }}
+                      transition={{ type: "spring", stiffness: 120, damping: 10, delay: idx * 0.05 }}
                     />
                   )
                 )}
+
+                {/* ✅ 가로 스크롤 타겟: figma5 오른쪽에 위치 */}
+                <img
+                  className="zoom-artboard"
+                  src={zoom01}
+                  alt=""
+                  draggable="false"
+                />
               </div>
             </div>
           </div>

@@ -7,6 +7,8 @@ import memoYellow from "../assets/memo-yellow.svg";
 import pen from "../assets/pen.svg";
 import cloudEnd from "../assets/cloud-end.svg";
 
+import { motion } from "framer-motion";
+
 function DoIThink() {
   return (
     <section className="doi-think">
@@ -27,14 +29,44 @@ function DoIThink() {
 
       {/* 데코 레이어 */}
       <div className="doi-think__stage" aria-hidden="true">
-        <img className="doi-memo doi-memo--pink" src={memoPink} alt="" />
-        <img className="doi-memo doi-memo--blue" src={memoBlue} alt="" />
-        <img className="doi-memo doi-memo--yellow" src={memoYellow} alt="" />
+        <motion.img
+          className="doi-memo doi-memo--pink"
+          src={memoPink}
+          alt=""
+          initial={{ opacity: 0, y: 50, rotate: -20 }}
+          whileInView={{ opacity: 1, y: 0, rotate: -12 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ type: "spring", stiffness: 120, damping: 10 }}
+        />
+        <motion.img
+          className="doi-memo doi-memo--blue"
+          src={memoBlue}
+          alt=""
+          initial={{ opacity: 0, y: 60, rotate: 20 }}
+          whileInView={{ opacity: 1, y: 0, rotate: 12 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ type: "spring", stiffness: 100, damping: 12, delay: 0.1 }}
+        />
+        <motion.img
+          className="doi-memo doi-memo--yellow"
+          src={memoYellow}
+          alt=""
+          initial={{ opacity: 0, y: 100, rotate: -15 }}
+          whileInView={{ opacity: 1, y: 0, rotate: -7 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ type: "spring", stiffness: 80, damping: 15, delay: 0.2 }}
+        />
 
-        <div className="doi-illu">
+        <motion.div
+          className="doi-illu"
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.1 }}
+          transition={{ type: "spring", stiffness: 110, damping: 10, delay: 0.3 }}
+        >
           <img className="doi-pen" src={pen} alt="" />
           <img className="doi-cloud" src={cloudEnd} alt="" />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

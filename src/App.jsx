@@ -16,6 +16,9 @@ import CloneCoding from "./pages/CloneCoding";
 import School from "./pages/School";
 import DoIThink from "./pages/DoIThink";
 import Figma from "./pages/Figma";
+import Previous from "./pages/Previous";
+import Ending from "./pages/Ending";
+import Footer from "./pages/Footer";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -24,7 +27,19 @@ function App() {
   const helloRef = useRef(null);
 
   useLayoutEffect(() => {
+    // 1. 브라우저 및 GSAP의 스크롤 복구 기능 완전히 끄기
+    if (window.history.scrollRestoration) {
+      window.history.scrollRestoration = "manual";
+    }
+    ScrollTrigger.clearScrollMemory("manual");
+
+    // 즉시 리셋 + 아주 약간의 지연 후 재리셋 (브라우저 성질 제압용)
     window.scrollTo(0, 0);
+    const resetTimer = setTimeout(() => {
+      window.scrollTo(0, 0);
+      ScrollTrigger.refresh();
+    }, 50);
+
     let ctx = gsap.context(() => {
       const words = gsap.utils.toArray(".hello .bottom .word");
 
@@ -441,7 +456,10 @@ function App() {
       ScrollTrigger.refresh();
     });
 
-    return () => ctx.revert();
+    return () => {
+      clearTimeout(resetTimer);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -540,12 +558,15 @@ function App() {
       <Mylife />
       <Video />
       <WhatCanIDo />
+      <Previous />
       <Feel />
       <WhyDoYouNeedMe />
       <CloneCoding />
       <School />
       <DoIThink />
       <Figma />
+      <Ending />
+      <Footer />
     </div>
   );
 }

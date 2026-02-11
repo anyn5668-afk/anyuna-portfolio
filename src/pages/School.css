@@ -38,10 +38,11 @@
 }
 
 .school-desc {
-  margin-top: 18px;
-  color: rgba(255, 255, 255, 0.35);
-  font-size: 17px;
+  margin-top: 23px;
+  color: rgba(255, 255, 255, 0.486);
+  font-size: 18px;
   line-height: 1.6;
+  font-weight: 100;
 }
 
 /* 파란 텍스트 */
@@ -53,7 +54,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 70px;
+  gap: 100px;
   padding-top: 207px;
 }
 
@@ -71,13 +72,14 @@
   transition: color 0.3s;
 }
 
-.uiux-trigger {
+.school-item-container {
   position: relative;
   cursor: pointer;
   z-index: 10;
+  will-change: transform;
 }
 
-.uiux-trigger:hover .item-text {
+.school-item-container:hover .item-text {
   color: #ffc92f;
   display: inline-block;
 }
@@ -86,7 +88,7 @@
 .school-hover-content {
   position: absolute;
   left: 50%;
-  top: 240%;
+  top: 110%;
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 5;
@@ -135,6 +137,7 @@
 
 /* 반응형 */
 @media (max-width: 900px) {
+
   .school-stack p,
   .school-stack .item-text {
     font-size: clamp(64px, 12vw, 11.25rem);
@@ -180,8 +183,8 @@
 .school-bee {
   position: absolute;
   right: 18%;
-  top: 52%;
-  width: 56px;
+  top: 45%;
+  width: 100px;
   pointer-events: none;
   z-index: 3;
 }

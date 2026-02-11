@@ -1,0 +1,55 @@
+.ending {
+    width: 100vw;
+    background-color: #ffffff;
+    /* 상하 확장되는 부분의 배경색 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.ending__inner {
+    width: 100%;
+    height: 100vh;
+    padding: 200px 0;
+    /* 상하 200px 흰색 공간 확보 */
+    background-image: url("../assets/footer-bg.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-clip: content-box;
+    /* 배경 이미지가 패딩(200px) 영역을 제외한 본문에만 적용되도록 함 */
+    background-origin: content-box;
+    /* 배경 이미지 기준점을 본문 영역으로 설정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: content-box;
+    /* 패딩이 높이에 추가되도록 설정 */
+}
+
+.ending__title {
+    margin: 0;
+    text-align: center;
+
+    font-family: "Canela Condensed Light Trial", serif;
+    font-weight: 100;
+    font-size: 170px;
+    line-height: 1.02;
+
+    letter-spacing: -0.02em;
+}
+
+.ending__blue {
+    color: #5aa6ff;
+    /* 이미지 느낌의 연한 블루 */
+}
+
+.ending__black {
+    color: #111;
+}
+
+.ending__italic {
+    font-style: italic;
+    color: #111;
+}
