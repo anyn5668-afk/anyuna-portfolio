@@ -104,6 +104,8 @@
   left: 90%;
   transform: translate(-50%, -50%);
   z-index: 0;
+  will-change: transform, rotation;
+  /* GSAP 흔들림 애니메이션 최적화 */
 }
 
 .profile-image {
@@ -172,9 +174,11 @@
 .info-card:nth-child(1) {
   transition-delay: 0s;
 }
+
 .info-card:nth-child(2) {
   transition-delay: 0.1s;
 }
+
 .info-card:nth-child(3) {
   transition-delay: 0.2s;
 }

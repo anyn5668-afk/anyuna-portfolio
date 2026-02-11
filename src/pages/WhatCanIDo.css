@@ -331,6 +331,8 @@
   /* 시작 시 약간의 여유만 둠 */
   gap: 100px;
   /* 카드와 타이틀 사이 간격 */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .knowledge-title {

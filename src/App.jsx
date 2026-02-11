@@ -52,7 +52,7 @@ function App() {
           end: "+=400%", // Exactly 4 scroll turns
           pin: true,
           pinSpacing: true,
-          scrub: 1.5,
+          scrub: 1.0, // 1.5에서 1.0으로 조정하여 응답성 개선
           refreshPriority: 1,
           onLeaveBack: () => {
             document
@@ -332,7 +332,7 @@ function App() {
           trigger: helloRef.current,
           start: "top 110%",
           end: "bottom 10%",
-          scrub: 5,
+          scrub: 1.5, // 5에서 1.5로 대폭 조정 (5는 연산 부하가 매우 큼)
           invalidateOnRefresh: true,
         },
       });
@@ -556,7 +556,7 @@ function App() {
       {/* Introduce Section */}
       <Introduce />
       <Mylife />
-      <Video />
+      {/* <Video /> */}
       <WhatCanIDo />
       <Previous />
       <Feel />

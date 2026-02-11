@@ -16,23 +16,19 @@ import figma6 from "../assets/figma6.svg";
 import figma7 from "../assets/figma7.svg";
 import figma8 from "../assets/figma8.svg";
 import figma9 from "../assets/figma9.svg";
-import zoom01 from "../assets/zoom01.svg";
-import mouse from "../assets/mouse.svg";
+
+import zoom02 from "../assets/zoom02.svg";
+import zoom03 from "../assets/zoom03.svg";
+import zoom04 from "../assets/zoom04.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Figma() {
   const sectionRef = useRef(null);
-  const stageRef = useRef(null);
+  const trackRef = useRef(null);
 
-  // ✅ GSAP은 "zoomContent"만 만진다 (중앙정렬은 wrapper가 담당)
   const zoomRef = useRef(null);
   const figma5Ref = useRef(null);
-  const cursorRef = useRef(null);
-
-  // 커스텀 커서 제어용 상태
-  const [showCursor, setShowCursor] = React.useState(false);
-  const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
 
   const overlays = useMemo(
     () => [
@@ -49,166 +45,106 @@ export default function Figma() {
     []
   );
 
+  const commonTitle = "01. Immerse Myself in the Future";
+  const commonDesc =
+    "제가 배움을 멈추지 않는 이유는 미래를 향해 몰입하기 위해서에요.\n오늘의 배움이 내일의 판단을 더 단단하게 만든다고 믿는답니다.";
+
   useEffect(() => {
     const section = sectionRef.current;
+    const track = trackRef.current;
+    const zoom = zoomRef.current;
+    const figma5 = figma5Ref.current;
 
-    let ctx = gsap.context(() => {
-      const stage = stageRef.current;
-      const zoom = zoomRef.current;
-      const figma5 = figma5Ref.current;
+    if (!section || !track || !zoom || !figma5) return;
 
-      if (!stage || !zoom || !figma5 || !section) return;
-
-      // ✅ 초기 상태: 3배 캔버스이므로 1/3로 축소해서 원래 보이는 크기 유지
+    const ctx = gsap.context(() => {
+      // 초기값
+      gsap.set(track, { xPercent: 0 });
       gsap.set(zoom, {
         transformOrigin: "center center",
+        scale: 0.3333,
         x: 0,
         y: 0,
-        scale: 0.3333, // 1/3
       });
 
-      // ✅ 중심 오프셋 계산 함수
       const getCenterOffset = () => {
-        const currentScale = gsap.getProperty(zoom, "scale");
-        const currentX = gsap.getProperty(zoom, "x");
-        const currentY = gsap.getProperty(zoom, "y");
+        const s = gsap.getProperty(zoom, "scale");
+        const x = gsap.getProperty(zoom, "x");
+        const y = gsap.getProperty(zoom, "y");
+        const t = gsap.getProperty(track, "xPercent");
 
-        // 계산용 리셋 (scale 1 = 3x resolution 상태)
+        gsap.set(track, { xPercent: 0 });
         gsap.set(zoom, { scale: 1, x: 0, y: 0 });
 
         const zoomRect = zoom.getBoundingClientRect();
         const f5Rect = figma5.getBoundingClientRect();
 
-        const zoomCenter = {
-          x: zoomRect.left + zoomRect.width / 2,
-          y: zoomRect.top + zoomRect.height / 2,
-        };
-        const f5Center = {
-          x: f5Rect.left + f5Rect.width / 2,
-          y: f5Rect.top + f5Rect.height / 2,
-        };
+        const dx = zoomRect.left + zoomRect.width / 2 - (f5Rect.left + f5Rect.width / 2);
+        const dy = zoomRect.top + zoomRect.height / 2 - (f5Rect.top + f5Rect.height / 2);
 
-        const dx = zoomCenter.x - f5Center.x;
-        const dy = zoomCenter.y - f5Center.y;
-
-        // 상태 복구
-        gsap.set(zoom, { scale: currentScale, x: currentX, y: currentY });
+        gsap.set(zoom, { scale: s, x, y });
+        gsap.set(track, { xPercent: t });
 
         return { x: dx, y: dy };
       };
 
       let targetOffset = getCenterOffset();
 
+      // ✅ end를 “장면 수 기반으로 자동 길게” 계산
+      // - 4장(0,1,2,3) 패닝 = 3번 이동
+      // - 각 이동당 스크롤 길이를 넉넉히 2400px로 잡음(체감 느리게)
+      const PAN_SEGMENT = 2400;
+      const ZOOM_SEGMENT = 2600;
+      const HOLD_SEGMENT = 800;
+      const TOTAL_END = ZOOM_SEGMENT + HOLD_SEGMENT + PAN_SEGMENT * 3;
+
+      const FINAL_SCALE = 2.55;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=3000",
-          pin: stage,
-          scrub: 0.8,
+          end: `+=${TOTAL_END}`,
+          pin: true,            // ✅ stage가 아니라 섹션 자체를 핀(안정)
+          scrub: 1.0,           // ✅ 부드럽게
           anticipatePin: 1,
-          fastScrollEnd: true,
           invalidateOnRefresh: true,
+          pinSpacing: true,
           onRefresh: () => {
             targetOffset = getCenterOffset();
           },
-          onLeave: () => {
-            setShowCursor(false);
-            document.body.style.cursor = "default";
-          },
-          onLeaveBack: () => {
-            setShowCursor(false);
-            document.body.style.cursor = "default";
-          },
         },
       });
 
-      // Scale Factor Q = 3 (기존 scale 값 나누기 3)
-      // 1) 첫 스크롤: 1.15 -> 0.3833
-      tl.to(zoom, {
-        scale: 0.3833,
-        duration: 2,
-        ease: "power2.inOut",
-      });
-
-      // 2) 중간: 2.5 -> 0.8333
+      // 줌
+      tl.to(zoom, { scale: 0.3833, duration: 2.2, ease: "power2.inOut" });
+      tl.to(zoom, { scale: 0.8333, duration: 2.0, ease: "power2.inOut" }, ">");
+      tl.to(zoom, { scale: 1.2666, duration: 2.0, ease: "power2.inOut" }, ">");
       tl.to(
         zoom,
         {
-          scale: 0.8333,
-          duration: 1.5,
-          ease: "power2.in",
-        },
-        ">"
-      );
-
-      // 3) 더 확대: 3.8 -> 1.2666
-      tl.to(
-        zoom,
-        {
-          scale: 1.2666,
-          duration: 1.5,
-          ease: "power2.in",
-        },
-        ">"
-      );
-
-      // 4) 마지막: 줌인 더욱 강화 (4배 확대하여 화면 꽉 채움)
-      tl.to(
-        zoom,
-        {
-          scale: 4,
-          x: () => targetOffset.x * 4,
-          y: () => targetOffset.y * 4,
-          duration: 3,
+          scale: FINAL_SCALE,
+          x: () => targetOffset.x * FINAL_SCALE,
+          y: () => targetOffset.y * FINAL_SCALE,
+          duration: 3.0,
           ease: "power2.inOut",
-          onUpdate: function () {
-            // 줌이 진행 중일 때는 무조건 커서 숨김
-            setShowCursor(false);
-            document.body.style.cursor = "default";
-          }
         },
         ">"
       );
 
-      // 5) 가로 스크롤 (오른쪽 zoom01 보이기)
-      tl.to(
-        zoom,
-        {
-          x: () => (targetOffset.x * 4) - (window.innerWidth * 2.5),
-          duration: 4,
-          ease: "none",
-          onStart: () => {
-            setShowCursor(true);
-            document.body.style.cursor = "none";
-          },
-          onComplete: () => {
-            setShowCursor(false);
-            document.body.style.cursor = "default";
-          },
-          onReverseComplete: () => {
-            setShowCursor(false);
-            document.body.style.cursor = "default";
-          },
-          onReverseStart: () => {
-            setShowCursor(true);
-            document.body.style.cursor = "none";
-          }
-        },
-        ">"
-      );
+      // 홀드(줌 끝나기 전에 내려가는 느낌 방지)
+      tl.to({}, { duration: 1.0 });
+
+      // 패닝 3번 (4장)
+      tl.to(track, { xPercent: -100, duration: 4.0, ease: "power1.inOut" }, ">");
+      tl.to(track, { xPercent: -200, duration: 4.0, ease: "power1.inOut" }, ">");
+      tl.to(track, { xPercent: -300, duration: 4.0, ease: "power1.inOut" }, ">");
+
+      // refresh 안정화
+      ScrollTrigger.refresh();
     }, sectionRef);
 
-    // 마우스 추적
-    const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      ctx.revert();
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -223,82 +159,78 @@ export default function Figma() {
         <p className="figma-subtitle">저의 생각을 들여다보면 아래와 같아요.</p>
       </section>
 
-      {/* 커스텀 커서 (가로 스크롤 영역에서만 활성화) */}
-      <div
-        ref={cursorRef}
-        className={`figma-cursor ${showCursor ? 'is-visible' : ''}`}
-        style={{
-          left: mousePos.x,
-          top: mousePos.y
-        }}
-      >
-        <img src={mouse} alt="" />
-      </div>
-
-      {/* full-bleed section */}
+      {/* ✅ 여기 섹션 자체가 pin 됨 */}
       <section ref={sectionRef} className="pinSection" aria-label="Zoom section">
-        <div ref={stageRef} className="pinStage">
-          <div className="pinCenter">
-            {/* ✅ 중앙정렬 담당: GSAP이 transform 덮어써도 안 흔들림 */}
-            <div className="zoomWrapper">
-              {/* ✅ GSAP이 만지는 대상 */}
-              <div ref={zoomRef} className="zoomContent">
-                <motion.img
-                  className="valueBase"
-                  src={valueImg}
-                  alt=""
-                  draggable="false"
-                  initial={{ opacity: 0, y: 100, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{ type: "spring", stiffness: 80, damping: 15 }}
-                />
-
-                {overlays.map((o, idx) =>
-                  o.isFigma5 ? (
-                    <motion.img
-                      key={o.id}
-                      ref={figma5Ref}
-                      className="overlayItem"
-                      data-id={o.id}
-                      src={o.src}
-                      alt=""
-                      draggable="false"
-                      initial={{ opacity: 0, y: 80, scale: 0.8 }}
-                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                      viewport={{ once: true, amount: 0.1 }}
-                      transition={{ type: "spring", stiffness: 120, damping: 10, delay: idx * 0.05 }}
-                    />
-                  ) : (
-                    <motion.img
-                      key={o.id}
-                      className="overlayItem"
-                      data-id={o.id}
-                      src={o.src}
-                      alt=""
-                      draggable="false"
-                      initial={{ opacity: 0, y: 80, scale: 0.8 }}
-                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                      viewport={{ once: true, amount: 0.1 }}
-                      transition={{ type: "spring", stiffness: 120, damping: 10, delay: idx * 0.05 }}
-                    />
-                  )
-                )}
-
-                {/* ✅ 가로 스크롤 타겟: figma5 오른쪽에 위치 */}
-                <img
-                  className="zoom-artboard"
-                  src={zoom01}
-                  alt=""
-                  draggable="false"
-                />
+        <div className="pinStage">
+          <div className="viewport">
+            <div ref={trackRef} className="sceneTrack sceneTrack4">
+              {/* SCENE 0 (줌 보드) */}
+              <div className="scene scene1">
+                <div className="zoomWrapper">
+                  <div ref={zoomRef} className="zoomContent">
+                    <motion.img className="valueBase" src={valueImg} alt="" draggable="false" />
+                    {overlays.map((o) =>
+                      o.isFigma5 ? (
+                        <img
+                          key={o.id}
+                          ref={figma5Ref}
+                          className="overlayItem"
+                          data-id={o.id}
+                          src={o.src}
+                          alt=""
+                          draggable="false"
+                        />
+                      ) : (
+                        <img
+                          key={o.id}
+                          className="overlayItem"
+                          data-id={o.id}
+                          src={o.src}
+                          alt=""
+                          draggable="false"
+                        />
+                      )
+                    )}
+                  </div>
+                </div>
               </div>
+
+              {/* SCENE 1 (zoom02) */}
+              <SlideScene img={zoom02} title={commonTitle} desc={commonDesc} />
+
+              {/* SCENE 2 (zoom03) */}
+              <SlideScene img={zoom03} title={commonTitle} desc={commonDesc} />
+
+              {/* SCENE 3 (zoom04) */}
+              <SlideScene img={zoom04} title={commonTitle} desc={commonDesc} />
             </div>
           </div>
         </div>
       </section>
 
+      {/* ✅ 가로 다 끝난 후에만 아래로 내려오게 됨 */}
       <section className="afterSpace" aria-hidden="true" />
     </main>
+  );
+}
+
+function SlideScene({ img, title, desc }) {
+  return (
+    <div className="scene sceneSlide" aria-hidden="true">
+      <div className="slideInner">
+        <img className="slideImg" src={img} alt="" draggable="false" />
+        <div className="slideText">
+          <h3 className="slideTitle">{title}</h3>
+          <p className="slideDesc">
+            {desc.split("\n").map((line, i) => (
+              <span key={i}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -19,6 +19,8 @@
   opacity: 1;
   pointer-events: none;
   transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+  /* 전환 성능 개선 */
 }
 
 .previous.is-visible::before {
@@ -27,10 +29,12 @@
 
 .previous__inner {
   width: 100%;
-  max-width: 1600px; /* 필요 시 조정 */
+  max-width: 1600px;
+  /* 필요 시 조정 */
   margin: 0 auto;
   display: flex;
-  gap: 120px; /* 좌/우 간격 (필요하면 조정) */
+  gap: 120px;
+  /* 좌/우 간격 (필요하면 조정) */
   align-items: flex-start;
   position: relative;
   z-index: 10;
@@ -38,7 +42,8 @@
 
 /* ========== Left ========== */
 .previous__left {
-  width: 520px; /* 대략 */
+  width: 520px;
+  /* 대략 */
 }
 
 .previous__leftHead {
@@ -48,7 +53,8 @@
 .previous__label {
   font-family: "Pretendard";
   font-size: 30px;
-  color: #18c15f; /* 연두 느낌 */
+  color: #18c15f;
+  /* 연두 느낌 */
   font-weight: 500;
   margin-bottom: 10px;
 }
@@ -102,16 +108,19 @@
   font-family: "Pretendard";
   font-size: 36px;
   font-weight: 500;
-  color: #dedede; /* 기본 비활성 */
+  color: #dedede;
+  /* 기본 비활성 */
 }
 
 /* 비활성 텍스트 */
 .previous__item:not(.is-active) .previous__num {
   color: #dedede;
 }
+
 .previous__item.is-active .previous__title {
   color: #1f1f1f;
 }
+
 .previous__item:not(.is-active) .previous__title {
   color: #dedede;
 }
@@ -181,9 +190,14 @@
   height: 100%;
   display: flex;
   align-items: stretch;
-  gap: 62px; /* 왼쪽 묶음과 이미지 묶음 간격 */
-  padding: 33px; /* 흰박스 속 왼쪽 묶음: 상하좌우 33px */
+  gap: 62px;
+  padding: 33px;
   animation: prevFadeSlide 260ms ease both;
+  will-change: transform, opacity;
+  align-items: stretch;
+  /* 애니메이션 성능 개선 */
+  min-height: 420px;
+  /* 너 디자인에 맞게 숫자만 조절 */
 }
 
 @keyframes prevFadeSlide {
@@ -192,6 +206,7 @@
     transform: translateY(10px);
     filter: blur(1px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -201,9 +216,11 @@
 
 /* 왼쪽 컨텐츠 묶음 */
 .previous__boxContent {
-  width: 420px; /* 텍스트 영역 대략 */
+  width: 420px;
+  /* 텍스트 영역 대략 */
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 /* tool 아이콘 */
@@ -228,19 +245,22 @@
   margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
-  gap: 17px; /* 텍스트끼리 간격 17px */
+  gap: 17px;
+  /* 텍스트끼리 간격 17px */
   font-family: "Pretendard";
   font-size: 20px;
   color: #1f1f1f;
   font-weight: 500;
 }
 
-/* 툴 텍스트 ↔ 시계 139px */
+/* ✅ 툴 개수 상관없이 시계(기간)는 항상 아래로 고정 */
 .previous__time {
-  margin-top: 139px;
+  margin-top: auto;
+  /* ✅ 핵심 */
   display: flex;
   align-items: center;
-  gap: 8px; /* 시계아이콘과 텍스트 간격 8px */
+  gap: 8px;
+  /* 시계아이콘과 텍스트 간격 8px */
   font-family: "Pretendard";
   font-size: 22px;
   color: #bcbcbc;

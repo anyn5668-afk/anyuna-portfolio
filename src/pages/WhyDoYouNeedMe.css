@@ -152,6 +152,8 @@
   width: clamp(220px, 26vw, 350px);
 
   aspect-ratio: 1 / 1;
+  will-change: transform, opacity;
+  /* 모션 성능 최적화 */
 }
 
 .why-blue-video {
@@ -219,6 +221,8 @@
   width: clamp(70px, 7vw, 120px);
 
   height: auto;
+  will-change: transform, opacity;
+  /* 꿀벌 애니메이션 최적화 */
 }
 
 /* ===== Next section wrapper (Top component area) ===== */

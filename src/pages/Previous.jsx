@@ -24,6 +24,11 @@ const Previous = () => {
         title: "1Million Renewal Project",
         image: previous01,
         tool: tool01,
+        link: null,
+        desc: `K-brand 리뉴얼 프로젝트에서 댄스 스튜디오 브랜드
+“1Million”을 맡아 k-pop dance에 트렌디함을 더
+해 리뉴얼하였습니다.`,
+        tools: ["Figma", "Photoshop", "Vscode", "Github", "Javascript"],
       },
       {
         id: 1,
@@ -31,6 +36,17 @@ const Previous = () => {
         title: "NOVA Branding Project",
         image: previous02,
         tool: tool02,
+        link: null,
+        desc: `최근 하나의 컨텐츠로 자리잡게된 버츄얼 문화
+흐름에 따라 버츄얼 아이돌 팬덤 어플을 제작하였습니다.`,
+        tools: [
+          "Photoshop",
+          "Midjourney",
+          "React",
+          "Figma",
+          "Github",
+          "Illerstrator",
+        ],
       },
       {
         id: 2,
@@ -38,6 +54,11 @@ const Previous = () => {
         title: "Klip Branding Project",
         image: previous03,
         tool: tool03,
+        link:
+          "https://www.figma.com/proto/hsLWVi8BayKW1Xc58dBsQ6/13.%EC%95%88%EC%9C%A0%EB%82%98?page-id=2246%3A6494&node-id=2246-6495&viewport=397%2C132%2C0.13&t=4wAHcuZJDrkuGxsF-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2246%3A6495",
+        desc: `정기구독 지출을 관리해주는
+나만의 지갑지킴이 "Clip"을 제작하였습니다.`,
+        tools: ["Figma", "Illerstrator", "Photoshop"],
       },
     ],
     [],
@@ -51,7 +72,11 @@ const Previous = () => {
     setActiveIndex(idx);
   };
 
-  // ✅ 스크롤 올렸다/내렸다 반복해도 전환 반복되게
+  const handleSeeMore = () => {
+    if (!active?.link) return;
+    window.open(active.link, "_blank", "noopener,noreferrer");
+  };
+
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -61,11 +86,9 @@ const Previous = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // 보이면 true, 안 보이면 false로 계속 갱신 → 반복 가능
         setIsVisible(entry.isIntersecting);
       },
       {
-        // 20% 보이면 트리거 (원하면 0.01로 낮춰도 됨)
         threshold: 0.2,
       },
     );
@@ -121,6 +144,7 @@ const Previous = () => {
               label="See more"
               accentColor="#18C15F"
               lightAccentColor="#18C15F"
+              onClick={handleSeeMore}
             />
           </div>
         </div>
@@ -141,18 +165,18 @@ const Previous = () => {
                 />
 
                 <p className="previous__desc">
-                  K-brand 리뉴얼 프로젝트에서 댄스 스튜디오 브랜드
-                  <br />
-                  “1Million”을 맡아 k-pop dance에 트렌디함을 더
-                  <br />해 리뉴얼하였습니다.
+                  {active.desc.split("\n").map((line, i) => (
+                    <span key={i}>
+                      {line}
+                      <br />
+                    </span>
+                  ))}
                 </p>
 
                 <div className="previous__tools">
-                  <span>• Figma</span>
-                  <span>• Photoshop</span>
-                  <span>• Vscode</span>
-                  <span>• Github</span>
-                  <span>• Javascript</span>
+                  {active.tools.map((tool, i) => (
+                    <span key={i}>• {tool}</span>
+                  ))}
                 </div>
 
                 <div className="previous__time">
