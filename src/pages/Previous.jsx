@@ -24,7 +24,7 @@ const Previous = () => {
         title: "1Million Renewal Project",
         image: previous01,
         tool: tool01,
-        link: null,
+        link: "https://yunjioh.github.io/1million/",
         desc: `K-brand 리뉴얼 프로젝트에서 댄스 스튜디오 브랜드
 “1Million”을 맡아 k-pop dance에 트렌디함을 더
 해 리뉴얼하였습니다.`,
@@ -36,7 +36,7 @@ const Previous = () => {
         title: "NOVA Branding Project",
         image: previous02,
         tool: tool02,
-        link: null,
+        link: "https://tubi-nova.vercel.app/",
         desc: `최근 하나의 컨텐츠로 자리잡게된 버츄얼 문화
 흐름에 따라 버츄얼 아이돌 팬덤 어플을 제작하였습니다.`,
         tools: [
@@ -54,8 +54,7 @@ const Previous = () => {
         title: "Klip Branding Project",
         image: previous03,
         tool: tool03,
-        link:
-          "https://www.figma.com/proto/hsLWVi8BayKW1Xc58dBsQ6/13.%EC%95%88%EC%9C%A0%EB%82%98?page-id=2246%3A6494&node-id=2246-6495&viewport=397%2C132%2C0.13&t=4wAHcuZJDrkuGxsF-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2246%3A6495",
+        link: "https://www.figma.com/proto/hsLWVi8BayKW1Xc58dBsQ6/13.%EC%95%88%EC%9C%A0%EB%82%98?page-id=2246%3A6494&node-id=2246-6495&viewport=397%2C132%2C0.13&t=4wAHcuZJDrkuGxsF-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2246%3A6495",
         desc: `정기구독 지출을 관리해주는
 나만의 지갑지킴이 "Clip"을 제작하였습니다.`,
         tools: ["Figma", "Illerstrator", "Photoshop"],

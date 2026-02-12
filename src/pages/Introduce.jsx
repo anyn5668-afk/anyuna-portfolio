@@ -30,7 +30,8 @@ function Introduce() {
       title: "Award",
       content: [
         { text: "2021 제 41회 전국 만해백일장 장려상 수상" },
-        { text: "2024 한국디자인 진흥원 (Kidp)" },
+        { text: "2021 제 41회 전국 만해백일장 장려상 수상" },
+        { text: "(2024)제 59회 경기 디자인대전" },
         { text: "포스터 디자인 부문 입선", indent: true },
       ],
     },

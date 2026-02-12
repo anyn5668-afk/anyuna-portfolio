@@ -6,6 +6,48 @@
   overflow-x: hidden;
 }
 
+.figma-hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.figma-tag {
+  border: 1px solid #ffc92f;
+  color: #ffc92f;
+  border-radius: 999px;
+  padding: 6px 14px;
+
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 18px;
+
+  background: transparent;
+  font-family: "Canela Condensed Light Trial", serif;
+}
+
+.figma-title {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  font-size: 9.375rem;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+
+  margin: 0;
+  color: #111;
+}
+
+.figma-subtitle {
+  margin-top: 30px;
+  margin-bottom: 0;
+
+  font-size: 20px;
+  color: #828282;
+  line-height: 1.6;
+}
+
 .pinSection {
   align-self: stretch;
   width: 100vw;
@@ -15,7 +57,7 @@
   position: relative;
 
   /* ✅ 중요: 핀 구간 중 푸터가 올라오지 않게 충분히 크게 */
-  height: 700vh;
+  height: 300vh;
   overflow: hidden;
 }
 
@@ -41,7 +83,7 @@
 }
 
 .sceneTrack4 {
-  width: 400vw;
+  width: 200vw;
 }
 
 .scene {
@@ -134,7 +176,7 @@
 
 /* slide scenes */
 .sceneSlide {
-  background: #ffffff;
+  background: #f3f3f5;
   display: flex;
   align-items: center;
   justify-content: center;

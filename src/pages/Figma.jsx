@@ -20,6 +20,7 @@ import figma9 from "../assets/figma9.svg";
 import zoom02 from "../assets/zoom02.svg";
 import zoom03 from "../assets/zoom03.svg";
 import zoom04 from "../assets/zoom04.svg";
+import zoom05 from "../assets/zoom05.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,12 +43,19 @@ export default function Figma() {
       { id: "figma8", src: figma8 },
       { id: "figma9", src: figma9 },
     ],
-    []
+    [],
   );
 
   const commonTitle = "01. Immerse Myself in the Future";
   const commonDesc =
     "제가 배움을 멈추지 않는 이유는 미래를 향해 몰입하기 위해서에요.\n오늘의 배움이 내일의 판단을 더 단단하게 만든다고 믿는답니다.";
+
+  // ✅ zoom03 전용
+  const zoom03Title = "02. Design with Purpose";
+  const zoom03Desc =
+    "사용자의 맥락과 감정을 이해하는 것에서 좋은 UX는 시작된다고 믿습니다.\n" +
+    "복잡함을 덜어내고, 꼭 필요한 경험만 남기는 디자인으로\n" +
+    "사용자의 선택을 더 쉬워지게 만들고 싶습니다.";
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -79,8 +87,10 @@ export default function Figma() {
         const zoomRect = zoom.getBoundingClientRect();
         const f5Rect = figma5.getBoundingClientRect();
 
-        const dx = zoomRect.left + zoomRect.width / 2 - (f5Rect.left + f5Rect.width / 2);
-        const dy = zoomRect.top + zoomRect.height / 2 - (f5Rect.top + f5Rect.height / 2);
+        const dx =
+          zoomRect.left + zoomRect.width / 2 - (f5Rect.left + f5Rect.width / 2);
+        const dy =
+          zoomRect.top + zoomRect.height / 2 - (f5Rect.top + f5Rect.height / 2);
 
         gsap.set(zoom, { scale: s, x, y });
         gsap.set(track, { xPercent: t });
@@ -90,12 +100,12 @@ export default function Figma() {
 
       let targetOffset = getCenterOffset();
 
-      // ✅ end를 “장면 수 기반으로 자동 길게” 계산
-      // - 4장(0,1,2,3) 패닝 = 3번 이동
-      // - 각 이동당 스크롤 길이를 넉넉히 2400px로 잡음(체감 느리게)
-      const PAN_SEGMENT = 2400;
-      const ZOOM_SEGMENT = 2600;
-      const HOLD_SEGMENT = 800;
+      // ✅ 길이/속도 튜닝 (공주님 현재 값 유지)
+      const ZOOM_SEGMENT = 1700;
+      const HOLD_SEGMENT = 3;
+      const PAN_SEGMENT = 3020;
+      const POST_SEGMENT = 120;
+
       const TOTAL_END = ZOOM_SEGMENT + HOLD_SEGMENT + PAN_SEGMENT * 3;
 
       const FINAL_SCALE = 2.55;
@@ -105,8 +115,8 @@ export default function Figma() {
           trigger: section,
           start: "top top",
           end: `+=${TOTAL_END}`,
-          pin: true,            // ✅ stage가 아니라 섹션 자체를 핀(안정)
-          scrub: 1.0,           // ✅ 부드럽게
+          pin: true,
+          scrub: 1.0,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           pinSpacing: true,
@@ -129,18 +139,29 @@ export default function Figma() {
           duration: 3.0,
           ease: "power2.inOut",
         },
-        ">"
+        ">",
       );
 
-      // 홀드(줌 끝나기 전에 내려가는 느낌 방지)
+      // 홀드
       tl.to({}, { duration: 1.0 });
 
       // 패닝 3번 (4장)
-      tl.to(track, { xPercent: -100, duration: 4.0, ease: "power1.inOut" }, ">");
-      tl.to(track, { xPercent: -200, duration: 4.0, ease: "power1.inOut" }, ">");
-      tl.to(track, { xPercent: -300, duration: 4.0, ease: "power1.inOut" }, ">");
+      tl.to(
+        track,
+        { xPercent: -100, duration: 4.0, ease: "power1.inOut" },
+        ">",
+      );
+      tl.to(
+        track,
+        { xPercent: -200, duration: 4.0, ease: "power1.inOut" },
+        ">",
+      );
+      tl.to(
+        track,
+        { xPercent: -300, duration: 4.0, ease: "power1.inOut" },
+        ">",
+      );
 
-      // refresh 안정화
       ScrollTrigger.refresh();
     }, sectionRef);
 
@@ -159,8 +180,11 @@ export default function Figma() {
         <p className="figma-subtitle">저의 생각을 들여다보면 아래와 같아요.</p>
       </section>
 
-      {/* ✅ 여기 섹션 자체가 pin 됨 */}
-      <section ref={sectionRef} className="pinSection" aria-label="Zoom section">
+      <section
+        ref={sectionRef}
+        className="pinSection"
+        aria-label="Zoom section"
+      >
         <div className="pinStage">
           <div className="viewport">
             <div ref={trackRef} className="sceneTrack sceneTrack4">
@@ -168,7 +192,12 @@ export default function Figma() {
               <div className="scene scene1">
                 <div className="zoomWrapper">
                   <div ref={zoomRef} className="zoomContent">
-                    <motion.img className="valueBase" src={valueImg} alt="" draggable="false" />
+                    <motion.img
+                      className="valueBase"
+                      src={valueImg}
+                      alt=""
+                      draggable="false"
+                    />
                     {overlays.map((o) =>
                       o.isFigma5 ? (
                         <img
@@ -189,7 +218,7 @@ export default function Figma() {
                           alt=""
                           draggable="false"
                         />
-                      )
+                      ),
                     )}
                   </div>
                 </div>
@@ -198,17 +227,17 @@ export default function Figma() {
               {/* SCENE 1 (zoom02) */}
               <SlideScene img={zoom02} title={commonTitle} desc={commonDesc} />
 
-              {/* SCENE 2 (zoom03) */}
-              <SlideScene img={zoom03} title={commonTitle} desc={commonDesc} />
+              {/* SCENE 2 (zoom03) - ✅ 다른 문구 */}
+              <SlideScene img={zoom03} title={zoom03Title} desc={zoom03Desc} />
 
               {/* SCENE 3 (zoom04) */}
               <SlideScene img={zoom04} title={commonTitle} desc={commonDesc} />
+              <SlideScene img={zoom05} title={commonTitle} desc={commonDesc} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ✅ 가로 다 끝난 후에만 아래로 내려오게 됨 */}
       <section className="afterSpace" aria-hidden="true" />
     </main>
   );

@@ -11,6 +11,8 @@ import work3 from "../assets/uiux-work3.svg";
 import work4 from "../assets/uiux-work4.svg";
 import work5 from "../assets/uiux-work5.svg";
 import work6 from "../assets/uiux-work6.svg";
+import work7 from "../assets/uiux-work7.svg";
+import work8 from "../assets/uiux-work8.svg";
 
 import drop1 from "../assets/drop1.svg";
 import drop2 from "../assets/drop2.svg";
@@ -40,7 +42,7 @@ export default function School() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     targets.forEach((el) => io.observe(el));
@@ -49,7 +51,7 @@ export default function School() {
 
   const projects = [
     { title: "UI/UX", img1: work1, img2: work2 },
-    { title: "BRANDING", img1: work1, img2: work2 },
+    { title: "BRANDING", img1: work7, img2: work8 },
     { title: "PACKAGE", img1: work5, img2: work6 }, // uiux-work5, 6 파일이 없어 폴백 적용
     { title: "EDITING", img1: work3, img2: work4 },
   ];
@@ -57,7 +59,11 @@ export default function School() {
   return (
     <main className="school" ref={sectionRef}>
       {/* background line */}
-      <img className="school-beeline reveal reveal--smooth" src={beeLine} alt="" />
+      <img
+        className="school-beeline reveal reveal--smooth"
+        src={beeLine}
+        alt=""
+      />
       <img className="school-bee reveal reveal--char" src={bee} alt="" />
 
       <section className="school-top">
@@ -97,7 +103,14 @@ export default function School() {
 /**
  * 프로젝트별 개별 아이템 컴포넌트
  */
-function SchoolProjectItem({ title, img1, img2, index, hoveredIndex, setHoveredIndex }) {
+function SchoolProjectItem({
+  title,
+  img1,
+  img2,
+  index,
+  hoveredIndex,
+  setHoveredIndex,
+}) {
   const containerRef = useRef(null);
   const dropsWrapRef = useRef(null);
   const dropRefs = useRef([]);
@@ -235,7 +248,9 @@ function SchoolProjectItem({ title, img1, img2, index, hoveredIndex, setHoveredI
       const h = Math.max(36, b?.height || 48);
 
       return {
-        el, w, h,
+        el,
+        w,
+        h,
         x: ORIGIN_X + gsap.utils.random(-30, 30),
         y: ORIGIN_Y + gsap.utils.random(-30, 10),
         vx: gsap.utils.random(-180, 180),
@@ -268,7 +283,10 @@ function SchoolProjectItem({ title, img1, img2, index, hoveredIndex, setHoveredI
       if (elapsed < DROP_PHASE_MS) simRef.current.phase = "drop";
       else simRef.current.phase = "settle";
 
-      const groundedCount = items.reduce((acc, it) => acc + (it.grounded ? 1 : 0), 0);
+      const groundedCount = items.reduce(
+        (acc, it) => acc + (it.grounded ? 1 : 0),
+        0,
+      );
       if (groundedCount >= Math.ceil(items.length * GROUNDED_RATIO_TO_SETTLE)) {
         simRef.current.phase = "settle";
       }
@@ -281,20 +299,29 @@ function SchoolProjectItem({ title, img1, img2, index, hoveredIndex, setHoveredI
       for (const it of items) {
         const g = simRef.current.phase === "drop" ? GRAVITY : GRAVITY * 0.2;
         it.vy += g * dt;
-        it.vx *= AIR; it.vy *= AIR;
+        it.vx *= AIR;
+        it.vy *= AIR;
         it.vx = Math.max(-MAX_VX, Math.min(MAX_VX, it.vx));
         it.vy = Math.max(-MAX_VY, Math.min(MAX_VY, it.vy));
-        it.x += it.vx * dt; it.y += it.vy * dt;
-        it.r += it.vr * dt; it.vr *= 0.985;
+        it.x += it.vx * dt;
+        it.y += it.vy * dt;
+        it.r += it.vr * dt;
+        it.vr *= 0.985;
         it.r = Math.max(-28, Math.min(28, it.r));
       }
 
       for (const it of items) {
-        if (it.x < 0) { it.x = 0; it.vx = -it.vx * WALL_REST; }
-        else if (it.x + it.w > W) { it.x = W - it.w; it.vx = -it.vx * WALL_REST; }
+        if (it.x < 0) {
+          it.x = 0;
+          it.vx = -it.vx * WALL_REST;
+        } else if (it.x + it.w > W) {
+          it.x = W - it.w;
+          it.vx = -it.vx * WALL_REST;
+        }
         const floor = H - it.h;
         if (it.y >= floor - EPS) {
-          it.y = floor; it.grounded = true;
+          it.y = floor;
+          it.grounded = true;
           if (it.vy > 0) it.vy = 0;
           it.vx *= FLOOR_FRICTION;
           if (Math.abs(it.vx) < 25) it.vx = 0;
@@ -302,41 +329,68 @@ function SchoolProjectItem({ title, img1, img2, index, hoveredIndex, setHoveredI
         } else it.grounded = false;
       }
 
-      const iter = simRef.current.phase === "drop" ? COLLISION_ITER_DROP : COLLISION_ITER_SETTLE;
+      const iter =
+        simRef.current.phase === "drop"
+          ? COLLISION_ITER_DROP
+          : COLLISION_ITER_SETTLE;
       for (let k = 0; k < iter; k++) {
         for (let i = 0; i < items.length; i++) {
           for (let j = i + 1; j < items.length; j++) {
             const a = items[i];
             const b = items[j];
-            const aw = a.w * HITBOX; const ah = a.h * HITBOX;
-            const bw = b.w * HITBOX; const bh = b.h * HITBOX;
-            const ax1 = a.x + (a.w - aw) / 2; const ay1 = a.y + (a.h - ah) / 2;
-            const ax2 = ax1 + aw; const ay2 = ay1 + ah;
-            const bx1 = b.x + (b.w - bw) / 2; const by1 = b.y + (b.h - bh) / 2;
-            const bx2 = bx1 + bw; const by2 = by1 + bh;
+            const aw = a.w * HITBOX;
+            const ah = a.h * HITBOX;
+            const bw = b.w * HITBOX;
+            const bh = b.h * HITBOX;
+            const ax1 = a.x + (a.w - aw) / 2;
+            const ay1 = a.y + (a.h - ah) / 2;
+            const ax2 = ax1 + aw;
+            const ay2 = ay1 + ah;
+            const bx1 = b.x + (b.w - bw) / 2;
+            const by1 = b.y + (b.h - bh) / 2;
+            const bx2 = bx1 + bw;
+            const by2 = by1 + bh;
             const ox = Math.min(ax2, bx2) - Math.max(ax1, bx1);
             const oy = Math.min(ay2, by2) - Math.max(ay1, by1);
 
             if (ox > 0 && oy > 0) {
               if (oy < ox) {
                 const push = oy * 0.52;
-                if (ay1 < by1) { a.y -= push; b.y += push; }
-                else { a.y += push; b.y -= push; }
+                if (ay1 < by1) {
+                  a.y -= push;
+                  b.y += push;
+                } else {
+                  a.y += push;
+                  b.y -= push;
+                }
                 const energy = (Math.abs(a.vy) + Math.abs(b.vy)) * 0.001;
-                const imp = ox * energy * (simRef.current.phase === "drop" ? IMPULSE_DROP : IMPULSE_SETTLE);
-                a.vx -= imp; b.vx += imp;
+                const imp =
+                  ox *
+                  energy *
+                  (simRef.current.phase === "drop"
+                    ? IMPULSE_DROP
+                    : IMPULSE_SETTLE);
+                a.vx -= imp;
+                b.vx += imp;
                 a.vy *= simRef.current.phase === "drop" ? 0.45 : 0.85;
                 b.vy *= simRef.current.phase === "drop" ? 0.45 : 0.85;
               } else {
                 const push = ox * 0.52;
-                if (ax1 < bx1) { a.x -= push; b.x += push; }
-                else { a.x += push; b.x -= push; }
+                if (ax1 < bx1) {
+                  a.x -= push;
+                  b.x += push;
+                } else {
+                  a.x += push;
+                  b.x -= push;
+                }
                 const tmp = a.vx;
                 a.vx = b.vx * (simRef.current.phase === "drop" ? 0.6 : 0.3);
                 b.vx = tmp * (simRef.current.phase === "drop" ? 0.6 : 0.3);
               }
-              if (a.x < 0) a.x = 0; if (b.x < 0) b.x = 0;
-              if (a.x + a.w > W) a.x = W - a.w; if (b.x + b.w > W) b.x = W - b.w;
+              if (a.x < 0) a.x = 0;
+              if (b.x < 0) b.x = 0;
+              if (a.x + a.w > W) a.x = W - a.w;
+              if (b.x + b.w > W) b.x = W - b.w;
             }
           }
         }
@@ -348,7 +402,8 @@ function SchoolProjectItem({ title, img1, img2, index, hoveredIndex, setHoveredI
           const dx = it.tx - it.x;
           it.vx += dx * SPRING_X;
           it.vx *= DAMP_X;
-          it.y = it.ty; it.vy = 0;
+          it.y = it.ty;
+          it.vy = 0;
           it.r += (it.tr - it.r) * ROT_SPRING;
           it.vr *= 0.9;
         }
@@ -383,10 +438,25 @@ function SchoolProjectItem({ title, img1, img2, index, hoveredIndex, setHoveredI
     setHoveredIndex(index);
 
     gsap.to(q(".work-card.card1"), {
-      y: -60, x: -60, rotation: -6, scale: 1, opacity: 1, duration: 0.8, ease: "power2.out", overwrite: true,
+      y: -60,
+      x: -60,
+      rotation: -6,
+      scale: 1,
+      opacity: 1,
+      duration: 0.8,
+      ease: "power2.out",
+      overwrite: true,
     });
     gsap.to(q(".work-card.card2"), {
-      y: -40, x: 60, rotation: 6, scale: 1, opacity: 1, duration: 0.8, delay: 0.08, ease: "power2.out", overwrite: true,
+      y: -40,
+      x: 60,
+      rotation: 6,
+      scale: 1,
+      opacity: 1,
+      duration: 0.8,
+      delay: 0.08,
+      ease: "power2.out",
+      overwrite: true,
     });
 
     stopSimRef.current?.();
@@ -409,13 +479,29 @@ function SchoolProjectItem({ title, img1, img2, index, hoveredIndex, setHoveredI
     setHoveredIndex(null);
 
     gsap.to(q(".work-card"), {
-      y: 50, x: 0, rotation: 0, opacity: 0, scale: 0.86, duration: 0.35, ease: "power2.in", overwrite: true,
+      y: 50,
+      x: 0,
+      rotation: 0,
+      opacity: 0,
+      scale: 0.86,
+      duration: 0.35,
+      ease: "power2.in",
+      overwrite: true,
     });
 
     gsap.to(q(".drop-tag"), {
-      opacity: 0, duration: 0.25, ease: "power1.out", overwrite: true,
+      opacity: 0,
+      duration: 0.25,
+      ease: "power1.out",
+      overwrite: true,
       onComplete: () => {
-        gsap.set(q(".drop-tag"), { opacity: 0, x: 0, y: -40, rotate: 0, scale: 0.98 });
+        gsap.set(q(".drop-tag"), {
+          opacity: 0,
+          x: 0,
+          y: -40,
+          rotate: 0,
+          scale: 0.98,
+        });
       },
     });
   };
@@ -436,15 +522,17 @@ function SchoolProjectItem({ title, img1, img2, index, hoveredIndex, setHoveredI
         </div>
 
         <div className="drops-group" ref={dropsWrapRef}>
-          {[drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8].map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              className="drop-tag"
-              ref={(el) => (dropRefs.current[i] = el)}
-              alt="tag"
-            />
-          ))}
+          {[drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8].map(
+            (src, i) => (
+              <img
+                key={i}
+                src={src}
+                className="drop-tag"
+                ref={(el) => (dropRefs.current[i] = el)}
+                alt="tag"
+              />
+            ),
+          )}
         </div>
       </div>
     </div>
