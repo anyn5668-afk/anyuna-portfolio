@@ -149,7 +149,7 @@
   top: clamp(180px, 26vh, 340px);
 
   /* ✅ 크게 */
-  width: clamp(220px, 26vw, 350px);
+  width: 252px;
 
   aspect-ratio: 1 / 1;
   will-change: transform, opacity;

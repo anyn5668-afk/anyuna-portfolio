@@ -25,6 +25,18 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 function App() {
   const appRef = useRef(null);
   const helloRef = useRef(null);
+  const whatCanIDoRef = useRef(null);
+  const cloneCodingRef = useRef(null);
+  const schoolRef = useRef(null);
+
+  // Navigation section refs
+  const homeRef = useRef(null);
+  const aboutRef = useRef(null);
+  const workRef = useRef(null);
+  const valueRef = useRef(null);
+
+  const [navbarDark, setNavbarDark] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useLayoutEffect(() => {
     // 1. 브라우저 및 GSAP의 스크롤 복구 기능 완전히 끄기
@@ -454,6 +466,48 @@ function App() {
       });
 
       ScrollTrigger.refresh();
+
+      // Navbar color change on light background sections
+      const lightSections = [
+        helloRef.current,
+        whatCanIDoRef.current,
+        cloneCodingRef.current,
+        schoolRef.current,
+      ];
+
+      lightSections.forEach((section) => {
+        if (section) {
+          ScrollTrigger.create({
+            trigger: section,
+            start: "top 80px",
+            end: "bottom 80px",
+            onEnter: () => setNavbarDark(true),
+            onLeave: () => setNavbarDark(false),
+            onEnterBack: () => setNavbarDark(true),
+            onLeaveBack: () => setNavbarDark(false),
+          });
+        }
+      });
+
+      // Active section tracking for navigation
+      const navSections = [
+        { ref: homeRef, name: 'home' },
+        { ref: aboutRef, name: 'about' },
+        { ref: workRef, name: 'work' },
+        { ref: valueRef, name: 'value' },
+      ];
+
+      navSections.forEach(({ ref, name }) => {
+        if (ref.current) {
+          ScrollTrigger.create({
+            trigger: ref.current,
+            start: "top center",
+            end: "bottom center",
+            onEnter: () => setActiveSection(name),
+            onEnterBack: () => setActiveSection(name),
+          });
+        }
+      });
     });
 
     return () => {
@@ -464,26 +518,26 @@ function App() {
 
   return (
     <div className="container" ref={appRef}>
-      <nav className="navbar">
-        <a href="#home" className="nav-item active">
+      <nav className={`navbar ${navbarDark ? 'navbar--dark' : ''}`}>
+        <a href="#home" className={`nav-item ${activeSection === 'home' ? 'active' : ''}`}>
           <span className="default">Home</span>
           <span className="hover">Home</span>
         </a>
-        <a href="#about" className="nav-item">
+        <a href="#about" className={`nav-item ${activeSection === 'about' ? 'active' : ''}`}>
           <span className="default">About</span>
           <span className="hover">About</span>
         </a>
-        <a href="#work" className="nav-item">
+        <a href="#work" className={`nav-item ${activeSection === 'work' ? 'active' : ''}`}>
           <span className="default">Work</span>
           <span className="hover">Work</span>
         </a>
-        <a href="#value" className="nav-item">
+        <a href="#value" className={`nav-item ${activeSection === 'value' ? 'active' : ''}`}>
           <span className="default">Value</span>
           <span className="hover">Value</span>
         </a>
       </nav>
 
-      <main className="hero">
+      <main ref={homeRef} className="hero" id="home">
         <div className="left-content card" style={{ position: "relative" }}>
           <div className="yuna-title" style={{ position: "relative" }}>
             <h1 className="YUNA-text">
@@ -516,7 +570,7 @@ function App() {
                 <span className="tag light">#배우는</span>
               </div>
               <div className="tag-row">
-                <span className="tag light">#경험</span>
+                <span className="tag light">#경험하는</span>
                 <span className="tag dark">#성장하는 디자이너</span>
               </div>
             </div>
@@ -527,7 +581,7 @@ function App() {
       <section className="hello" ref={helloRef}>
         <div className="inner">
           <div className="top">
-            <p className="caption">배움의 과정과 이야기를 담았어요</p>
+            <p className="caption">배움의 과정을 담았어요</p>
             <div className="top-top">
               <h2>
                 Hello <span>,</span> 안녕하세요
@@ -554,16 +608,26 @@ function App() {
       </section>
 
       {/* Introduce Section */}
-      <Introduce />
+      <div ref={aboutRef} id="about">
+        <Introduce />
+      </div>
       <Mylife />
       {/* <Video /> */}
-      <WhatCanIDo />
-      <Previous />
+      <WhatCanIDo ref={whatCanIDoRef} />
+      <div ref={workRef} id="work">
+        <Previous />
+      </div>
       <Feel />
       <WhyDoYouNeedMe />
-      <CloneCoding />
-      <School />
-      <DoIThink />
+      <div ref={cloneCodingRef}>
+        <CloneCoding />
+      </div>
+      <div ref={schoolRef}>
+        <School />
+      </div>
+      <div ref={valueRef} id="value">
+        <DoIThink />
+      </div>
       <Figma />
       <Ending />
       <Footer />

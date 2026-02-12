@@ -31,7 +31,7 @@ import paper from "../assets/paper.svg";
 import smile from "../assets/smile.svg";
 import connect from "../assets/connect.svg";
 
-export default function WhatCanIDo() {
+const WhatCanIDo = React.forwardRef((props, skillSectionRef) => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -130,13 +130,13 @@ export default function WhatCanIDo() {
       </div>
 
       {/* skill & knowledge 섹션 */}
-      <section className="skSection" aria-label="Skill & knowledge">
+      <section ref={skillSectionRef} className="skSection" aria-label="Skill & knowledge">
         <div className="skill-top">
           <Top
-            caption="Skill"
-            title="skill & knowledge"
+            caption="Study"
+            title="skill"
             text={
-              "UI/UX를 이해하기 위해 공부하고 적용해온 내용을 정리했습니다.\n툴 사용 능력뿐 아니라, 디자인을 바라보는 기준을 담았습니다."
+              "UI/UX를 이해하기 위해 공부하고 적용해온\n 내용을 정리했습니다."
             }
           />
         </div>
@@ -192,7 +192,7 @@ export default function WhatCanIDo() {
             >
               <div className="skCenterTextInner">
                 My <span className="skSkill">skill</span>.<br />
-                Program.
+                Tools.
               </div>
             </div>
 
@@ -253,27 +253,27 @@ export default function WhatCanIDo() {
             <div className="card-box">
               <Knowledge
                 imgSrc={target}
-                title="Problem First"
+                title="핵심은 문제 정의부터"
                 text="UX는 기능을 추가하는 일이 아닌, 사용자가 겪는 문제를 정확히 정의하는 것에서 시작됩니다."
               />
               <Knowledge
                 imgSrc={brain}
-                title="Less Thinking"
+                title="생각하게 하지마!"
                 text="좋은 UI는 설명하지 않습니다. 사용자가 생각하지 않아도 행동할 수 있게 만듭니다."
               />
               <Knowledge
                 imgSrc={paper}
-                title="Clear Hierarchy"
+                title="우선순위가 뭘까?"
                 text="사용자에게  중요한 것부터 보이도록 구조를 설계하는 것이 UX입니다."
               />
               <Knowledge
                 imgSrc={smile}
-                title="Design with Empathy"
+                title="사용자를 위한 공감왕!"
                 text="사용자의 행동보다 그 행동이 나온 감정과 상황에 집중합니다."
               />
               <Knowledge
                 imgSrc={connect}
-                title="Smooth Flow"
+                title="흐름은 부드럽게"
                 text="좋은 인터랙션은 사용자의 흐름을 방해하지 않고 자연스럽게 이어줍니다."
               />
             </div>
@@ -282,4 +282,6 @@ export default function WhatCanIDo() {
       </section>
     </section>
   );
-}
+});
+
+export default WhatCanIDo;

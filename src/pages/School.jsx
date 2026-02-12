@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
+work8;
 import "./School.css";
 
 import beeLine from "../assets/bee-line02.svg";

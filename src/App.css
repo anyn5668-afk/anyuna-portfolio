@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .container {
   width: 100%;
   min-height: 100vh;
@@ -15,15 +19,48 @@
 
 /* Navbar */
 .navbar {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+
   display: flex;
   gap: 30px;
-  padding: 40px 140px 0;
-  background: #ff719e;
+  padding: 4px 60px;
+  margin-top: 30px;
+
+  background: #1f1f1f;
+  border-radius: 50px;
+
+
+
+  transition: background-color 0.3s ease;
+}
+
+.navbar.navbar--dark {
+  background: #ececec;
+}
+
+.navbar.navbar--dark .nav-item .default {
+  color: #1F1F1F;
+}
+
+.navbar.navbar--dark .nav-item .hover {
+  color: #FF719E;
+}
+
+.navbar.navbar--dark .nav-item.active .default {
+  color: #FF719E;
+}
+
+.navbar.navbar--dark .nav-item.active .hover {
+  color: #1F1F1F;
 }
 
 .nav-item {
   font-family: "Canela Condensed Light Trial", serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 500;
   text-decoration: none;
   position: relative;
@@ -44,7 +81,7 @@
 
 .nav-item .default {
   position: relative;
-  color: #d7edff;
+  color: #ffffff;
   transform: rotateX(0deg);
 }
 
@@ -52,7 +89,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  color: #003f73;
+  color: #FF719E;
   transform: rotateX(-90deg);
   width: 100%;
 }
@@ -66,11 +103,11 @@
 }
 
 .nav-item.active .default {
-  color: #003f73;
+  color: #FF719E;
 }
 
 .nav-item.active .hover {
-  color: #003f73;
+  color: #FF719E;
 }
 
 /* Hero Layout */
@@ -475,7 +512,7 @@
 /* Base Stacking Order and Clustered Position */
 .shape.green {
   z-index: 3;
-  top: 92%;
+  top: 110%;
   left: 50%;
   width: 320px;
   transform: translate(-50%, -50%);
@@ -486,7 +523,7 @@
 
 .shape.blue {
   z-index: 2;
-  top: 45%;
+  top: 66%;
   left: 50%;
   width: 260px;
   transform: translate(-50%, -50%);
@@ -499,7 +536,7 @@
 
 .shape.yellow {
   z-index: 1;
-  top: -2%;
+  top: 19%;
   left: 50%;
   width: 400px;
   transform: translate(-50%, -50%);

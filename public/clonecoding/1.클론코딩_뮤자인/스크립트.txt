@@ -1,0 +1,25 @@
+//2. circle 애니메이션
+$(function() {
+	aniCircle();
+	$(window).scroll(aniCircle); //스크롤할때 aniCircle 실행
+		function aniCircle() { //aniCircle  함수명 지어줌
+			$('.circleBox').each(function () { //각각 circleBox 에게 이벤트를 걸어줌
+				var circleBox = $(this).offset().top; // 맨 위에서부터 circleBox 위치한 거리를 반환
+				var windowTop = $(window).scrollTop(); // 스크롤바의 수직 위치를 반환
+				var WindowHeight = $(window).height(); // 보여지는 브라우저의 높이를 반환  [$(document).height() = HTML 문서의 전체 높이를 반환]
+				var animate = $(this).data('animate'); 
+				if (circleBox < windowTop + WindowHeight && !animate) { //논리연산자 - circleBox 의 위치가  
+					$(this).data('animate', true);//애니 한번만위해서 ?
+					$(this).find('.circle').circleProgress({
+						startAngle: 4.71,//초기 각도
+						value: 1,//차트의 진행률 1=100% 기준
+						size: 700,// 사이즈 px 기준
+						thickness: 35,//두께
+						emptyFill: "#fff",//빈 그래프 배경색
+						fill: {color: '#f5f5f5'},//그래프 색상
+                        animation:{ duration: 2000, easing: "circleProgressEasing" }, //애니메이션 진행 속도
+					});
+				}
+			});
+		}		
+}); 
