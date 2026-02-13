@@ -17,7 +17,7 @@ function Introduce() {
       content: [
         { text: "2021 화수고등학교 졸업" },
         { text: "2025 숭의여자대학교 시각디자인과 졸업" },
-        { text: "2026 이젠아카데미 UI/UX 교육과정 수료" },
+        { text: "2026 이젠아카데미 UI/UX 교육과정 진행중" },
       ],
     },
     {
@@ -30,8 +30,7 @@ function Introduce() {
       title: "Award",
       content: [
         { text: "2021 제 41회 전국 만해백일장 장려상 수상" },
-        { text: "2021 제 41회 전국 만해백일장 장려상 수상" },
-        { text: "(2024)제 59회 경기 디자인대전" },
+        { text: "2023 제 59회 경기 디자인대전" },
         { text: "포스터 디자인 부문 입선", indent: true },
       ],
     },

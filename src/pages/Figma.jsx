@@ -48,14 +48,23 @@ export default function Figma() {
 
   const commonTitle = "01. Immerse Myself in the Future";
   const commonDesc =
-    "제가 배움을 멈추지 않는 이유는 미래를 향해 몰입하기 위해서에요.\n오늘의 배움이 내일의 판단을 더 단단하게 만든다고 믿는답니다.";
+    "제가 배움을 멈추지 않는 이유는 미래를 향해 몰입하기 위해서에요.\n오늘의 배움이 내일의 저를 더욱 성장시켜준다고 믿는답니다.";
 
   // ✅ zoom03 전용
-  const zoom03Title = "02. Design with Purpose";
+  const zoom03Title = "02. Learning Never Ends";
   const zoom03Desc =
-    "사용자의 맥락과 감정을 이해하는 것에서 좋은 UX는 시작된다고 믿습니다.\n" +
-    "복잡함을 덜어내고, 꼭 필요한 경험만 남기는 디자인으로\n" +
-    "사용자의 선택을 더 쉬워지게 만들고 싶습니다.";
+    "디자인 툴은 결과가 아니라 더 나은 문제 해결을 위한 언어라고 생각해요.\n" +
+    "변화 속에서 끊임없이 배우며 성장하는 디자이너가 되고 싶어요.";
+
+  const zoom04Title = "03. Design with Purpose";
+  const zoom04Desc =
+    "사용자의 맥락과 감정을 이해하는 것에서 좋은 UX는 시작된다고 믿어요.\n" +
+    "복잡함을 덜어내고, 꼭 필요한 경험만 남기고 싶어요";
+
+  const zoom05Title = "04. Stay Curious, Stay Human";
+  const zoom05Desc =
+    "기술과 툴이 아무리 발전해도, 디자인의 출발점은 늘 사람의 감정과 경험이라고 믿어요.\n" +
+    "그래서 저는 새로운 도구보다 먼저, 사용자를 이해하려는 태도를 잃지 않는 디자이너로 성장하고 싶어요";
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -231,8 +240,8 @@ export default function Figma() {
               <SlideScene img={zoom03} title={zoom03Title} desc={zoom03Desc} />
 
               {/* SCENE 3 (zoom04) */}
-              <SlideScene img={zoom04} title={commonTitle} desc={commonDesc} />
-              <SlideScene img={zoom05} title={commonTitle} desc={commonDesc} />
+              <SlideScene img={zoom04} title={zoom04Title} desc={zoom04Desc} />
+              <SlideScene img={zoom05} title={zoom05Title} desc={zoom05Desc} />
             </div>
           </div>
         </div>
