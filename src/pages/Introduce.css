@@ -182,37 +182,3 @@
 .info-card:nth-child(3) {
   transition-delay: 0.2s;
 }
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .introduce-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .introduce-right {
-    text-align: left;
-  }
-
-  .introduce-bottom {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 768px) {
-  .introduce {
-    padding: 80px 30px;
-  }
-
-  .who-am-i {
-    font-size: 48px;
-  }
-
-  .growth-main {
-    font-size: 36px;
-  }
-
-  .designer-text {
-    font-size: 40px;
-  }
-}

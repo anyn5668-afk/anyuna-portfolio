@@ -1,9 +1,9 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
-work8;
+
 import "./School.css";
 
-import beeLine from "../assets/bee-line02.svg";
+import beeLine from "../assets/bee-line02.jpeg";
 import bee from "../assets/bee.svg";
 
 import work1 from "../assets/uiux-work1.svg";
@@ -61,7 +61,7 @@ export default function School() {
     <main className="school" ref={sectionRef}>
       {/* background line */}
       <img
-        className="school-beeline reveal reveal--smooth"
+        className="school-beeline"
         src={beeLine}
         alt=""
       />

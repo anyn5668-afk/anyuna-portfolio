@@ -1,21 +1,8 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Figma.css";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { motion } from "framer-motion";
-
-import valueImg from "../assets/value.svg";
-
-import figma1 from "../assets/figma1.svg";
-import figma2 from "../assets/figma2.svg";
-import figma3 from "../assets/figma3.svg";
-import figma4 from "../assets/figma4.svg";
-import figma5Scroll from "../assets/figma5-scroll.svg";
-import figma6 from "../assets/figma6.svg";
-import figma7 from "../assets/figma7.svg";
-import figma8 from "../assets/figma8.svg";
-import figma9 from "../assets/figma9.svg";
 
 import zoom02 from "../assets/zoom02.svg";
 import zoom03 from "../assets/zoom03.svg";
@@ -28,29 +15,10 @@ export default function Figma() {
   const sectionRef = useRef(null);
   const trackRef = useRef(null);
 
-  const zoomRef = useRef(null);
-  const figma5Ref = useRef(null);
-
-  const overlays = useMemo(
-    () => [
-      { id: "figma1", src: figma1 },
-      { id: "figma2", src: figma2 },
-      { id: "figma3", src: figma3 },
-      { id: "figma4", src: figma4 },
-      { id: "figma5", src: figma5Scroll, isFigma5: true },
-      { id: "figma6", src: figma6 },
-      { id: "figma7", src: figma7 },
-      { id: "figma8", src: figma8 },
-      { id: "figma9", src: figma9 },
-    ],
-    [],
-  );
-
   const commonTitle = "01. Immerse Myself in the Future";
   const commonDesc =
     "제가 배움을 멈추지 않는 이유는 미래를 향해 몰입하기 위해서에요.\n오늘의 배움이 내일의 저를 더욱 성장시켜준다고 믿는답니다.";
 
-  // ✅ zoom03 전용
   const zoom03Title = "02. Learning Never Ends";
   const zoom03Desc =
     "디자인 툴은 결과가 아니라 더 나은 문제 해결을 위한 언어라고 생각해요.\n" +
@@ -69,109 +37,28 @@ export default function Figma() {
   useEffect(() => {
     const section = sectionRef.current;
     const track = trackRef.current;
-    const zoom = zoomRef.current;
-    const figma5 = figma5Ref.current;
 
-    if (!section || !track || !zoom || !figma5) return;
+    if (!section || !track) return;
 
     const ctx = gsap.context(() => {
-      // 초기값
-      gsap.set(track, { xPercent: 0 });
-      gsap.set(zoom, {
-        transformOrigin: "center center",
-        scale: 0.3333,
-        x: 0,
-        y: 0,
-      });
-
-      const getCenterOffset = () => {
-        const s = gsap.getProperty(zoom, "scale");
-        const x = gsap.getProperty(zoom, "x");
-        const y = gsap.getProperty(zoom, "y");
-        const t = gsap.getProperty(track, "xPercent");
-
-        gsap.set(track, { xPercent: 0 });
-        gsap.set(zoom, { scale: 1, x: 0, y: 0 });
-
-        const zoomRect = zoom.getBoundingClientRect();
-        const f5Rect = figma5.getBoundingClientRect();
-
-        const dx =
-          zoomRect.left + zoomRect.width / 2 - (f5Rect.left + f5Rect.width / 2);
-        const dy =
-          zoomRect.top + zoomRect.height / 2 - (f5Rect.top + f5Rect.height / 2);
-
-        gsap.set(zoom, { scale: s, x, y });
-        gsap.set(track, { xPercent: t });
-
-        return { x: dx, y: dy };
-      };
-
-      let targetOffset = getCenterOffset();
-
-      // ✅ 길이/속도 튜닝 (공주님 현재 값 유지)
-      const ZOOM_SEGMENT = 1700;
-      const HOLD_SEGMENT = 3;
-      const PAN_SEGMENT = 3020;
-      const POST_SEGMENT = 120;
-
-      const TOTAL_END = ZOOM_SEGMENT + HOLD_SEGMENT + PAN_SEGMENT * 3;
-
-      const FINAL_SCALE = 2.55;
+      // 가로 스크롤 거리 계산
+      const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: `+=${TOTAL_END}`,
+          end: () => `+=${window.innerWidth * 1.5}`, // 더 줄여서 (1.5배) 스크롤이 더 빨리 끝나도록
           pin: true,
-          scrub: 1.0,
-          anticipatePin: 1,
+          scrub: 1,
           invalidateOnRefresh: true,
-          pinSpacing: true,
-          onRefresh: () => {
-            targetOffset = getCenterOffset();
-          },
         },
       });
 
-      // 줌
-      tl.to(zoom, { scale: 0.3833, duration: 2.2, ease: "power2.inOut" });
-      tl.to(zoom, { scale: 0.8333, duration: 2.0, ease: "power2.inOut" }, ">");
-      tl.to(zoom, { scale: 1.2666, duration: 2.0, ease: "power2.inOut" }, ">");
-      tl.to(
-        zoom,
-        {
-          scale: FINAL_SCALE,
-          x: () => targetOffset.x * FINAL_SCALE,
-          y: () => targetOffset.y * FINAL_SCALE,
-          duration: 3.0,
-          ease: "power2.inOut",
-        },
-        ">",
-      );
-
-      // 홀드
-      tl.to({}, { duration: 1.0 });
-
-      // 패닝 3번 (4장)
-      tl.to(
-        track,
-        { xPercent: -100, duration: 4.0, ease: "power1.inOut" },
-        ">",
-      );
-      tl.to(
-        track,
-        { xPercent: -200, duration: 4.0, ease: "power1.inOut" },
-        ">",
-      );
-      tl.to(
-        track,
-        { xPercent: -300, duration: 4.0, ease: "power1.inOut" },
-        ">",
-      );
-
-      ScrollTrigger.refresh();
+      tl.to(track, {
+        x: getScrollAmount,
+        ease: "none",
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -197,49 +84,8 @@ export default function Figma() {
         <div className="pinStage">
           <div className="viewport">
             <div ref={trackRef} className="sceneTrack sceneTrack4">
-              {/* SCENE 0 (줌 보드) */}
-              <div className="scene scene1">
-                <div className="zoomWrapper">
-                  <div ref={zoomRef} className="zoomContent">
-                    <motion.img
-                      className="valueBase"
-                      src={valueImg}
-                      alt=""
-                      draggable="false"
-                    />
-                    {overlays.map((o) =>
-                      o.isFigma5 ? (
-                        <img
-                          key={o.id}
-                          ref={figma5Ref}
-                          className="overlayItem"
-                          data-id={o.id}
-                          src={o.src}
-                          alt=""
-                          draggable="false"
-                        />
-                      ) : (
-                        <img
-                          key={o.id}
-                          className="overlayItem"
-                          data-id={o.id}
-                          src={o.src}
-                          alt=""
-                          draggable="false"
-                        />
-                      ),
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* SCENE 1 (zoom02) */}
               <SlideScene img={zoom02} title={commonTitle} desc={commonDesc} />
-
-              {/* SCENE 2 (zoom03) - ✅ 다른 문구 */}
               <SlideScene img={zoom03} title={zoom03Title} desc={zoom03Desc} />
-
-              {/* SCENE 3 (zoom04) */}
               <SlideScene img={zoom04} title={zoom04Title} desc={zoom04Desc} />
               <SlideScene img={zoom05} title={zoom05Title} desc={zoom05Desc} />
             </div>

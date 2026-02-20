@@ -8,7 +8,6 @@ import blue from "./assets/blue.svg";
 import yellow from "./assets/yellow.svg";
 import Introduce from "./pages/Introduce";
 import Mylife from "./pages/Mylife";
-import Video from "./pages/Video";
 import WhatCanIDo from "./pages/WhatCanIDo";
 import Feel from "./pages/Feel";
 import WhyDoYouNeedMe from "./pages/WhyDoYouNeedMe";
@@ -55,22 +54,14 @@ function App() {
     let ctx = gsap.context(() => {
       const words = gsap.utils.toArray(".hello .bottom .word");
 
-      // Character Scattering & Falling Timeline
-      // Attached to .hero pin with "4 scrolls" duration as requested
+      // Character Scattering & Falling Timeline REMOVED per user request
+      // We keep a simple timeline for hero elements fading out as we scroll
       const mainTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".hero",
           start: "top top",
-          end: "+=400%", // Exactly 4 scroll turns
-          pin: true,
-          pinSpacing: true,
-          scrub: 1.0, // 1.5에서 1.0으로 조정하여 응답성 개선
-          refreshPriority: 1,
-          onLeaveBack: () => {
-            document
-              .querySelectorAll(".shape")
-              .forEach((s) => s.classList.remove("is-scattering"));
-          },
+          end: "bottom top",
+          scrub: 1.0,
         },
       });
 
@@ -84,162 +75,6 @@ function App() {
         },
         0,
       );
-
-      // Utility for "Jelly" Mid-air bounce
-      const midAirBounce = (baseX, baseY, baseRot, peakYShift) => ({
-        keyframes: [
-          {
-            x: baseX,
-            y: baseY + peakYShift,
-            rotation: baseRot,
-            scaleX: 0.92,
-            scaleY: 1.08,
-            duration: 1,
-          },
-          {
-            x: baseX,
-            y: baseY,
-            rotation: baseRot,
-            scaleX: 1.15,
-            scaleY: 0.85,
-            duration: 1,
-          },
-        ],
-      });
-
-      // 2. Staggered Launch & 4-Scroll Falling Phase
-      const prepPos = {
-        yellow: { x: "-40vw", y: "130vh", rotation: -15 },
-        blue: { x: "26vw", y: "120vh", rotation: 15 },
-        green: { x: "20vw", y: "140vh", rotation: 7 },
-      };
-
-      // YELLOW
-      mainTl
-        .to(
-          ".shape.yellow",
-          {
-            onStart: () =>
-              document
-                .querySelector(".shape.yellow")
-                .classList.add("is-scattering"),
-            ...midAirBounce("-15vw", "-10vh", 45, -8),
-            xPercent: -50,
-            yPercent: -50,
-            duration: 1.8,
-          },
-          0.2,
-        )
-        .to(
-          ".shape.yellow",
-          {
-            keyframes: [
-              {
-                x: "-22vw",
-                y: "40vh",
-                rotation: -60,
-                scaleX: 0.85,
-                scaleY: 1.2,
-                duration: 1.5,
-              },
-              { ...prepPos.yellow, scaleX: 1.05, scaleY: 0.95, duration: 1.5 },
-            ],
-            xPercent: -50,
-            yPercent: -50,
-            duration: 5.0,
-            ease: "none",
-          },
-          2.0,
-        );
-
-      // BLUE
-      mainTl
-        .to(
-          ".shape.blue",
-          {
-            onStart: () =>
-              document
-                .querySelector(".shape.blue")
-                .classList.add("is-scattering"),
-            ...midAirBounce("12vw", "-5vh", -60, -10),
-            xPercent: -50,
-            yPercent: -50,
-            duration: 1.8,
-          },
-          1.0,
-        )
-        .to(
-          ".shape.blue",
-          {
-            keyframes: [
-              {
-                x: "22vw",
-                y: "35vh",
-                rotation: -240,
-                scaleX: 0.88,
-                scaleY: 1.15,
-                duration: 1.5,
-              },
-              { ...prepPos.blue, scaleX: 1.04, scaleY: 0.96, duration: 1.5 },
-            ],
-            xPercent: -50,
-            yPercent: -50,
-            duration: 4.5,
-            ease: "none",
-          },
-          2.8,
-        );
-
-      // GREEN: Special "Diver" Motion
-      mainTl
-        .to(
-          ".shape.green",
-          {
-            onStart: () =>
-              document
-                .querySelector(".shape.green")
-                .classList.add("is-scattering"),
-            x: "5vw",
-            y: "-35vh",
-            rotation: -15,
-            scaleX: 0.8,
-            scaleY: 1.3,
-            xPercent: -50,
-            yPercent: -50,
-            duration: 1.8,
-            ease: "power2.out",
-          },
-          2.6,
-        )
-        .to(
-          ".shape.green",
-          {
-            keyframes: [
-              {
-                x: "12vw",
-                y: "-42vh",
-                rotation: 10,
-                scaleX: 1.1,
-                scaleY: 0.9,
-                duration: 0.8,
-              },
-              {
-                x: "8vw",
-                y: "45vh",
-                rotation: 45,
-                scaleX: 0.85,
-                scaleY: 1.25,
-                duration: 1.6,
-              },
-              { ...prepPos.green, scaleX: 1.06, scaleY: 0.94, duration: 1.6 },
-            ],
-            xPercent: -50,
-            yPercent: -50,
-            duration: 4.0,
-            ease: "none",
-          },
-          3.2,
-        );
 
       // 3. Circular Reveal for Hello Section
       // Expansion from circle(0%) to circle(150%) as it scrolls in
@@ -280,62 +115,6 @@ function App() {
             overwrite: "auto",
           });
         },
-      });
-
-      // 4. Simultaneous Landing Bounce
-      // Triggered at the exact peak of expansion (when fully visible)
-      const landingTl = gsap.timeline({ paused: true });
-      const landingBounce = (selector, squash, lift) => {
-        landingTl.to(
-          selector,
-          {
-            transformOrigin: "50% 100%",
-            keyframes: [
-              {
-                y: "+=12",
-                scaleX: squash.x,
-                scaleY: squash.y,
-                duration: 0.1,
-                ease: "power2.in",
-              },
-              {
-                y: `-=${lift}`,
-                scaleX: 0.88,
-                scaleY: 1.15,
-                duration: 0.18,
-                ease: "power3.out",
-              },
-              {
-                y: "+=15",
-                scaleX: 1.25,
-                scaleY: 0.75,
-                duration: 0.18,
-                ease: "power2.in",
-              },
-              {
-                y: `-=${lift / 2}`,
-                scaleX: 0.95,
-                scaleY: 1.05,
-                duration: 0.15,
-              },
-              { y: "+=5", scaleX: 1.08, scaleY: 0.92, duration: 0.15 },
-              { scaleX: 1, scaleY: 1, duration: 0.3 },
-            ],
-          },
-          0,
-        );
-      };
-
-      landingBounce(".shape.yellow", { x: 1.45, y: 0.1 }, 24);
-      landingBounce(".shape.blue", { x: 1.35, y: 0.3 }, 20);
-      landingBounce(".shape.green", { x: 1.5, y: 0.1 }, 18);
-
-      ScrollTrigger.create({
-        trigger: helloRef.current,
-        start: "top top",
-        onEnter: () => landingTl.restart(true),
-        onEnterBack: () => landingTl.restart(true),
-        onLeaveBack: () => landingTl.pause(0),
       });
 
       // Hello Section Content Animation

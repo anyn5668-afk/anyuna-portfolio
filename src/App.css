@@ -117,18 +117,20 @@ html {
   justify-content: center;
   position: relative;
   min-height: 100vh;
-  gap: 0;
+  gap: 40px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .right-group {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 80px;
-  z-index: 20;
-  margin-left: -420px;
-  /* Shifted more left as requested */
+  /* Reduced gap from 80px */
+  z-index: 50;
+  margin-left: -310px;
   overflow: visible !important;
+
 }
 
 /* YUNA Text */
@@ -138,6 +140,8 @@ html {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  z-index: 10;
+  /* Lower z-index so characters overlap */
 }
 
 .left-content.card {
@@ -147,6 +151,7 @@ html {
 .left-content .YUNA-text {
   color: #fff;
   font-size: 52rem;
+  /* Reverted to large fixed size */
   text-transform: uppercase;
   position: relative;
   font-weight: normal;
@@ -157,6 +162,7 @@ html {
 .left-content .YUNA-text span {
   font-family: "Canela Condensed Light Trial", serif;
   font-size: 35rem;
+  /* Reverted to large fixed size */
   font-weight: 1000;
 }
 
@@ -488,7 +494,7 @@ html {
   position: relative;
   display: flex;
   align-items: center;
-  z-index: 20;
+  z-index: 100;
   margin-left: 0;
 }
 
@@ -512,8 +518,8 @@ html {
 /* Base Stacking Order and Clustered Position */
 .shape.green {
   z-index: 3;
-  top: 110%;
-  left: 50%;
+  top: 100%;
+  left: -280%;
   width: 320px;
   transform: translate(-50%, -50%);
   transform-origin: center bottom;
@@ -523,8 +529,8 @@ html {
 
 .shape.blue {
   z-index: 2;
-  top: 66%;
-  left: 50%;
+  top: 106%;
+  left: 11%;
   width: 260px;
   transform: translate(-50%, -50%);
   transform-origin: center;
@@ -536,8 +542,8 @@ html {
 
 .shape.yellow {
   z-index: 1;
-  top: 19%;
-  left: 50%;
+  top: -1%;
+  left: 240%;
   width: 400px;
   transform: translate(-50%, -50%);
   transform-origin: center;
@@ -700,12 +706,14 @@ html {
   display: flex;
   flex-direction: column;
   margin-left: 120px;
-  z-index: 30;
+  z-index: 10;
+  /* Lower z-index so characters overlap */
 }
 
 .portfolio-text {
   font-family: "Canela Condensed Light Trial", serif;
   font-size: 9.6875rem;
+  /* Reverted to large fixed size */
   color: #6d2e2e;
   font-weight: 400;
   margin-bottom: 20px;
@@ -784,7 +792,7 @@ html {
 
 .hello .bottom h1 {
   font-family: "Pretendard", sans-serif;
-  font-size: clamp(2.6rem, 5.5vw, 5.5rem);
+  font-size: 5.5rem;
   font-weight: 500;
   line-height: 1.2;
   margin: 0;
@@ -800,11 +808,7 @@ html {
   text-align: center;
 }
 
-@media (max-width: 900px) {
-  .hello .bottom h1 {
-    gap: 0.25rem 0.45rem;
-  }
-}
+
 
 .hello .bottom .word {
   display: inline-block;
@@ -825,7 +829,7 @@ html {
 
 .hello .bottom p {
   margin-top: 34px;
-  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  font-size: 1.1rem;
   color: #cfcac6;
   opacity: 67%;
   font-weight: 200;

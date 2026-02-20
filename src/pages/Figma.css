@@ -1,7 +1,9 @@
 .figma-page {
-  padding: 280px 225px 180px;
+  padding: 120px 0 0;
+  /* Reduced top padding, removed side/bottom padding */
   box-sizing: border-box;
-  min-height: 100vh;
+  min-height: auto;
+  /* Let content dictate height */
   background: #f3f3f5;
   overflow-x: hidden;
 }
@@ -11,7 +13,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
+  /* Reduced margin */
 }
 
 .figma-tag {
@@ -56,14 +59,21 @@
   left: 50%;
   position: relative;
 
-  /* ✅ 중요: 핀 구간 중 푸터가 올라오지 않게 충분히 크게 */
-  height: 300vh;
+  /* 높이를 화면에 딱 맞게 조정 */
+  height: 100vh;
   overflow: hidden;
 }
 
 .pinStage {
   width: 100vw;
   height: 100vh;
+  position: relative;
+}
+
+.scene {
+  width: 100vw;
+  height: 100%;
+  flex: 0 0 100vw;
   position: relative;
 }
 
@@ -83,96 +93,10 @@
 }
 
 .sceneTrack4 {
-  width: 200vw;
+  width: fit-content;
 }
 
-.scene {
-  width: 100vw;
-  height: 100%;
-  flex: 0 0 100vw;
-  position: relative;
-}
-
-/* zoom board scene */
-.scene1 {
-  background: transparent;
-}
-
-.zoomWrapper {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.zoomContent {
-  position: relative;
-  width: min(4200px, 276vw);
-  aspect-ratio: 16 / 9;
-  transform-origin: center center;
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-.valueBase {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.overlayItem {
-  position: absolute;
-  width: 11.42%;
-  height: auto;
-}
-
-/* overlay positions */
-.overlayItem[data-id="figma1"] {
-  left: 30%;
-  top: 28%;
-}
-
-.overlayItem[data-id="figma2"] {
-  left: 47%;
-  top: 28%;
-}
-
-.overlayItem[data-id="figma3"] {
-  left: 64%;
-  top: 28%;
-}
-
-.overlayItem[data-id="figma4"] {
-  left: 30%;
-  top: 48%;
-}
-
-.overlayItem[data-id="figma5"] {
-  left: 47%;
-  top: 48%;
-}
-
-.overlayItem[data-id="figma6"] {
-  left: 64%;
-  top: 48%;
-}
-
-.overlayItem[data-id="figma7"] {
-  left: 30%;
-  top: 68%;
-}
-
-.overlayItem[data-id="figma8"] {
-  left: 47%;
-  top: 68%;
-}
-
-.overlayItem[data-id="figma9"] {
-  left: 64%;
-  top: 68%;
-}
+/* overlay positions removed */
 
 /* slide scenes */
 .sceneSlide {
@@ -212,5 +136,5 @@
 /* after */
 .afterSpace {
   width: 100%;
-  height: 60vh;
+  height: 0;
 }

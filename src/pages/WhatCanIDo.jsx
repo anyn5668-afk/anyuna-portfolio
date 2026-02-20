@@ -243,7 +243,7 @@ const WhatCanIDo = React.forwardRef((props, skillSectionRef) => {
         {/* ✅ 가로 스크롤 섹션 */}
         <div className="sk-horizontal-section" ref={horizontalSectionRef}>
           <div className="sk-horizontal-track" ref={trackRef}>
-            <div className="knowledge-title reveal reveal--up">
+            <div className="knowledge-title">
               <h2>
                 My <em>knowledge</em> <br />
                 Of UI/UX.
