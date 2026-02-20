@@ -20,7 +20,7 @@ import photoshopIcon from "../assets/photoshop.svg";
 import javaIcon from "../assets/java.svg";
 import aftereffectIcon from "../assets/afftereffect.svg";
 import illustratorIcon from "../assets/illustrator.svg";
-import figmaIcon from "../assets/figma.svg";
+import figmaIcon from "../assets/figma.png";
 import indesignIcon from "../assets/indesign.svg";
 import reactIcon from "../assets/react.svg";
 import jqueryIcon from "../assets/jQuery.svg";
@@ -53,8 +53,8 @@ const WhatCanIDo = React.forwardRef((props, skillSectionRef) => {
       },
       {
         threshold: 0,
-        rootMargin: "-20px 0px" // 경계에서 20px 안쪽으로 들어와야 트리거
-      }
+        rootMargin: "-20px 0px", // 경계에서 20px 안쪽으로 들어와야 트리거
+      },
     );
 
     targets.forEach((el, idx) => {
@@ -103,7 +103,12 @@ const WhatCanIDo = React.forwardRef((props, skillSectionRef) => {
       aria-label="What Can I Do Section"
     >
       {/* 좌측 하단 햇님 */}
-      <img className="wcSun reveal reveal--char" src={sun} alt="" aria-hidden="true" />
+      <img
+        className="wcSun reveal reveal--char"
+        src={sun}
+        alt=""
+        aria-hidden="true"
+      />
 
       {/* 우측 상단 구름+초록 캐릭터 */}
       <img
@@ -130,7 +135,11 @@ const WhatCanIDo = React.forwardRef((props, skillSectionRef) => {
       </div>
 
       {/* skill & knowledge 섹션 */}
-      <section ref={skillSectionRef} className="skSection" aria-label="Skill & knowledge">
+      <section
+        ref={skillSectionRef}
+        className="skSection"
+        aria-label="Skill & knowledge"
+      >
         <div className="skill-top">
           <Top
             caption="Study"
@@ -145,7 +154,10 @@ const WhatCanIDo = React.forwardRef((props, skillSectionRef) => {
           <div className="skGrid">
             {/* 1행 */}
             {/* ✅ 캐릭터도 애니메이션 먹게 */}
-            <div className="skBlueCell skAreaBlue reveal reveal--char" aria-hidden="true">
+            <div
+              className="skBlueCell skAreaBlue reveal reveal--char"
+              aria-hidden="true"
+            >
               <img className="skBlue" src={blueChar} alt="" />
             </div>
 
@@ -234,7 +246,10 @@ const WhatCanIDo = React.forwardRef((props, skillSectionRef) => {
             </div>
 
             {/* ✅ 캐릭터도 애니메이션 먹게 */}
-            <div className="skGreenCell skAreaGreen reveal reveal--char" aria-hidden="true">
+            <div
+              className="skGreenCell skAreaGreen reveal reveal--char"
+              aria-hidden="true"
+            >
               <img className="skGreen" src={greenChar} alt="" />
             </div>
           </div>
