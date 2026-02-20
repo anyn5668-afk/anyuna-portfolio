@@ -3,7 +3,7 @@ import gsap from "gsap";
 
 import "./School.css";
 
-import beeLine from "../assets/bee-line02.jpeg";
+import beeLine from "../assets/bee-line.svg";
 import bee from "../assets/bee.svg";
 
 import work1 from "../assets/uiux-work1.svg";

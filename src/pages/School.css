@@ -137,7 +137,6 @@
 
 /* 반응형 */
 @media (max-width: 900px) {
-
   .school-stack p,
   .school-stack .item-text {
     font-size: clamp(64px, 12vw, 11.25rem);
@@ -174,10 +173,11 @@
 .school-beeline {
   position: absolute;
   left: 0%;
-  top: 18%;
+  top: 38%;
   width: 100%;
   pointer-events: none;
   z-index: 1;
+  opacity: 50%;
 }
 
 .school-bee {
