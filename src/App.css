@@ -1,0 +1,529 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow: visible;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.hero {
+  background: #ff719e;
+  padding: 40px 60px;
+  overflow: visible !important;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+
+  display: flex;
+  gap: 30px;
+  padding: 6px 80px;
+  margin-top: 30px;
+
+  background: #1f1f1f;
+  border-radius: 50px;
+
+  transition: background-color 0.3s ease;
+}
+
+.navbar.navbar--dark {
+  background: #ececec;
+}
+
+.navbar.navbar--dark .nav-item .default {
+  color: #1f1f1f;
+}
+
+.navbar.navbar--dark .nav-item .hover {
+  color: #ff719e;
+}
+
+.navbar.navbar--dark .nav-item.active .default {
+  color: #ff719e;
+}
+
+.navbar.navbar--dark .nav-item.active .hover {
+  color: #1f1f1f;
+}
+
+.nav-item {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 28px;
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  height: 1.2lh;
+  line-height: 1.2;
+  overflow: hidden;
+  cursor: pointer;
+  perspective: 600px;
+}
+
+.nav-item span {
+  display: block;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: 50% 50% -1.25rem;
+  backface-visibility: hidden;
+}
+
+.nav-item .default {
+  position: relative;
+  color: #ffffff;
+  transform: rotateX(0deg);
+}
+
+.nav-item .hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ff719e;
+  transform: rotateX(-90deg);
+  width: 100%;
+}
+
+.nav-item:hover .default {
+  transform: rotateX(90deg);
+}
+
+.nav-item:hover .hover {
+  transform: rotateX(0deg);
+}
+
+.nav-item.active .default {
+  color: #ff719e;
+}
+
+.nav-item.active .hover {
+  color: #ff719e;
+}
+
+/* Hero Layout */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.right-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 50;
+  margin-left: -310px;
+  overflow: visible !important;
+}
+
+/* YUNA Text */
+.left-content {
+  font-family: "clouds", cursive;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 10;
+}
+
+.left-content.card {
+  cursor: pointer;
+}
+
+.left-content .YUNA-text {
+  color: #fff;
+  font-size: 52rem;
+  text-transform: uppercase;
+  position: relative;
+  font-weight: normal;
+  line-height: 0.8;
+  margin: 0;
+}
+
+.left-content .YUNA-text span {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 35rem;
+  font-weight: 1000;
+}
+
+.left-content .YUNA-text:nth-child(1) {
+  color: transparent;
+  -webkit-text-fill-color: #fffae0;
+}
+
+.left-content .YUNA-text:nth-child(2) {
+  color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #ffe081 0%, #ffc41b 55%, #ffb300 100%);
+  background-size: 100% 140%;
+  background-position: 0% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  clip-path: polygon(
+    0% 42%,
+    5% 38%,
+    10% 36%,
+    15% 37%,
+    20% 40%,
+    25% 44%,
+    30% 47%,
+    35% 48%,
+    40% 46%,
+    45% 42%,
+    50% 38%,
+    55% 36%,
+    60% 37%,
+    65% 40%,
+    70% 44%,
+    75% 47%,
+    80% 48%,
+    85% 46%,
+    90% 42%,
+    95% 38%,
+    100% 36%,
+    100% 100%,
+    0% 100%
+  );
+}
+
+/* ✅ 물결 애니메이션 완전 제거 (모양은 유지) */
+.left-content .YUNA-text.water {
+  animation: none !important;
+  transform: none !important;
+  will-change: auto;
+}
+
+/* Center Images */
+.center-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  margin-left: 0;
+}
+
+.image-stack {
+  position: relative;
+  width: 300px;
+  height: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible !important;
+}
+
+.shape {
+  position: absolute;
+  will-change: transform;
+}
+
+/* Precise Stacking based on "Touching Heads" request */
+.shape.green {
+  z-index: 3;
+  top: 100%;
+  left: -280%;
+  width: 320px;
+  transform: translate(-50%, -50%);
+  transform-origin: center bottom;
+  animation: jumpGreen 2.4s ease-in-out infinite;
+  animation-fill-mode: both;
+}
+
+.shape.blue {
+  z-index: 2;
+  top: 106%;
+  left: 11%;
+  width: 260px;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  animation: jumpBlue 2.4s ease-in-out infinite;
+  animation-delay: 0.15s;
+  animation-fill-mode: both;
+}
+
+.shape.yellow {
+  z-index: 1;
+  top: -1%;
+  left: 240%;
+  width: 400px;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  animation: jumpYellow 2.4s ease-in-out infinite;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+}
+
+/* GREEN */
+@keyframes jumpGreen {
+  0%,
+  45%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0%) scale(1.04, 0.96)
+      rotate(0deg);
+  }
+  8% {
+    transform: translate(-50%, -50%) translateY(2%) scale(1.1, 0.9) rotate(0deg);
+  }
+  14% {
+    transform: translate(-50%, -50%) translateY(-15%) scale(0.95, 1.05)
+      rotate(-0.5deg);
+  }
+  18% {
+    transform: translate(-50%, -50%) translateY(-18%) scale(1.01, 0.99)
+      rotate(0deg);
+  }
+  26% {
+    transform: translate(-50%, -50%) translateY(0%) scale(1.08, 0.92)
+      rotate(0deg);
+  }
+  32% {
+    transform: translate(-50%, -50%) translateY(-5%) scale(0.99, 1.01)
+      rotate(0deg);
+  }
+  38% {
+    transform: translate(-50%, -50%) translateY(0%) scale(1.01, 0.99)
+      rotate(0deg);
+  }
+}
+
+/* BLUE */
+@keyframes jumpBlue {
+  0%,
+  48%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0%) scale(1.02, 0.98)
+      rotate(12deg);
+  }
+  10% {
+    transform: translate(-50%, -50%) translateY(2%) scale(1.08, 0.92)
+      rotate(12.5deg);
+  }
+  16% {
+    transform: translate(-50%, -50%) translateY(-18%) scale(0.96, 1.04)
+      rotate(13.5deg);
+  }
+  20% {
+    transform: translate(-50%, -50%) translateY(-22%) scale(1, 1) rotate(14deg);
+  }
+  28% {
+    transform: translate(-50%, -50%) translateY(0%) scale(1.06, 0.94)
+      rotate(12.5deg);
+  }
+  34% {
+    transform: translate(-50%, -50%) translateY(-6%) scale(0.99, 1.01)
+      rotate(13deg);
+  }
+  42% {
+    transform: translate(-50%, -50%) translateY(0%) scale(1.01, 0.99)
+      rotate(12deg);
+  }
+}
+
+/* YELLOW */
+@keyframes jumpYellow {
+  0%,
+  52%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0%) scale(1.01, 0.99)
+      rotate(-7deg);
+  }
+  12% {
+    transform: translate(-50%, -50%) translateY(3%) scale(1.09, 0.91)
+      rotate(-7.5deg);
+  }
+  18% {
+    transform: translate(-50%, -50%) translateY(-22%) scale(0.97, 1.03)
+      rotate(-9deg);
+  }
+  23% {
+    transform: translate(-50%, -50%) translateY(-28%) scale(1, 1) rotate(-10deg);
+  }
+  30% {
+    transform: translate(-50%, -50%) translateY(0%) scale(1.07, 0.93)
+      rotate(-8deg);
+  }
+  38% {
+    transform: translate(-50%, -50%) translateY(-8%) scale(0.99, 1.01)
+      rotate(-8.5deg);
+  }
+  46% {
+    transform: translate(-50%, -50%) translateY(0%) scale(1, 1) rotate(-7deg);
+  }
+}
+
+.shape {
+  animation-duration: 3s;
+  animation-timing-function: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.shape.is-scattering {
+  animation: none !important;
+}
+
+.hero {
+  z-index: 10;
+  position: relative;
+}
+
+/* Right Content */
+.right-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 120px;
+  z-index: 10;
+}
+
+.portfolio-text {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 9.6875rem;
+  color: #6d2e2e;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tag-row {
+  display: flex;
+  gap: 15px;
+}
+
+/* Hello Section */
+.hello {
+  z-index: 5;
+  position: relative;
+  background: #1f1f1f;
+  color: #e8e6e3;
+  clip-path: circle(0% at 50% 50%);
+  overflow: hidden;
+  min-height: 140vh;
+  padding: 360px 24px 360px;
+  text-align: center;
+  overflow: visible !important;
+}
+
+.hello .inner {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  position: relative;
+  z-index: 5;
+}
+
+.hello .top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.hello .caption {
+  font-family: "Pretendard", sans-serif;
+  font-size: 1rem;
+  padding: 8px 18px;
+  border: 1px solid #fffae0;
+  border-radius: 999px;
+  color: #fffae0;
+  letter-spacing: 0.02em;
+}
+
+.hello .top h2 {
+  font-family: "Pretendard", sans-serif;
+  font-size: 50px;
+  font-weight: 500;
+  color: #ff78a8;
+  margin: 0;
+}
+
+.hello .top h2 span {
+  font-family: "Kingthings Hand", cursive;
+}
+
+.top-top {
+  margin-top: 40px;
+}
+
+.hello .bottom h1 {
+  font-family: "Pretendard", sans-serif;
+  font-size: 5.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  color: #f1f1f1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 0.6rem;
+}
+
+.hello .bottom {
+  text-align: center;
+}
+
+.hello .bottom .word {
+  display: inline-block;
+  will-change: transform;
+}
+
+.hello .bottom .line-break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.hello .bottom .word.em {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-style: italic;
+  font-weight: 100;
+  color: #f3f0eb;
+}
+
+.hello .bottom p {
+  margin-top: 34px;
+  font-size: 1.1rem;
+  color: #cfcac6;
+  opacity: 67%;
+  font-weight: 200;
+}
+
+.tag {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.tag.dark {
+  background-color: #6d2e2e;
+  color: #fff;
+}
+
+.tag.light {
+  background-color: #fffae0;
+  color: #ff6b95;
+}

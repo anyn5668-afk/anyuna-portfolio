@@ -1,0 +1,67 @@
+@font-face {
+  font-family: "Pretendard";
+  src: url("/Pretendard-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/Pretendard-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* User Requested Fonts */
+@font-face {
+  font-family: "Clouds";
+  src: url("/Clouds-BF697b6a131c2ff.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Canela Condensed Trial";
+  src: url("/CanelaCondensed-Bold-Trial.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Canela Condensed Light Trial";
+  src: url("/CanelaCondensed-Light-Trial.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Canela Condensed Medium Trial";
+  src: url("/CanelaCondensed-Medium-Trial.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Pretendard", sans-serif;
+  /* Pink background from image */
+  background-color: #ff719e;
+  color: #fffae0;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

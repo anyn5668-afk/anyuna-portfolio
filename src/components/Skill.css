@@ -1,0 +1,58 @@
+.skill-card {
+  width: clamp(14.5rem, 18vw, 16.1875rem);  /* 259px */
+  height: clamp(16.2rem, 20vw, 18.125rem);  /* 290px */
+  background: #282828;
+  border: 0.10625rem solid rgba(243, 243, 245, 0.1);
+  border-radius: 0.9rem;
+  box-sizing: border-box;
+
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.35rem;
+
+  padding: 1.4rem 1.2rem;
+  text-align: center;
+}
+
+/* 이미지 영역 */
+.skill-imgWrap {
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.2rem;
+}
+
+.skill-img {
+  width: 6.5625rem;  /* 105px */
+  height: 6.5625rem; /* 105px */
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  margin-bottom: 35px;
+}
+
+/* ✅ 이미지가 아직 없을 때 자리 유지용 */
+.skill-imgPlaceholder {
+  width: 6.5625rem;   /* 105px */
+  height: 6.5625rem;  /* 105px */
+  border-radius: 999rem;
+  background: rgba(243, 243, 245, 0.08);
+  margin-bottom: 35px;
+}
+
+.title {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 1.6rem;
+  line-height: 1.15;
+  font-weight: 300;
+  color: #f3f3f5;
+  opacity: 0.95;
+}
+
+.percent {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 2.1rem;
+  line-height: 1.1;
+  font-weight: 300;
+  color: #2f9bff;
+}

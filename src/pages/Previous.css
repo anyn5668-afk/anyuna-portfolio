@@ -1,0 +1,290 @@
+/* ========== Page ========== */
+.previous {
+  width: 100%;
+  padding: 471px 0;
+  background: #f3f3f5;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.previous::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #1f1f1f;
+  z-index: 5;
+
+  /* ✅ "슥" 느낌 = 움직이지 말고 페이드 */
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+  /* 전환 성능 개선 */
+}
+
+.previous.is-visible::before {
+  opacity: 0;
+}
+
+.previous__inner {
+  width: 100%;
+  max-width: 1600px;
+  /* 필요 시 조정 */
+  margin: 0 auto;
+  display: flex;
+  gap: 120px;
+  /* 좌/우 간격 (필요하면 조정) */
+  align-items: flex-start;
+  position: relative;
+  z-index: 10;
+}
+
+/* ========== Left ========== */
+.previous__left {
+  width: 520px;
+  /* 대략 */
+}
+
+.previous__leftHead {
+  margin-bottom: 176px;
+}
+
+.previous__label {
+  font-family: "Pretendard";
+  font-size: 30px;
+  color: #18c15f;
+  /* 연두 느낌 */
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.previous__sub {
+  font-family: "Pretendard";
+  font-size: 20px;
+  color: #828282;
+  font-weight: 400;
+}
+
+.previous__list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.previous__item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.previous__itemRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.previous__itemText {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+/* (01) */
+.previous__num {
+  font-family: "Canela Condensed Light Trial";
+  font-size: 36px;
+  font-weight: 300;
+  color: #1f1f1f;
+}
+
+/* 1Million Renewal Project */
+.previous__title {
+  font-family: "Pretendard";
+  font-size: 36px;
+  font-weight: 500;
+  color: #dedede;
+  /* 기본 비활성 */
+}
+
+/* 비활성 텍스트 */
+.previous__item:not(.is-active) .previous__num {
+  color: #dedede;
+}
+
+.previous__item.is-active .previous__title {
+  color: #1f1f1f;
+}
+
+.previous__item:not(.is-active) .previous__title {
+  color: #dedede;
+}
+
+/* 연두 원형 버튼 */
+.previous__goBtn {
+  width: 55px;
+  height: 55px;
+  border-radius: 999px;
+  background: #18c15f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 55px;
+}
+
+.previous__goBtn img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* 밑줄: 37px 아래 */
+.previous__underline {
+  width: 100%;
+  height: 2px;
+  background: #18c15f;
+  margin-top: 37px;
+}
+
+/* See more 버튼 위치 */
+.previous__seeMore {
+  margin-top: 90px;
+}
+
+/* ========== Right ========== */
+.previous__right {
+  flex: 1;
+}
+
+.previous__hero {
+  font-family: "Canela Condensed Light Trial";
+  font-size: 150px;
+  font-weight: 300;
+  margin: 0 0 70px 0;
+  line-height: 1;
+  color: #1f1f1f;
+  letter-spacing: -1px;
+}
+
+.previous__heroGreen {
+  color: #18c15f;
+}
+
+/* ========== White Box ========== */
+.previous__box {
+  width: 977px;
+  height: 478px;
+  background: #ffffff;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+/* 내부는 좌우로 나뉨 + 애니메이션 */
+.previous__boxInner {
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  gap: 62px;
+  padding: 33px;
+  animation: prevFadeSlide 260ms ease both;
+  will-change: transform, opacity;
+  align-items: stretch;
+  /* 애니메이션 성능 개선 */
+  min-height: 420px;
+  /* 너 디자인에 맞게 숫자만 조절 */
+}
+
+@keyframes prevFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(1px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* 왼쪽 컨텐츠 묶음 */
+.previous__boxContent {
+  width: 420px;
+  /* 텍스트 영역 대략 */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* tool 아이콘 */
+.previous__toolIcon {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+/* tool아이콘 ↔ 설명글 29px */
+.previous__desc {
+  margin-top: 29px;
+  font-family: "Pretendard";
+  font-size: 20px;
+  line-height: 140%;
+  color: #bcbcbc;
+  font-weight: 400;
+}
+
+/* 설명글 ↔ 툴 텍스트 50px */
+.previous__tools {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+  /* 텍스트끼리 간격 17px */
+  font-family: "Pretendard";
+  font-size: 20px;
+  color: #1f1f1f;
+  font-weight: 500;
+}
+
+/* ✅ 툴 개수 상관없이 시계(기간)는 항상 아래로 고정 */
+.previous__time {
+  margin-top: auto;
+  /* ✅ 핵심 */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* 시계아이콘과 텍스트 간격 8px */
+  font-family: "Pretendard";
+  font-size: 22px;
+  color: #bcbcbc;
+  font-weight: 400;
+}
+
+.previous__time img {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+/* 오른쪽 이미지 묶음: 흰박스와 상하좌우 18px 간격 */
+.previous__boxImageWrap {
+  flex: 1;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.previous__boxImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}

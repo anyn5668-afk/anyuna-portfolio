@@ -1,0 +1,505 @@
+.wcWrap {
+  position: relative;
+  width: 100%;
+
+  /* 1920x1268 느낌 = 넉넉한 세로, 하지만 픽셀 고정 X */
+  min-height: 100vh;
+
+  /* 기존 SectionTitle이 자체 배경을 갖고 있을 수도 있어서,
+     여기선 레이아웃 컨테이너 역할 + 안전 배경만 */
+  background: #f3f3f3;
+  overflow: hidden;
+
+  display: grid;
+  place-items: center;
+  padding-top: 200px;
+}
+
+/* 중앙: 컴포넌트 영역 폭 제어 */
+.wcCenter {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding-bottom: 200px;
+}
+
+/* ✅ 좌측 하단 sun */
+.wcSun {
+  position: absolute;
+  left: clamp(1rem, 3vw, 3rem);
+  top: 15%;
+  /* Maintain TOP anchor */
+
+  width: 20rem;
+  height: auto;
+
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ✅ 우측 상단 cloud-green (User Request: Right side) */
+.wcCloudGreen {
+  position: absolute;
+  right: 0px;
+  top: 8%;
+
+  width: 519px;
+  height: auto;
+
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 전체 섹션 */
+.skSection {
+  width: 100%;
+  min-height: 100vh;
+  background: #232323;
+  overflow: hidden;
+
+  /* 하단 패딩 확실히 늘림 (800px) */
+  padding: 225px 225px 300px;
+}
+
+/* Top 컴포넌트 영역 */
+.Top {
+  width: min(44rem, 92vw);
+}
+
+.skill-card .title {
+  font-family: "Canela Condensed Light Trial", serif;
+  margin-bottom: 0px;
+}
+
+/* ✅ Top 컴포넌트 색상/톤을 사진처럼 보이게 "페이지에서 오버라이드" */
+.skill-top,
+.skill-top * {
+  color: #fff !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* 왼쪽으로 */
+  letter-spacing: 0.5px;
+}
+
+/* 캡션 뒤에 있는 둥근 핑크 띠 → 흰색 */
+.skill-top .top-caption p {
+  border: 1px solid #fff !important;
+  margin-bottom: 8px;
+}
+
+.skill-top .top-caption h2 {
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.skill-top .top-text p {
+  padding-left: 0px;
+  opacity: 60%;
+}
+
+/* skill-top 레이아웃: 왼쪽 캡션+타이틀, 오른쪽 설명 */
+.skill-top .top-title {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 30px;
+}
+
+.skill-top .top-caption {
+  flex-shrink: 0;
+}
+
+.skill-top .top-text {
+  max-width: 420px;
+  text-align: left;
+}
+
+.pp-editorial {
+  font-family: "PPEditorialNew-Regular";
+}
+
+/* 보드 */
+.skBoard {
+  margin-top: clamp(2.5rem, 6vw, 5.5rem);
+  display: grid;
+  justify-content: center;
+}
+
+/* ✅ 사진 그대로: 4열 x 3행 고정 배치 */
+.skGrid {
+  --gap: 1.625rem;
+  /* 26px */
+  --cardW: clamp(13.5rem, 14vw, 16.1875rem);
+  --cardH: clamp(15.5rem, 16vw, 18.125rem);
+
+  display: grid;
+  gap: var(--gap);
+
+  grid-template-columns: repeat(4, var(--cardW));
+  grid-template-rows: repeat(3, var(--cardH));
+
+  /* ✅ 자리 고정 */
+  grid-template-areas:
+    "blue ps js ae"
+    "ai   center center fi"
+    "id   ra  jq  green";
+
+  justify-content: center;
+  align-content: center;
+}
+
+.skAreaBlue {
+  grid-area: blue;
+}
+
+.skAreaPs {
+  grid-area: ps;
+}
+
+.skAreaJs {
+  grid-area: js;
+}
+
+.skAreaAe {
+  grid-area: ae;
+}
+
+.skAreaAi {
+  grid-area: ai;
+}
+
+.skAreaCenter {
+  grid-area: center;
+}
+
+.skAreaFi {
+  grid-area: fi;
+}
+
+.skAreaId {
+  grid-area: id;
+}
+
+.skAreaRa {
+  grid-area: ra;
+}
+
+.skAreaJq {
+  grid-area: jq;
+}
+
+.skAreaGreen {
+  grid-area: green;
+}
+
+/* 카드 셀: Skill 카드가 셀을 꽉 채우게 */
+.skCell {
+  width: 100%;
+  height: 100%;
+  display: grid;
+}
+
+.skCell>* {
+  width: 100%;
+  height: 100%;
+}
+
+/* Figma 카드만 오른쪽(4번째 컬럼)으로 이동 */
+.skMoveRight {
+  grid-column: 4;
+}
+
+/* 가운데 텍스트 */
+.skCenterText {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.skCenterTextInner {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 128px;
+  line-height: 1;
+  /* 줄간격 */
+  letter-spacing: -0.02em;
+  color: #f3f3f5;
+  text-align: center;
+}
+
+.skCenterTextInner .skSkill {
+  font-style: italic;
+  color: #25b544;
+}
+
+.skEmpty {
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== 캐릭터 ===== */
+
+/* 파란 캐릭터 (1행 1열) */
+.skBlueCell {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+
+  margin-right: var(--charExtra);
+}
+
+.skBlue {
+  width: clamp(7.5rem, 10vw, 10.25rem);
+  /* 164px */
+  height: clamp(10rem, 12vw, 13.75rem);
+  /* 220px */
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 초록 캐릭터 (3행 4열) */
+.skGreenCell {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: end center;
+
+  margin-left: var(--charExtra);
+  padding-bottom: 50px;
+}
+
+.skGreen {
+  width: clamp(8.5rem, 11vw, 12.5625rem);
+  /* 185px */
+  height: clamp(7.5rem, 10vw, 11.625rem);
+  /* 170px */
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* 3번째 줄 카드 3개를 1~3번째 칸으로 강제 배치 */
+.skRow3Col1 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.skRow3Col2 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.skRow3Col3 {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+/* 초록 캐릭터는 3번째 줄 4번째 칸 고정 */
+.skGreenCell {
+  grid-column: 4;
+  grid-row: 3;
+}
+
+/* 반응형: 화면 작아지면 4열 유지 힘들어서 2열로 변경 */
+@media (max-width: 70rem) {
+  .skGrid {
+    grid-template-columns: repeat(2, var(--cardW));
+    grid-auto-rows: var(--cardH);
+  }
+
+  .skBlueCell,
+  .skGreenCell {
+    display: none;
+  }
+
+  .skCenterText {
+    grid-column: 1 / -1;
+  }
+
+  .skEmpty {
+    display: none;
+  }
+}
+
+.knowledge-title h2 {
+  font-size: 9.375rem;
+  color: #25b544;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.knowledge-title em {
+  font-style: italic;
+}
+
+/* ✅ 가로 스크롤용 구조 */
+.sk-horizontal-section {
+  width: 100vw;
+  height: 100vh;
+  /* 상위 섹션(.skSection)의 padding-left: 225px 상쇄 */
+  margin-left: -225px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #232323;
+}
+
+.sk-horizontal-track {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 0 5vw;
+  /* 시작 시 약간의 여유만 둠 */
+  gap: 100px;
+  /* 카드와 타이틀 사이 간격 */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.knowledge-title {
+  flex: 0 0 auto;
+}
+
+.card-box {
+  display: flex;
+  gap: 40px;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  overflow: visible;
+  /* track가 움직이므로 카드는 넘쳐야 함 */
+
+  /* 스크롤바 숨김 (기능 유지) */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE/Edge legacy */
+}
+
+.card-box::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari */
+}
+
+/* ============================
+   ✅ 등장 애니메이션 (스킬카드 + 캐릭터)
+   ============================ */
+
+/* 스킬 카드용 기본 등장 */
+.reveal {
+  opacity: 0;
+  transform: perspective(900px) rotateY(-10deg) translateY(14px) scale(0.985);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.reveal.is-visible {
+  animation: skillCardIn 650ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes skillCardIn {
+  0% {
+    opacity: 0;
+    transform: perspective(900px) rotateY(-35deg) translateY(14px) scale(0.985);
+    filter: blur(2px);
+  }
+
+  70% {
+    opacity: 1;
+    transform: perspective(900px) rotateY(0deg) translateY(0px) scale(1.01);
+    filter: blur(0px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: perspective(900px) rotateY(0deg) translateY(0px) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* 캐릭터는 더 둥실하게 */
+.reveal.reveal--char {
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+}
+
+.reveal.reveal--char.is-visible {
+  animation: charIn 700ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes charIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.92);
+    filter: blur(4px);
+  }
+
+  /* Bounce Overshoot */
+  70% {
+    transform: translateY(-8px) scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* ✅ 신규: 아래에서 위로 슥 올라오는 애니메이션 */
+.reveal.reveal--up {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: transform, opacity;
+}
+
+.reveal.reveal--up.is-visible {
+  animation: slideUp 800ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+/* ✅ 신규: 튕기지 않고 부드럽게만 올라오는 버전 (스륵) */
+.reveal.reveal--smooth {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: transform, opacity;
+}
+
+.reveal.reveal--smooth.is-visible {
+  transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.8s ease;
+  transform: translateY(0px);
+  opacity: 1;
+}
+
+/* 모션 민감한 사용자 배려 */
+@media (prefers-reduced-motion: reduce) {
+
+  .reveal,
+  .reveal.is-visible,
+  .reveal.reveal--char,
+  .reveal.reveal--char.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    filter: none !important;
+  }
+}

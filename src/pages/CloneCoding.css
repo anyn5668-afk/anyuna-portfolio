@@ -1,0 +1,156 @@
+.cc {
+  height: 110vh;
+  background: var(--cc-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.cc__grid {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* LEFT AREA */
+.cc__left {
+  background: #1f1f1f;
+  padding: 237px 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 31px;
+}
+
+.cc__caption {
+  display: inline-flex;
+  align-self: flex-start;
+
+  font-size: 1.7rem;
+  padding: 0px 20px;
+  border-radius: 100px;
+  border: 1px solid currentColor;
+  font-family: "Canela Condensed Light Trial", serif;
+  padding-bottom: 6px;
+
+  /* 캡션 색은 배경색과 맞춰서 */
+  color: var(--cc-bg);
+}
+
+.cc__title {
+  margin: 0;
+  font-size: 6.25rem;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+
+  font-family: "Canela Condensed Light Trial", serif;
+}
+
+.cc__titleLine {
+  display: block;
+  font-weight: 300;
+}
+
+.cc__desc {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #828282;
+  font-family: "Pretendard", sans-serif;
+  max-width: 520px;
+}
+
+.cc__descLine {
+  display: block;
+}
+
+/* RIGHT AREA */
+.cc__right {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+/* stage = 이미지가 보이는 영역 */
+.cc__stage {
+  width: min(720px, 82%);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0;
+  /* 캡쳐처럼 각진 느낌 */
+}
+
+/* track = translateX로 이동하는 레일 */
+.cc__track {
+  height: 100%;
+  display: flex;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.cc__slide {
+  flex: 0 0 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.cc__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* CONTROLS bottom center */
+.cc__controls {
+  position: absolute;
+  left: 50%;
+  bottom: 44px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 80px;
+}
+
+.cc__nav {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cc__nav img {
+  width: 18px;
+  height: 18px;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cc__nav--left {
+  background: #3d3d3d;
+}
+
+.cc__nav--right {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* hover/focus */
+.cc__nav:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.65);
+  outline-offset: 4px;
+}
+
+.cc__nav:hover {
+  transform: translateY(-1px);
+}
+
+.cc__button {
+  margin-top: 274px;
+}

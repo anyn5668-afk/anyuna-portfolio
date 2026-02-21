@@ -1,0 +1,204 @@
+.school {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #1f1f1f;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 610px 0;
+}
+
+/* 상단 */
+.school-top {
+  position: relative;
+  z-index: 2;
+  padding-top: 72px;
+  text-align: center;
+}
+
+.school-pill {
+  display: inline-flex;
+  font-size: 1.7rem;
+  padding: 0px 20px 6px;
+  border-radius: 100px;
+  border: 1px solid currentColor;
+  font-family: "Canela Condensed Light Trial", serif;
+  color: #48adff;
+}
+
+.school-title {
+  margin-top: 22px;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  line-height: 0.95;
+  font-size: clamp(56px, 8vw, 120px);
+  color: #f2f2f2;
+}
+
+.school-desc {
+  margin-top: 23px;
+  color: rgba(255, 255, 255, 0.486);
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 100;
+}
+
+/* 파란 텍스트 */
+.school-stack {
+  position: relative;
+  z-index: 2;
+  margin-top: 56px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+  padding-top: 207px;
+}
+
+.school-stack p,
+.school-stack .item-text {
+  margin: 0;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+
+  font-size: 10rem;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+
+  color: #4aa8ff;
+  transition: color 0.3s;
+}
+
+.school-item-container {
+  position: relative;
+  cursor: pointer;
+  z-index: 10;
+  will-change: transform;
+}
+
+.school-item-container:hover .item-text {
+  color: #ffc92f;
+  display: inline-block;
+}
+
+/* hover content wrapper */
+.school-hover-content {
+  position: absolute;
+  left: 50%;
+  top: 110%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* cards */
+.cards-group {
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+.work-card {
+  position: absolute;
+  width: 320px;
+  height: auto;
+  left: 50%;
+  top: -120px;
+  transform: translate(-50%, -50%);
+  transform-origin: center bottom;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* ✅ tags area (UI/UX 위) */
+.drops-group {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  /* 태그가 UI/UX 위에 앉는 정도 */
+  transform: translateX(-50%);
+  width: 560px;
+  height: 140px;
+  pointer-events: none;
+}
+
+.drop-tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 48px;
+  width: auto;
+  will-change: transform;
+  z-index: 20;
+}
+
+/* 반응형 */
+@media (max-width: 900px) {
+  .school-stack p,
+  .school-stack .item-text {
+    font-size: clamp(64px, 12vw, 11.25rem);
+  }
+
+  .drops-group {
+    width: 440px;
+    height: 130px;
+    top: 64px;
+  }
+
+  .work-card {
+    width: 280px;
+  }
+
+  .drop-tag {
+    height: 44px;
+  }
+}
+
+@media (max-width: 600px) {
+  .drops-group {
+    width: 360px;
+    height: 120px;
+    top: 66px;
+  }
+
+  .drop-tag {
+    height: 40px;
+  }
+}
+
+/* bee */
+.school-beeline {
+  position: absolute;
+  left: 0%;
+  top: 38%;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 50%;
+}
+
+.school-bee {
+  position: absolute;
+  right: 18%;
+  top: 45%;
+  width: 100px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@media (max-width: 600px) {
+  .school-bee {
+    right: 10%;
+    top: 58%;
+    width: 44px;
+  }
+
+  .school-beeline {
+    left: -14%;
+    top: 22%;
+    width: 80%;
+  }
+}

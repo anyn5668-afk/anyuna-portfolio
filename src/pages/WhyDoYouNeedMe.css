@@ -1,0 +1,264 @@
+.why-page {
+  position: relative;
+  width: 100%;
+  background: #f3f3f3;
+  z-index: 10;
+}
+
+/* ===== Hero Section ===== */
+.why-hero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(720px, 110vh, 980px);
+  overflow: visible;
+
+  background: #f3f3f3;
+}
+
+.why-hero-inner {
+  position: relative;
+  width: min(1100px, 92vw);
+  height: 100%;
+  margin: 0 auto;
+  padding: 250px 0 400px;
+}
+
+/* Content centered */
+.why-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: clamp(12px, 2vh, 18px);
+}
+
+/* Q2 badge (oval) */
+.why-q-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  min-width: 78px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid #48adff;
+  color: #48adff;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* Korean title */
+.why-kor-title {
+  margin: 0;
+  font-size: 2.5rem;
+  color: #232323;
+  letter-spacing: -0.02em;
+  font-family: "Pretendard", sans-serif;
+}
+
+.why-highlight {
+  color: #48adff;
+  font-weight: 600;
+}
+
+.why-space {
+  margin-left: 0.23em;
+  /* 필요하면 0.12~0.25em 사이로 조절 */
+  display: inline-block;
+}
+
+/* Main big title */
+.why-title {
+  margin: 0;
+  letter-spacing: -0.03em;
+  color: #383838;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  font-size: 11.5rem;
+  line-height: 1.1;
+}
+
+.why-title-line {
+  display: block;
+}
+
+.why-title-line em {
+  font-style: italic;
+}
+
+.why-grow {
+  color: #48adff;
+  font-style: italic;
+}
+
+/* A2 row */
+.why-a-row {
+  margin-top: clamp(18px, 3vh, 28px);
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.why-a-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  min-width: 78px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid #48adff;
+  color: #48adff;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 2.5rem;
+}
+
+.why-desc {
+  margin: 0;
+  text-align: left;
+  color: #979797;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  font-family: "Pretendard", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* ===== Decorative layer ===== */
+.why-deco {
+  position: absolute;
+
+  /* ✅ 화면 전체 폭 기준 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+
+  top: 0;
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Blue character video (left) */
+.why-blue {
+  position: absolute;
+  left: clamp(70px, -4vw, 20px);
+  top: clamp(180px, 26vh, 340px);
+
+  /* ✅ 크게 */
+  width: 252px;
+
+  aspect-ratio: 1 / 1;
+  will-change: transform, opacity;
+  /* 모션 성능 최적화 */
+}
+
+.why-blue-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Flowers bottom-left cluster */
+.why-flower {
+  position: absolute;
+  left: clamp(-60px, -4vw, 10px);
+  bottom: clamp(140px, 36vh, 340px);
+  height: auto;
+}
+
+.why-flower-purple {
+  width: clamp(120px, 14vw, 240px);
+  transform: translate(0, 0);
+}
+
+.why-flower-pink {
+  width: clamp(140px, 16vw, 280px);
+  transform: translate(clamp(60px, 5vw, 100px), clamp(60px, 6vw, 120px));
+}
+
+.why-flower-orange {
+  width: clamp(130px, 15vw, 260px);
+  transform: translate(clamp(-20px, -2vw, -10px), clamp(120px, 9vw, 180px));
+}
+
+/* Bug (right) */
+.why-bug {
+  position: absolute;
+  right: clamp(-60px, -4vw, 10px);
+  top: clamp(240px, 54vh, 460px);
+
+  /* ✅ 크게 */
+  width: clamp(260px, 28vw, 520px);
+
+  height: auto;
+  z-index: 6;
+}
+
+/* Bee line dotted curve */
+.why-bee-line {
+  position: absolute;
+  right: clamp(20px, -2vw, 160px);
+  top: clamp(240px, 30vh, 460px);
+
+  /* ✅ 크게 */
+  width: clamp(520px, 48vw, 900px);
+
+  height: auto;
+}
+
+/* Bee */
+.why-bee {
+  position: absolute;
+  left: 47%;
+  bottom: clamp(40px, 13vh, 120px);
+  transform: translateY(-30%);
+
+  /* ✅ 조금 키움 */
+  width: clamp(70px, 7vw, 120px);
+
+  height: auto;
+  will-change: transform, opacity;
+  /* 꿀벌 애니메이션 최적화 */
+}
+
+/* ===== Next section wrapper (Top component area) ===== */
+.why-next {
+  width: 100%;
+  background: #f3f3f5;
+  padding: clamp(24px, 6vh, 80px) 0;
+}
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 768px) {
+  .why-a-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .why-desc {
+    text-align: center;
+  }
+
+  .why-blue {
+    top: clamp(160px, 24vh, 260px);
+    width: clamp(200px, 52vw, 360px);
+  }
+
+  .why-bug {
+    top: clamp(320px, 42vh, 520px);
+    width: clamp(220px, 60vw, 420px);
+  }
+
+  .why-bee-line {
+    right: clamp(10px, 3vw, 40px);
+    width: clamp(380px, 80vw, 720px);
+  }
+
+  .why-bee {
+    transform: translateX(-45%);
+  }
+}

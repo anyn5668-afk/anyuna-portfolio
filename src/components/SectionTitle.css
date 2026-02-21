@@ -1,0 +1,197 @@
+/* =========================
+   SectionTitle.css (Clean)
+   ========================= */
+
+/* 배경 톤(이미지처럼 아주 연한 그레이) */
+.stWrap {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  /* 픽셀 고정 X */
+  display: grid;
+  place-items: center;
+  background: #f3f3f3;
+  overflow: hidden;
+}
+
+.stInner {
+  width: min(60rem, 92vw);
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: clamp(1.25rem, 3vw, 2.75rem);
+  padding: clamp(2rem, 6vw, 5rem) 0;
+}
+
+/* -------------------------
+   상단
+-------------------------- */
+.stTop {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+}
+
+.stBadge {
+  display: inline-grid;
+  place-items: center;
+  padding: 5px 21px;
+  border-radius: 999rem;
+
+  border: 0.0625rem solid #2bb24c;
+  color: #2bb24c;
+
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.stQuestion {
+  margin: 0;
+  font-size: 2.5rem;
+  line-height: 1.35;
+  color: #2a2a2a;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 500;
+}
+
+.stHighlight {
+  color: #2bb24c;
+  font-weight: 500;
+}
+
+/* -------------------------
+   메인 타이틀
+-------------------------- */
+.stTitle {
+  display: grid;
+  justify-items: center;
+}
+
+/* "Introduction to" */
+.stTitleLine {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  color: #3a3a3a;
+  letter-spacing: -0.01em;
+
+  /* 이미지 느낌 크게: 반응형 clamp */
+  font-size: 11.5rem;
+  line-height: 1.05;
+}
+
+/* my + (video) + abilities */
+.stTitleLine2 {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(0.9rem, 2vw, 1rem);
+}
+
+/* my / abilities 공통 */
+.stTitleWord {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  color: #3a3a3a;
+  letter-spacing: -0.01em;
+
+  font-size: 11.5rem;
+  line-height: 1;
+}
+
+/* abilities 기울임 */
+.stItalic {
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* 가운데 캐릭터 영상 */
+.stCenterIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: clamp(4.5rem, 7vw, 11rem);
+  height: clamp(4.5rem, 7vw, 11rem);
+
+  transform: translateY(0.3rem);
+}
+
+.stCenterVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  border-radius: 999rem;
+}
+
+/* 영상이 없을 때 자리 유지용(유지하는게 맞음) */
+.stCenterIconPlaceholder {
+  border-radius: 999rem;
+  background: rgba(90, 160, 255, 0.18);
+}
+
+/* -------------------------
+   하단 (중앙 정렬 버전)
+-------------------------- */
+.stBottom {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+
+  align-items: center;
+  justify-content: center;
+  /* ✅ 중앙 */
+
+  gap: clamp(0.75rem, 1.8vw, 1.25rem);
+
+  width: 100%;
+  margin-top: 20px;
+}
+
+.stBadgeSmall {
+  width: 70px;
+  height: clamp(2.2rem, 3.8vw, 3.25rem);
+  border-color: #2bb24c;
+  color: #2bb24c;
+  font-size: clamp(1rem, 1.4vw, 1.5rem);
+  padding: 5px;
+  font-size: 2.5rem;
+}
+
+/* 설명 */
+.stDesc {
+  margin: 0;
+  white-space: pre-line;
+  color: #9a9a9a;
+
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+
+  font-size: clamp(0.9rem, 1.25vw, 1.25rem);
+  line-height: 1.5;
+
+  text-align: center;
+  /* ✅ 중앙 */
+}
+
+/* -------------------------
+   데코 슬롯(부모에서 그림 올릴 때 사용)
+-------------------------- */
+.stDecor {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.stDecorLeft {
+  left: clamp(0.75rem, 3vw, 3rem);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.stDecorRight {
+  right: clamp(0.75rem, 3vw, 3rem);
+  top: 50%;
+  transform: translateY(-50%);
+}

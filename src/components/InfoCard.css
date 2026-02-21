@@ -1,0 +1,53 @@
+.card-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 20px;
+}
+
+.card-icon .icon-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -15%;
+  left: -70%;
+  z-index: 0;
+}
+
+.card-icon span {
+  position: relative;
+  z-index: 1;
+  font-size: 2rem;
+  color: #000;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+}
+
+.card-content p {
+  margin: 8px 0;
+  font-size: 1.3rem;
+  color: #828282;
+  line-height: 1.1;
+}
+
+.card-content p.indent {
+  padding-left: 55px;
+}
+
+.info-card {
+  opacity: 0;
+  transform: translateY(70px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.info-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}

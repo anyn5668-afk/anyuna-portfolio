@@ -1,0 +1,140 @@
+.figma-page {
+  padding: 120px 0 0;
+  /* Reduced top padding, removed side/bottom padding */
+  box-sizing: border-box;
+  min-height: auto;
+  /* Let content dictate height */
+  background: #f3f3f5;
+  overflow-x: hidden;
+}
+
+.figma-hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  /* Reduced margin */
+}
+
+.figma-tag {
+  border: 1px solid #ffc92f;
+  color: #ffc92f;
+  border-radius: 999px;
+  padding: 6px 14px;
+
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 18px;
+
+  background: transparent;
+  font-family: "Canela Condensed Light Trial", serif;
+}
+
+.figma-title {
+  font-family: "Canela Condensed Light Trial", serif;
+  font-weight: 300;
+  font-size: 9.375rem;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+
+  margin: 0;
+  color: #111;
+}
+
+.figma-subtitle {
+  margin-top: 30px;
+  margin-bottom: 0;
+
+  font-size: 20px;
+  color: #828282;
+  line-height: 1.6;
+}
+
+.pinSection {
+  align-self: stretch;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  left: 50%;
+  position: relative;
+
+  /* 높이를 화면에 딱 맞게 조정 */
+  height: 100vh;
+  overflow: hidden;
+}
+
+.pinStage {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.scene {
+  width: 100vw;
+  height: 100%;
+  flex: 0 0 100vw;
+  position: relative;
+}
+
+.viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* 4 scenes */
+.sceneTrack {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  display: flex;
+  will-change: transform;
+}
+
+.sceneTrack4 {
+  width: fit-content;
+}
+
+/* overlay positions removed */
+
+/* slide scenes */
+.sceneSlide {
+  background: #f3f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slideInner {
+  width: min(980px, 78vw);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.slideImg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.slideTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #111;
+}
+
+.slideDesc {
+  margin: 0;
+  font-size: 14px;
+  color: #7b7b7b;
+  line-height: 1.7;
+}
+
+/* after */
+.afterSpace {
+  width: 100%;
+  height: 0;
+}

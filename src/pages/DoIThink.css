@@ -1,0 +1,214 @@
+/* =====================================
+   DoIThink 전용 SectionTitle 오버라이드
+===================================== */
+
+/* Q3, A3 배지 테두리 + 글씨 색 */
+.doi-think .stBadge,
+.doi-think .stBadgeSmall {
+  border-color: #ffc41b !important;
+  color: #ffc41b !important;
+}
+
+/* 질문 하이라이트(생각) 색 */
+.doi-think .stHighlight {
+  color: #ffc41b !important;
+}
+
+/* 가운데 파란 캐릭터 영상 숨김 */
+.doi-think .stCenterIcon {
+  display: none !important;
+}
+
+/* =========================
+   Title 스타일
+   Immerse myself
+   in the Future
+========================= */
+
+/* 1줄: Immerse(노랑) + myself(검정) */
+.doi-think .stTitleLine {
+  color: #ffc41b !important;
+  position: relative;
+  display: inline-block;
+}
+
+/* Immerse 뒤에 myself 붙이기(반응형 안정) */
+.doi-think .stTitleLine::after {
+  content: " myself";
+  color: #1f1f1f;
+  font-style: normal;
+}
+
+/* 2줄째에서 왼쪽 단어 비워둔 것 제거 */
+.doi-think .stTitleLine2 .stTitleWord:first-child {
+  display: none !important;
+}
+
+/* 2줄째 앞에 in the 추가
+   ✅ inline이면 margin-top 안 먹어서 inline-block + relative로 올려줌 */
+.doi-think .stTitleLine2::before {
+  content: "in the ";
+  display: inline-block;
+  position: relative;
+  top: -30px;
+
+  color: #1f1f1f;
+  font-style: normal;
+  font-family: "Canela Condensed Light Trial", serif;
+  font-size: 11.5rem;
+}
+
+/* =====================================
+   DoIThink 이미지 데코 배치 (사진 기준)
+===================================== */
+
+.doi-think {
+  padding: 280px 0 530px;
+  /* 위 280 유지, 아래만 +250 */
+  position: relative;
+  overflow: hidden;
+  background: #F3F3F5;
+}
+
+/* ✅ 핵심: padding-top이 이미 있으니 stage는 top:0이 정답 */
+.doi-think__stage {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+
+  width: 100%;
+  max-width: 1200px;
+  min-height: 900px;
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 공통: memo */
+.doi-memo {
+  position: absolute;
+  width: 180px;
+  height: auto;
+  user-select: none;
+}
+
+/* 좌측 핑크 메모 */
+.doi-memo--pink {
+  left: -370px;
+  top: 300px;
+  transform: rotate(-12deg);
+  width: 20%;
+}
+
+/* 우측 상단 블루 메모 */
+.doi-memo--blue {
+  right: -120px;
+  top: 120px;
+  transform: rotate(12deg);
+  width: 220px;
+}
+
+/* 좌측 하단 노랑 메모 */
+.doi-memo--yellow {
+  left: -60px;
+  top: 1100px;
+  transform: rotate(-7deg);
+  width: 400px;
+}
+
+/* 펜 + 구름 영역 */
+.doi-illu {
+  position: absolute;
+  left: 510px;
+  right: 0;
+  bottom: -570px;
+  height: 320px;
+}
+
+/* 펜(노란 선) */
+.doi-pen {
+  position: absolute;
+  left: -876px;
+  bottom: -120px;
+  width: 1870px;
+  max-width: 92vw;
+  height: auto;
+}
+
+/* 구름(오른쪽 끝) */
+.doi-cloud {
+  position: absolute;
+  right: -353px;
+  bottom: -170px;
+  width: 530px;
+  max-width: 48vw;
+  height: auto;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+  .doi-think__stage {
+    min-height: 820px;
+  }
+
+  .doi-memo--pink {
+    left: -80px;
+    top: 320px;
+    width: 150px;
+  }
+
+  .doi-memo--blue {
+    right: -10px;
+    top: 160px;
+    width: 140px;
+  }
+
+  .doi-memo--yellow {
+    left: 20px;
+    top: 620px;
+    width: 160px;
+  }
+
+  .doi-pen {
+    left: -60px;
+    bottom: 50px;
+    width: 860px;
+  }
+
+  .doi-cloud {
+    width: 360px;
+  }
+
+  /* in the 글자도 화면 작아지면 약간 줄여주기 */
+  .doi-think .stTitleLine2::before {
+    font-size: 9.2rem;
+    top: -22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .doi-think__stage {
+    min-height: 760px;
+  }
+
+  .doi-memo {
+    width: 130px;
+  }
+
+  .doi-memo--yellow {
+    top: 600px;
+  }
+
+  .doi-cloud {
+    width: 300px;
+  }
+
+  .doi-think .stTitleLine2::before {
+    font-size: 7.4rem;
+    top: -18px;
+  }
+}
