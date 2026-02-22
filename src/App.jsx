@@ -6,6 +6,8 @@ import "./App.css";
 import green from "./assets/green.svg";
 import blue from "./assets/blue.svg";
 import yellow from "./assets/yellow.svg";
+import heroTitle from "./assets/hero-title.svg";
+
 import Introduce from "./pages/Introduce";
 import Mylife from "./pages/Mylife";
 import WhatCanIDo from "./pages/WhatCanIDo";
@@ -35,7 +37,7 @@ function App() {
   const valueRef = useRef(null);
 
   const [navbarDark, setNavbarDark] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
 
   useLayoutEffect(() => {
     // 1. 브라우저 및 GSAP의 스크롤 복구 기능 완전히 끄기
@@ -54,7 +56,6 @@ function App() {
     let ctx = gsap.context(() => {
       const words = gsap.utils.toArray(".hello .bottom .word");
 
-      // Character Scattering & Falling Timeline REMOVED per user request
       // We keep a simple timeline for hero elements fading out as we scroll
       const mainTl = gsap.timeline({
         scrollTrigger: {
@@ -65,7 +66,7 @@ function App() {
         },
       });
 
-      // 1. Fade Hero Text
+      // Fade Hero
       mainTl.to(
         ".left-content, .right-content",
         {
@@ -73,28 +74,27 @@ function App() {
           scale: 0.8,
           duration: 0.5,
         },
-        0,
+        0
       );
 
-      // 3. Circular Reveal for Hello Section
-      // Expansion from circle(0%) to circle(150%) as it scrolls in
+      // Circular Reveal for Hello Section
       gsap.fromTo(
         ".hello",
         { clipPath: "circle(0% at 50% 50%)" },
         {
           scrollTrigger: {
             trigger: helloRef.current,
-            start: "top 110%", // Earlier reveal
-            end: "top -60%", // Longer scroll distance for slower expansion
+            start: "top 110%",
+            end: "top -60%",
             scrub: true,
             invalidateOnRefresh: true,
           },
           clipPath: "circle(150% at 50% 50%)",
           ease: "none",
-        },
+        }
       );
 
-      // 3.5 Snap-to-center "click" stop when Hello arrives
+      // Snap-to-center when Hello arrives
       ScrollTrigger.create({
         trigger: helloRef.current,
         start: "top 70%",
@@ -123,7 +123,7 @@ function App() {
           trigger: helloRef.current,
           start: "top 110%",
           end: "bottom 10%",
-          scrub: 1.5, // 5에서 1.5로 대폭 조정 (5는 연산 부하가 매우 큼)
+          scrub: 1.5,
           invalidateOnRefresh: true,
         },
       });
@@ -138,7 +138,7 @@ function App() {
             duration: 3.2,
             ease: "power2.out",
             stagger: 0.12,
-          },
+          }
         )
         .to(
           words,
@@ -148,7 +148,7 @@ function App() {
             ease: "bounce.out",
             stagger: 0.12,
           },
-          "-=0.1",
+          "-=0.1"
         );
 
       // Introduce Section Animation
@@ -177,7 +177,7 @@ function App() {
             duration: 0.32,
             ease: "power3.out",
           },
-          "-=0.18",
+          "-=0.18"
         )
         .from(
           ".introduce-subtitle p",
@@ -188,7 +188,7 @@ function App() {
             stagger: 0.05,
             ease: "power2.out",
           },
-          "-=0.18",
+          "-=0.18"
         )
         .from(
           ".growth-text",
@@ -198,7 +198,7 @@ function App() {
             duration: 0.32,
             ease: "power3.out",
           },
-          "-=0.12",
+          "-=0.12"
         )
         .from(
           ".introduce-tags .intro-tag:not(.break)",
@@ -209,7 +209,7 @@ function App() {
             stagger: 0.04,
             ease: "power2.out",
           },
-          "-=0.12",
+          "-=0.12"
         )
         .from(
           ".image-wrapper",
@@ -220,7 +220,7 @@ function App() {
             duration: 0.36,
             ease: "power3.out",
           },
-          "-=0.18",
+          "-=0.18"
         )
         .from(
           ".designer-text",
@@ -230,7 +230,7 @@ function App() {
             duration: 0.3,
             ease: "power3.out",
           },
-          "-=0.18",
+          "-=0.18"
         );
 
       // Subtle label sway (wind-like)
@@ -270,10 +270,10 @@ function App() {
 
       // Active section tracking for navigation
       const navSections = [
-        { ref: homeRef, name: 'home' },
-        { ref: aboutRef, name: 'about' },
-        { ref: workRef, name: 'work' },
-        { ref: valueRef, name: 'value' },
+        { ref: homeRef, name: "home" },
+        { ref: aboutRef, name: "about" },
+        { ref: workRef, name: "work" },
+        { ref: valueRef, name: "value" },
       ];
 
       navSections.forEach(({ ref, name }) => {
@@ -297,20 +297,32 @@ function App() {
 
   return (
     <div className="container" ref={appRef}>
-      <nav className={`navbar ${navbarDark ? 'navbar--dark' : ''}`}>
-        <a href="#home" className={`nav-item ${activeSection === 'home' ? 'active' : ''}`}>
+      <nav className={`navbar ${navbarDark ? "navbar--dark" : ""}`}>
+        <a
+          href="#home"
+          className={`nav-item ${activeSection === "home" ? "active" : ""}`}
+        >
           <span className="default">Home</span>
           <span className="hover">Home</span>
         </a>
-        <a href="#about" className={`nav-item ${activeSection === 'about' ? 'active' : ''}`}>
+        <a
+          href="#about"
+          className={`nav-item ${activeSection === "about" ? "active" : ""}`}
+        >
           <span className="default">About</span>
           <span className="hover">About</span>
         </a>
-        <a href="#work" className={`nav-item ${activeSection === 'work' ? 'active' : ''}`}>
+        <a
+          href="#work"
+          className={`nav-item ${activeSection === "work" ? "active" : ""}`}
+        >
           <span className="default">Work</span>
           <span className="hover">Work</span>
         </a>
-        <a href="#value" className={`nav-item ${activeSection === 'value' ? 'active' : ''}`}>
+        <a
+          href="#value"
+          className={`nav-item ${activeSection === "value" ? "active" : ""}`}
+        >
           <span className="default">Value</span>
           <span className="hover">Value</span>
         </a>
@@ -319,15 +331,14 @@ function App() {
       <main ref={homeRef} className="hero" id="home">
         <div className="left-content card" style={{ position: "relative" }}>
           <div className="yuna-title" style={{ position: "relative" }}>
-            <h1 className="YUNA-text">
-              YUNA'<span>s</span>
-            </h1>
-            <h1
-              className="YUNA-text water"
-              style={{ position: "absolute", top: 0, left: 0 }}
-            >
-              YUNA'<span>s</span>
-            </h1>
+            <img
+              src={heroTitle}
+              alt="YUNA's"
+              className="hero-title-img"
+              draggable="false"
+              loading="eager"
+              decoding="async"
+            />
           </div>
         </div>
 

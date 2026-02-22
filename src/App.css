@@ -128,9 +128,8 @@ html {
   overflow: visible !important;
 }
 
-/* YUNA Text */
+/* Hero Left (title image) */
 .left-content {
-  font-family: "clouds", cursive;
   position: relative;
   display: flex;
   align-items: center;
@@ -142,70 +141,13 @@ html {
   cursor: pointer;
 }
 
-.left-content .YUNA-text {
-  color: #fff;
-  font-size: 52rem;
-  text-transform: uppercase;
-  position: relative;
-  font-weight: normal;
-  line-height: 0.8;
+.hero-title-img {
+  display: block;
+  height: 52rem; /* 기존 YUNA 텍스트 크기(52rem)에 맞춤 */
+  width: auto;
   margin: 0;
-}
-
-.left-content .YUNA-text span {
-  font-family: "Canela Condensed Light Trial", serif;
-  font-size: 35rem;
-  font-weight: 1000;
-}
-
-.left-content .YUNA-text:nth-child(1) {
-  color: transparent;
-  -webkit-text-fill-color: #fffae0;
-}
-
-.left-content .YUNA-text:nth-child(2) {
-  color: transparent;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(180deg, #ffe081 0%, #ffc41b 55%, #ffb300 100%);
-  background-size: 100% 140%;
-  background-position: 0% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  clip-path: polygon(
-    0% 42%,
-    5% 38%,
-    10% 36%,
-    15% 37%,
-    20% 40%,
-    25% 44%,
-    30% 47%,
-    35% 48%,
-    40% 46%,
-    45% 42%,
-    50% 38%,
-    55% 36%,
-    60% 37%,
-    65% 40%,
-    70% 44%,
-    75% 47%,
-    80% 48%,
-    85% 46%,
-    90% 42%,
-    95% 38%,
-    100% 36%,
-    100% 100%,
-    0% 100%
-  );
-}
-
-/* ✅ 물결 애니메이션 완전 제거 (모양은 유지) */
-.left-content .YUNA-text.water {
-  animation: none !important;
-  transform: none !important;
-  will-change: auto;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 /* Center Images */
@@ -236,7 +178,7 @@ html {
 .shape.green {
   z-index: 3;
   top: 100%;
-  left: -280%;
+  left: -190%;
   width: 320px;
   transform: translate(-50%, -50%);
   transform-origin: center bottom;
