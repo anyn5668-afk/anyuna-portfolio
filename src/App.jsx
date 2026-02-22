@@ -6,7 +6,6 @@ import "./App.css";
 import green from "./assets/green.svg";
 import blue from "./assets/blue.svg";
 import yellow from "./assets/yellow.svg";
-import heroTitle from "./assets/hero-title.svg";
 
 import Introduce from "./pages/Introduce";
 import Mylife from "./pages/Mylife";
@@ -66,7 +65,7 @@ function App() {
         },
       });
 
-      // Fade Hero
+      // 1. Fade Hero Text
       mainTl.to(
         ".left-content, .right-content",
         {
@@ -77,10 +76,12 @@ function App() {
         0
       );
 
-      // Circular Reveal for Hello Section
+      // ✅ 3. Circular Reveal for Hello Section (jitter-free)
+      // - use vmax so it doesn't jitter from % rounding
+      // - remove scrollTo snap which was fighting scrub
       gsap.fromTo(
         ".hello",
-        { clipPath: "circle(0% at 50% 50%)" },
+        { clipPath: "circle(0px at 50% 50%)" },
         {
           scrollTrigger: {
             trigger: helloRef.current,
@@ -89,33 +90,13 @@ function App() {
             scrub: true,
             invalidateOnRefresh: true,
           },
-          clipPath: "circle(150% at 50% 50%)",
+          clipPath: "circle(150vmax at 50% 50%)",
           ease: "none",
         }
       );
 
-      // Snap-to-center when Hello arrives
-      ScrollTrigger.create({
-        trigger: helloRef.current,
-        start: "top 70%",
-        end: "bottom top",
-        onEnter: () => {
-          const hello = helloRef.current;
-          if (!hello) return;
-          const rect = hello.getBoundingClientRect();
-          const target =
-            window.scrollY +
-            rect.top +
-            rect.height / 2 -
-            window.innerHeight / 2;
-          gsap.to(window, {
-            scrollTo: target,
-            duration: 0.3,
-            ease: "power3.out",
-            overwrite: "auto",
-          });
-        },
-      });
+      // ❌ 3.5 Snap-to-center "click" stop REMOVED (this was causing the shaking)
+      // ScrollTrigger.create({ ... onEnter scrollTo ... })
 
       // Hello Section Content Animation
       const helloTl = gsap.timeline({
@@ -331,14 +312,15 @@ function App() {
       <main ref={homeRef} className="hero" id="home">
         <div className="left-content card" style={{ position: "relative" }}>
           <div className="yuna-title" style={{ position: "relative" }}>
-            <img
-              src={heroTitle}
-              alt="YUNA's"
-              className="hero-title-img"
-              draggable="false"
-              loading="eager"
-              decoding="async"
-            />
+            <h1 className="YUNA-text">
+              YUNA'<span>s</span>
+            </h1>
+            <h1
+              className="YUNA-text water"
+              style={{ position: "absolute", top: 0, left: 0 }}
+            >
+              YUNA'<span>s</span>
+            </h1>
           </div>
         </div>
 
@@ -402,7 +384,6 @@ function App() {
         <Introduce />
       </div>
       <Mylife />
-      {/* <Video /> */}
       <WhatCanIDo ref={whatCanIDoRef} />
       <div ref={workRef} id="work">
         <Previous />
