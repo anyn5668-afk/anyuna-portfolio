@@ -425,9 +425,10 @@ html {
   clip-path: circle(0% at 50% 50%);
   overflow: hidden;
   min-height: 140vh;
-  padding: 700px 24px 360px;
+  padding: 200px 24px 360px;
   text-align: center;
   overflow: visible !important;
+  min-height: 300px
 }
 
 .hello .inner {
